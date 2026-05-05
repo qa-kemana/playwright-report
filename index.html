@@ -466,7 +466,7 @@
       </div>
       <div class="hero-meta-item">
         <span class="label">Duration</span>
-        <span class="value">37s</span>
+        <span class="value">5m 8s</span>
       </div>
     </div>
   </div>
@@ -477,25 +477,25 @@
 <div class="stats-wrap">
   <div class="stat-card total">
     <span class="stat-label">Total Tests</span>
-    <span class="stat-value">11</span>
+    <span class="stat-value">104</span>
   </div>
   <div class="stat-card passed">
     <span class="stat-label">Passed</span>
-    <span class="stat-value">11</span>
+    <span class="stat-value">17</span>
   </div>
   <div class="stat-card failed">
     <span class="stat-label">Failed</span>
-    <span class="stat-value">0</span>
+    <span class="stat-value">87</span>
   </div>
   <div class="stat-card rate">
     <span class="stat-label">Pass Rate</span>
-    <span class="stat-value">100%</span>
+    <span class="stat-value">16%</span>
     <div class="rate-ring">
       <svg viewBox="0 0 44 44" fill="none">
         <circle cx="22" cy="22" r="18" stroke="rgba(217,119,6,0.15)" stroke-width="4"/>
         <circle cx="22" cy="22" r="18" stroke="#d97706" stroke-width="4"
           stroke-dasharray="113"
-          stroke-dashoffset="0"
+          stroke-dashoffset="95"
           stroke-linecap="round"
           transform="rotate(-90 22 22)"/>
       </svg>
@@ -506,17 +506,104 @@
 <!-- ── PROGRESS BAR ───────────────────────────────────────────── -->
 <div class="progress-bar-wrap">
   <div class="progress-bar-bg">
-    <div class="progress-bar-fill pass" style="width:100%"></div>
-    <div class="progress-bar-fill fail" style="width:0%"></div>
+    <div class="progress-bar-fill pass" style="width:16%"></div>
+    <div class="progress-bar-fill fail" style="width:84%"></div>
   </div>
 </div>
 
 <!-- ── SCENARIOS ──────────────────────────────────────────────── -->
 <main class="content">
   <p class="section-title">Test Scenarios</p>
-  <div class="scenario-card pass">
+  <div class="scenario-card fail">
       <div class="scenario-header">
         <div class="scenario-num">1</div>
+        <div class="scenario-info">
+          <div class="scenario-name">navigation_menu.yaml</div>
+          <div class="scenario-desc">File-level error</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Load navigation_menu.yaml</td>
+        <td class="result-col">File loads<br><code style="color:var(--red);font-size:11px">bad indentation of a mapping entry (29:34)
+
+ 26 |       description: Close thank you popup if it appears
+ 27 | 
+ 28 |     - action: hover
+ 29 |       element: &quot;xpath=//a[@href=&quot;/en/collections/sale&quot;]&quot;
+---------------------------------------^
+ 30 |       exact: true
+ 31 |       description: Hover over the Men's menu item</code></td>
+        <td><span class="step-status fail">FAIL</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Setup - Login and stabilize session</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com/password</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Wait for body</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Click xpath=//button[normalize-space()='Masuk dengan sandi']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#04</td>
+        <td class="action-col">Wait for xpath=//input[@id='Password']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#05</td>
+        <td class="action-col">Type &quot;lethao&quot; into xpath=//input[@id='Password']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#06</td>
+        <td class="action-col">Click xpath=//button[normalize-space()='Kirim']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#07</td>
+        <td class="action-col">Wait for body</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#08</td>
+        <td class="action-col">Wait for xpath=//nav//a</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
         <div class="scenario-info">
           <div class="scenario-name">Access to the site with providing password</div>
           
@@ -568,53 +655,9 @@
     </div>
 <div class="scenario-card pass">
       <div class="scenario-header">
-        <div class="scenario-num">2</div>
-        <div class="scenario-info">
-          <div class="scenario-name">Verify the availability of home page modules</div>
-          
-        </div>
-        <span class="scenario-badge">Passed</span>
-        <span class="scenario-toggle">▼</span>
-      </div>
-      <div class="steps-wrap">
-           <table class="steps-table">
-             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
-             <tbody><tr>
-        <td>#01</td>
-        <td class="action-col">Verify visible: xpath=//div[contains(@class,'hero__container')], xpath=//section[@id='shopify-section-template--22105252102400__featured_blog_posts_xWnCdm'], xpath=//div[@id='shopify-section-template--22105252102400__carousel_keMeRd'], xpath=//div[@id='shopify-section-template--22105252102400__media_with_content_KTAceb'], xpath=//div[@id='shopify-section-template--22105252102400__product_list_gBUwin'], xpath=//div[@id='shopify-section-template--22105252102400__section_CidzEH']</td>
-        <td class="result-col">Visible: xpath=//div[contains(@class,'hero__container')], xpath=//section[@id='shopify-section-template--22105252102400__featured_blog_posts_xWnCdm'], xpath=//div[@id='shopify-section-template--22105252102400__carousel_keMeRd'], xpath=//div[@id='shopify-section-template--22105252102400__media_with_content_KTAceb'], xpath=//div[@id='shopify-section-template--22105252102400__product_list_gBUwin'], xpath=//div[@id='shopify-section-template--22105252102400__section_CidzEH']</td>
-        <td><span class="step-status pass">PASS</span></td>
-      </tr></tbody>
-           </table>
-         </div>
-    </div>
-<div class="scenario-card pass">
-      <div class="scenario-header">
-        <div class="scenario-num">3</div>
-        <div class="scenario-info">
-          <div class="scenario-name">Verify the visibility of main banner text and CTA</div>
-          
-        </div>
-        <span class="scenario-badge">Passed</span>
-        <span class="scenario-toggle">▼</span>
-      </div>
-      <div class="steps-wrap">
-           <table class="steps-table">
-             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
-             <tbody><tr>
-        <td>#01</td>
-        <td class="action-col">Verify visible: xpath=//div[contains(@class,'hero__container')], xpath=//a[normalize-space()='SHOP NOW']</td>
-        <td class="result-col">Visible: xpath=//div[contains(@class,'hero__container')], xpath=//a[normalize-space()='SHOP NOW']</td>
-        <td><span class="step-status pass">PASS</span></td>
-      </tr></tbody>
-           </table>
-         </div>
-    </div>
-<div class="scenario-card pass">
-      <div class="scenario-header">
         <div class="scenario-num">4</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the clickability of main banner CTA</div>
+          <div class="scenario-name">Verify the availability of information blocks in the footer section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -625,13 +668,23 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Click #shopify-section-template--22105252102400__hero_jVaWmY → xpath=//a[normalize-space()='SHOP NOW']</td>
-        <td class="result-col">Click on the main banner CTA and verify it redirects to the correct page</td>
+        <td class="action-col">Scroll to [data-testid='section-content']</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#02</td>
-        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
-        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="action-col">Verify visible: xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Free returns')], xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Safe') and contains(normalize-space(.),'secure payment')], xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Free Standard Deliver')], xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Customer service')]</td>
+        <td class="result-col">Visible: xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Free returns')], xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Safe') and contains(normalize-space(.),'secure payment')], xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Free Standard Deliver')], xpath=//*[@data-testid='section-content']//*[contains(normalize-space(.),'Customer service')]</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#04</td>
+        <td class="action-col">Verify present: xpath=//footer//*[contains(normalize-space(.),'ABOUT LACOSTE')], xpath=//footer//*[contains(normalize-space(.),'CATEGORIES')], xpath=//footer//*[contains(normalize-space(.),'HELP')], xpath=//footer//*[contains(normalize-space(.),'FOLLOW US')]</td>
+        <td class="result-col">Present in DOM: xpath=//footer//*[contains(normalize-space(.),'ABOUT LACOSTE')], xpath=//footer//*[contains(normalize-space(.),'CATEGORIES')], xpath=//footer//*[contains(normalize-space(.),'HELP')], xpath=//footer//*[contains(normalize-space(.),'FOLLOW US')]</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -641,7 +694,7 @@
       <div class="scenario-header">
         <div class="scenario-num">5</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the visibility of title, text and CTA button in the &quot;Shop sale&quot; module</div>
+          <div class="scenario-name">Verify the availability of CMS links under the 'About Lacoste' section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -652,8 +705,18 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Verify visible: xpath=//p[contains(text(),'Shop sale') or contains(text(),'shop sale')], xpath=//p[contains(text(),'50%') or contains(text(),'favorites')], xpath=//a[normalize-space()='SHOP NOW']</td>
-        <td class="result-col">Visible: xpath=//p[contains(text(),'Shop sale') or contains(text(),'shop sale')], xpath=//p[contains(text(),'50%') or contains(text(),'favorites')], xpath=//a[normalize-space()='SHOP NOW']</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'ABOUT LACOSTE')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Verify visible: xpath=//footer//a[contains(normalize-space(.),'Le Club Lacoste')], xpath=//footer//a[contains(normalize-space(.),'The Lacoste Group')], xpath=//footer//a[normalize-space(.)='Careers'], xpath=//footer//a[contains(normalize-space(.),'Brand protection') or contains(normalize-space(.),'Brand Protection')]</td>
+        <td class="result-col">Visible: xpath=//footer//a[contains(normalize-space(.),'Le Club Lacoste')], xpath=//footer//a[contains(normalize-space(.),'The Lacoste Group')], xpath=//footer//a[normalize-space(.)='Careers'], xpath=//footer//a[contains(normalize-space(.),'Brand protection') or contains(normalize-space(.),'Brand Protection')]</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -663,7 +726,7 @@
       <div class="scenario-header">
         <div class="scenario-num">6</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the clickability of &quot;Shop Now&quot; button in the &quot;Shop sale&quot; module</div>
+          <div class="scenario-name">Verify the clickability of CMS links under the 'About Lacoste' section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -674,13 +737,103 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Click #shopify-section-template--22105252102400__media_with_content_KTAceb → xpath=//a[normalize-space()='SHOP NOW']</td>
-        <td class="result-col">Click on the Shop Now button in the Shop sale module</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#02</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'ABOUT LACOSTE')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),'Le Club Lacoste')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#04</td>
         <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
         <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#05</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#06</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#07</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'ABOUT LACOSTE')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#08</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),'The Lacoste Group')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#09</td>
+        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#10</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#11</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#12</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'ABOUT LACOSTE')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#13</td>
+        <td class="action-col">Click xpath=//footer//a[normalize-space(.)='Careers']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#14</td>
+        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#15</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#16</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#17</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'ABOUT LACOSTE')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#18</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),'Brand protection') or contains(normalize-space(.),'Brand Protection')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#19</td>
+        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#20</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -690,7 +843,7 @@
       <div class="scenario-header">
         <div class="scenario-num">7</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the visibility of image, text and CTA button in the category blocks module</div>
+          <div class="scenario-name">Verify the availability of CMS links under the 'Categories' section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -701,8 +854,18 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Verify visible: xpath=//div[contains(@class,'background-image-container')], xpath=//h3[contains(text(),'New season') or contains(text(),'arrivals') or contains(text(),'season')], xpath=//a[contains(@href,'/collections')]</td>
-        <td class="result-col">Visible: xpath=//div[contains(@class,'background-image-container')], xpath=//h3[contains(text(),'New season') or contains(text(),'arrivals') or contains(text(),'season')], xpath=//a[contains(@href,'/collections')]</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'CATEGORIES')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Verify visible: xpath=//footer//a[contains(normalize-space(.),&quot;Men&quot;) and contains(normalize-space(.),&quot;Collection&quot;)], xpath=//footer//a[contains(normalize-space(.),&quot;Women&quot;) and contains(normalize-space(.),&quot;Collection&quot;)], xpath=//footer//a[contains(normalize-space(.),'Kids') and contains(normalize-space(.),'Collection')], xpath=//footer//a[contains(normalize-space(.),'Shoes') and contains(normalize-space(.),'Shop')]</td>
+        <td class="result-col">Visible: xpath=//footer//a[contains(normalize-space(.),&quot;Men&quot;) and contains(normalize-space(.),&quot;Collection&quot;)], xpath=//footer//a[contains(normalize-space(.),&quot;Women&quot;) and contains(normalize-space(.),&quot;Collection&quot;)], xpath=//footer//a[contains(normalize-space(.),'Kids') and contains(normalize-space(.),'Collection')], xpath=//footer//a[contains(normalize-space(.),'Shoes') and contains(normalize-space(.),'Shop')]</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -712,7 +875,7 @@
       <div class="scenario-header">
         <div class="scenario-num">8</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the clickability of &quot;Discover&quot; CTA button in the category blocks module</div>
+          <div class="scenario-name">Verify the clickability of CMS links under the 'Categories' section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -723,13 +886,103 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Click #shopify-section-template--22105252102400__section_CidzEH → xpath=(//a[contains(@href,'/collections')])[1]</td>
-        <td class="result-col">Click on the first Discover CTA button in the category blocks module</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#02</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'CATEGORIES')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),&quot;Men&quot;) and contains(normalize-space(.),&quot;Collection&quot;)]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#04</td>
         <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
         <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#05</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#06</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#07</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'CATEGORIES')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#08</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),&quot;Women&quot;) and contains(normalize-space(.),&quot;Collection&quot;)]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#09</td>
+        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#10</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#11</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#12</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'CATEGORIES')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#13</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),'Kids') and contains(normalize-space(.),'Collection')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#14</td>
+        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#15</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#16</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#17</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'CATEGORIES')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#18</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),'Shoes') and contains(normalize-space(.),'Shop')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#19</td>
+        <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#20</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -739,7 +992,7 @@
       <div class="scenario-header">
         <div class="scenario-num">9</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the visibility of text and CTA button in the &quot;We are Lacoste&quot; module</div>
+          <div class="scenario-name">Verify the availability of CMS links under the 'Help &amp; Contacts' section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -750,8 +1003,18 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Verify visible: xpath=//div[@id='shopify-block-ANFNKSXduemJ2SmIwT__static-blog-title'], xpath=//div[@id='shopify-block-ASklVWXNnMkwwb0VsM__blog-post-description'], xpath=//a[normalize-space()='learn more' or normalize-space()='Learn more' or normalize-space()='LEARN MORE']</td>
-        <td class="result-col">Visible: xpath=//div[@id='shopify-block-ANFNKSXduemJ2SmIwT__static-blog-title'], xpath=//div[@id='shopify-block-ASklVWXNnMkwwb0VsM__blog-post-description'], xpath=//a[normalize-space()='learn more' or normalize-space()='Learn more' or normalize-space()='LEARN MORE']</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'HELP')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Verify visible: xpath=//footer//a[contains(normalize-space(.),'FAQ')], xpath=//footer//*[contains(normalize-space(.),'By Email') and contains(normalize-space(.),'Chat')], xpath=//footer//*[contains(normalize-space(.),'By phone')], xpath=//footer//*[contains(normalize-space(.),'Facility')]</td>
+        <td class="result-col">Visible: xpath=//footer//a[contains(normalize-space(.),'FAQ')], xpath=//footer//*[contains(normalize-space(.),'By Email') and contains(normalize-space(.),'Chat')], xpath=//footer//*[contains(normalize-space(.),'By phone')], xpath=//footer//*[contains(normalize-space(.),'Facility')]</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -761,7 +1024,7 @@
       <div class="scenario-header">
         <div class="scenario-num">10</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the clickability of &quot;Learn More&quot; CTA button in the &quot;We are Lacoste&quot; module</div>
+          <div class="scenario-name">Verify the clickability of CMS links under the 'Help &amp; Contacts' section</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -772,13 +1035,28 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Click #shopify-section-template--22105252102400__featured_blog_posts_xWnCdm → xpath=(//a[normalize-space()='learn more' or normalize-space()='Learn more' or normalize-space()='LEARN MORE'])[1]</td>
-        <td class="result-col">Click on the Learn More CTA button in the featured blog posts section</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#02</td>
+        <td class="action-col">Expand accordion xpath=//footer//details[.//*[contains(normalize-space(.),'HELP')]]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Click xpath=//footer//a[contains(normalize-space(.),'FAQ')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#04</td>
         <td class="action-col">Verify URL contains &quot;lacosteid.myshopify.com&quot;</td>
         <td class="result-col">URL contains &quot;lacosteid.myshopify.com&quot;</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#05</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com</td>
+        <td class="result-col">Page loads successfully</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
            </table>
@@ -788,7 +1066,7 @@
       <div class="scenario-header">
         <div class="scenario-num">11</div>
         <div class="scenario-info">
-          <div class="scenario-name">Verify the clickability of arrow buttons in the &quot;We are Lacoste&quot; module</div>
+          <div class="scenario-name">Verify the availability of social media icons in the Follow Us block</div>
           
         </div>
         <span class="scenario-badge">Passed</span>
@@ -799,25 +1077,1732 @@
              <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
              <tbody><tr>
         <td>#01</td>
-        <td class="action-col">Click #shopify-section-template--22105252102400__featured_blog_posts_xWnCdm → xpath=//button[@aria-label='Slide berikutnya' or @aria-label='Next slide' or @aria-label='next']</td>
-        <td class="result-col">Click on the right arrow button to go to the next blog post card</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#02</td>
-        <td class="action-col">Verify visible: xpath=//div[@id='shopify-block-ASklVWXNnMkwwb0VsM__blog-post-description-1']</td>
-        <td class="result-col">Visible: xpath=//div[@id='shopify-block-ASklVWXNnMkwwb0VsM__blog-post-description-1']</td>
+        <td class="action-col">Verify visible: xpath=//footer//a[@aria-label='Instagram'], xpath=//footer//a[@aria-label='Facebook'], xpath=//footer//a[@aria-label='Twitter'], xpath=//footer//a[@aria-label='Youtube'], xpath=//footer//a[@aria-label='Pinterest']</td>
+        <td class="result-col">Visible: xpath=//footer//a[@aria-label='Instagram'], xpath=//footer//a[@aria-label='Facebook'], xpath=//footer//a[@aria-label='Twitter'], xpath=//footer//a[@aria-label='Youtube'], xpath=//footer//a[@aria-label='Pinterest']</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">12</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the functionality of social media icons in the Follow Us block</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">13</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of &quot;Member Registration&quot; section in the footer section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Verify visible: xpath=//footer//input[@type='email'], xpath=//footer//button[contains(normalize-space(.),'SIGN UP') or contains(normalize-space(.),'Sign up')]</td>
+        <td class="result-col">Visible: xpath=//footer//input[@type='email'], xpath=//footer//button[contains(normalize-space(.),'SIGN UP') or contains(normalize-space(.),'Sign up')]</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">14</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the functionality of &quot;Member Registration&quot; section in the footer section</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">15</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the field validation of &quot;Member Registration&quot; section in the footer section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Input &quot;invalid-email&quot; into xpath=//footer//input[@type='email']</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#03</td>
-        <td class="action-col">Click #shopify-section-template--22105252102400__featured_blog_posts_xWnCdm → xpath=//button[@aria-label='Slide sebelumnya' or @aria-label='Previous slide' or @aria-label='previous']</td>
-        <td class="result-col">Click on the left arrow button to go back to the first blog post card</td>
+        <td class="action-col">Click xpath=//footer//button[contains(normalize-space(.),'SIGN UP') or contains(normalize-space(.),'Sign up')]</td>
+        <td class="result-col"></td>
         <td><span class="step-status pass">PASS</span></td>
       </tr><tr>
         <td>#04</td>
-        <td class="action-col">Verify visible: xpath=//div[@id='shopify-block-ASklVWXNnMkwwb0VsM__blog-post-description']</td>
-        <td class="result-col">Visible: xpath=//div[@id='shopify-block-ASklVWXNnMkwwb0VsM__blog-post-description']</td>
+        <td class="action-col">Verify email invalid: xpath=//footer//input[@type='email']</td>
+        <td class="result-col">Email rejected as invalid</td>
         <td><span class="step-status pass">PASS</span></td>
       </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">16</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the already registered email validation of &quot;Member Registration&quot; section in the footer section</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">17</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of delivery and payment method icons in the footer section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Verify present: xpath=//*[contains(@class,'payment') or contains(@class,'Payment')]</td>
+        <td class="result-col">Present in DOM: xpath=//*[contains(@class,'payment') or contains(@class,'Payment')]</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">18</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of the footer banner 'LACOSTE'</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Verify visible: xpath=//div[@data-testid='section-content']</td>
+        <td class="result-col">Visible: xpath=//div[@data-testid='section-content']</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">19</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of footer bottom links</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">20</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of footer bottom links</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">21</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of Language switcher in the footer</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Scroll to footer</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Verify present: xpath=//*[contains(@class,'language') or contains(@class,'locale') or @data-type='locale']</td>
+        <td class="result-col">Present in DOM: xpath=//*[contains(@class,'language') or contains(@class,'locale') or @data-type='locale']</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">22</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the functionality of Language switcher in the footer</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">23</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Access to the site with providing password</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">24</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of functional icons and functionality of them</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">25</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click ability of functional icons and functionality of them</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">mouse_hover → FAQ</td>
+        <td class="result-col"></td>
+        <td><span class="step-status skip">SKIP</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">mouse_hover → Language</td>
+        <td class="result-col"></td>
+        <td><span class="step-status skip">SKIP</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">mouse_hover → Wishlist</td>
+        <td class="result-col"></td>
+        <td><span class="step-status skip">SKIP</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">26</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Access to the site with providing password</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">27</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of gender navigation menu items</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">28</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the hover functionality of gender navigation menu items</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">29</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click functionality of gender navigation menu items</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">30</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Setup - Login and stabilize session</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Navigate to https://lacosteid.myshopify.com/password</td>
+        <td class="result-col">Page loads successfully</td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#02</td>
+        <td class="action-col">Wait for body</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#03</td>
+        <td class="action-col">Click xpath=//button[contains(.,'Masuk dengan sandi')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#04</td>
+        <td class="action-col">Wait for xpath=//input[@id='Password']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#05</td>
+        <td class="action-col">Type &quot;lethao&quot; into xpath=//input[@id='Password']</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#06</td>
+        <td class="action-col">Click xpath=//button[contains(.,'Kirim')]</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#07</td>
+        <td class="action-col">Wait for body</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr><tr>
+        <td>#08</td>
+        <td class="action-col">Wait for xpath=//nav</td>
+        <td class="result-col"></td>
+        <td><span class="step-status pass">PASS</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">31</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of main menu items</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">32</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify hover functionality of main menu items</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">33</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify click functionality of main menu items</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">34</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Access to the site with providing password</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">35</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Access to the site with providing password</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">36</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of home page modules</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">37</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of main banner text and CTA</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">38</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of main banner CTA</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">39</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of title, text and CTA button in the &quot;Shop sale&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">40</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of &quot;Shop Now&quot; button in the &quot;Shop sale&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">41</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of image, text and CTA button in the category blocks module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">42</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of &quot;Discover&quot; CTA button in the category blocks module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">43</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of text and CTA button in the &quot;We are Lacoste&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">44</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of &quot;Learn More&quot; CTA button in the &quot;We are Lacoste&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">45</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of arrow buttons in the &quot;We are Lacoste&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">46</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of sub categories in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">47</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of sub categories in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">48</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of left and right arrows in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">49</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click of sub categories in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">50</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of &quot;Shop Now&quot; button under the each sub category of &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">51</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of products in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">52</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of products in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">53</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of left and right arrows in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">54</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click of products in the &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">55</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of &quot;Shop Now&quot; button under the each products of &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">56</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the visibility of products features under the each products of &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">57</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click functionality of &quot;Wishlist&quot; button for the each products of &quot;Lacoste Seasonal wardrobe&quot; module fpr logged in user</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">58</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click functionality of &quot;Wishlist&quot; button for the each products of &quot;Lacoste Seasonal wardrobe&quot; module for logged out user</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">59</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click functionality of &quot;Quick View&quot; button for the each products of &quot;Lacoste Seasonal wardrobe&quot; module</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">60</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the clickability of &quot;All Filters&quot; button and the visibility of filters options</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">61</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;All Filters&quot; button and verify that the filters options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">62</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The filters options should be visible after clicking on the &quot;All Filters&quot; button</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">63</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the functionality of each filter option in the filters options</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">64</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Price range filter&quot; and verify that the price range bar with the price range options is visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">65</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each price range option in the price range bar and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">66</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Colors filter&quot; and verify that the color options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">67</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The color options should be visible after clicking on the &quot;Colors filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">68</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each color option in the colors filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">69</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Sizes filter&quot; and verify that the size options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">70</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The size options should be visible after clicking on the &quot;Sizes filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">71</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each size option in the sizes filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">72</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Fit filter&quot; and verify that the fit options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">73</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The fit options should be visible after clicking on the &quot;Fit filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">74</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each fit option in the fit filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">75</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Sleeves filter&quot; and verify that the sleeves options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">76</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The sleeves options should be visible after clicking on the &quot;Sleeves filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">77</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each sleeves option in the sleeves filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">78</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Eco-Responsibility filter&quot; and verify that the eco-responsibility options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">79</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The eco-responsibility options should be visible after clicking on the &quot;Eco-Responsibility filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">80</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each eco-responsibility option in the eco-responsibility filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">81</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Crocodile style filter&quot; and verify that the crocodile style options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">82</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The crocodile style options should be visible after clicking on the &quot;Crocodile style filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">83</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each crocodile style option in the crocodile style filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">84</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Crocodile size filter&quot; and verify that the crocodile size options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">85</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The crocodile size options should be visible after clicking on the &quot;Crocodile size filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">86</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each crocodile size option in the crocodile size filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">87</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Material filter&quot; and verify that the material options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">88</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The material options should be visible after clicking on the &quot;Material filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">89</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each material option in the material filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">90</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Collection filter&quot; and verify that the collection options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">91</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The collection options should be visible after clicking on the &quot;Collection filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">92</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each collection option in the collection filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">93</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Gender filter&quot; and verify that the gender options are visible</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">94</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">The gender options should be visible after clicking on the &quot;Gender filter&quot;</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">95</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Select each gender option in the gender filter and verify that the products are filtered accordingly</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">96</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the functionality of &quot;Clear All&quot; button in the filters options</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">97</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">Click on the &quot;Clear All&quot; button in the filters options and verify that all the applied filters are cleared and the products are displayed without any filters applied</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">98</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Unnamed</div>
+          <div class="scenario-desc">After clicking on the &quot;Clear All&quot; button, verify that no filters are applied and all products are displayed in the product listing page</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">99</div>
+        <div class="scenario-info">
+          <div class="scenario-name">plp.yaml</div>
+          <div class="scenario-desc">File-level error</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Load plp.yaml</td>
+        <td class="result-col">File loads<br><code style="color:var(--red);font-size:11px">duplicated mapping key (307:3)
+
+ 304 | 
+ 305 |   -test_name: Verify the visibili ...
+ 306 |   
+ 307 |   steps:
+---------^
+ 308 |     - action: verify_visible
+ 309 |       scope: &quot;#plp&quot;</code></td>
+        <td><span class="step-status fail">FAIL</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">100</div>
+        <div class="scenario-info">
+          <div class="scenario-name">sort.yaml</div>
+          <div class="scenario-desc">File-level error</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody><tr>
+        <td>#01</td>
+        <td class="action-col">Load sort.yaml</td>
+        <td class="result-col">File loads<br><code style="color:var(--red);font-size:11px">bad indentation of a mapping entry (25:100)
+
+ 22 |  ... 
+ 23 |  ... 
+ 24 |  ... 
+ 25 |  ... der after selecting the &quot;Price: Low to High&quot; sorting option
+-----------------------------------------^
+ 26 |  ... 
+ 27 |  ... </code></td>
+        <td><span class="step-status fail">FAIL</span></td>
+      </tr></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">101</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Display subcategories under Fabric menu</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">102</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the availability of search functionality</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">103</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the click functionality of search field</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
+           </table>
+         </div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">104</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the search functionality</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap">
+           <table class="steps-table">
+             <thead><tr><th>#</th><th>Action</th><th>Expected / Result</th><th>Status</th></tr></thead>
+             <tbody></tbody>
            </table>
          </div>
     </div>
