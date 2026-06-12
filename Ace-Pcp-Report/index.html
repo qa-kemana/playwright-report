@@ -1,0 +1,2331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Report — Test Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #f4f6f9;
+    --surface:     #ffffff;
+    --surface2:    #eaecf2;
+    --border:      rgba(24, 41, 79, 0.12);
+    --text:        #1a1f2e;
+    --muted:       #6b7592;
+    --brand:       #18294F;
+    --green:       #16a25a;
+    --green-soft:  rgba(22, 162, 90, 0.1);
+    --red:         #dc3545;
+    --red-soft:    rgba(220, 53, 69, 0.1);
+    --amber:       #d97706;
+    --amber-soft:  rgba(217, 119, 6, 0.1);
+    --mono:        'Courier New', monospace;
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  body {
+    font-family: "Instrument Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero {
+    background: #18294F;
+    padding: 0 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 90% at 90% 60%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Logo bar */
+  .hero-logo-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 32px;
+  }
+  .hero-logo-bar svg {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .hero-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 50px;
+    padding: 5px 14px 5px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-live-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Hero content */
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-inner h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hero-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-meta-item .value {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── STAT CARDS ─────────────────────────────────────────── */
+  .stats-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.07);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card.total::before  { background: var(--brand); }
+  .stat-card.passed::before { background: var(--green); }
+  .stat-card.failed::before { background: var(--red); }
+  .stat-card.rate::before   { background: var(--amber); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-card.total  .stat-value { color: var(--brand); }
+  .stat-card.passed .stat-value { color: var(--green); }
+  .stat-card.failed .stat-value { color: var(--red); }
+  .stat-card.rate   .stat-value { color: var(--amber); }
+
+  .rate-ring {
+    position: absolute;
+    right: 18px; bottom: 14px;
+    width: 44px; height: 44px;
+  }
+  .rate-ring svg { width: 100%; height: 100%; }
+
+  /* ── PROGRESS BAR ───────────────────────────────────────── */
+  .progress-bar-wrap {
+    max-width: 960px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: #e2e6ef;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .progress-bar-fill.pass { background: var(--green); }
+  .progress-bar-fill.fail { background: var(--red); }
+
+  /* ── MAIN CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SCENARIO CARD ──────────────────────────────────────── */
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.06);
+  }
+  .scenario-card:hover {
+    border-color: rgba(24,41,79,0.22);
+    box-shadow: 0 2px 8px rgba(24,41,79,0.1);
+  }
+
+  /* Scenario header — brand coloured bar */
+  .scenario-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: #18294F;
+  }
+  .scenario-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .scenario-card.pass .scenario-num { background: rgba(255,255,255,0.12); color: #ffffff; }
+  .scenario-card.fail .scenario-num { background: rgba(240,82,82,0.25);   color: #fca5a5; }
+  .scenario-card.skip .scenario-num { background: rgba(245,166,35,0.2);   color: #fcd34d; }
+
+  .scenario-info { flex: 1; min-width: 0; }
+  .scenario-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .scenario-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .scenario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .scenario-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .scenario-card.pass .scenario-badge { background: rgba(22,162,90,0.2);  color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .scenario-card.fail .scenario-badge { background: rgba(220,53,69,0.2);  color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+  .scenario-card.skip .scenario-badge { background: rgba(217,119,6,0.2);  color: #fcd34d; border: 1px solid rgba(252,211,77,0.3); }
+
+  .scenario-toggle {
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .scenario-card.open .scenario-toggle { transform: rotate(180deg); }
+
+  /* ── STEPS TABLE ─────────────────────────────────────────── */
+  .steps-wrap {
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .scenario-card.open .steps-wrap { display: block; }
+
+  .steps-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .steps-table thead tr { background: #f8f9fc; }
+  .steps-table th {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps-table th:last-child { text-align: center; width: 80px; }
+
+  .steps-table td {
+    padding: 12px 20px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+  }
+  .steps-table tr:last-child td  { border-bottom: none; }
+  .steps-table tr:nth-child(even) { background: #fafbfd; }
+
+  .steps-table td:first-child {
+    width: 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .steps-table td:last-child { text-align: center; }
+  .steps-table .action-col  { color: var(--text); font-weight: 500; }
+  .steps-table .result-col  { color: var(--muted); font-size: 12px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(24,41,79,0.06);
+    border: 1px solid rgba(24,41,79,0.1);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: #18294F;
+  }
+
+  .step-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-status.pass { background: var(--green-soft); color: var(--green); }
+  .step-status.fail { background: var(--red-soft);   color: var(--red); }
+  .step-status.skip { background: var(--amber-soft); color: var(--amber); }
+
+  /* ── FOOTER ──────────────────────────────────────────────── */
+  .footer {
+    background: #18294F;
+    text-align: center;
+    padding: 22px 40px;
+    color: rgba(255,255,255,0.45);
+    font-size: 12px;
+  }
+  .footer strong { color: rgba(255,255,255,0.85); font-weight: 600; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero, .stats-wrap, .content { padding-left: 20px; padding-right: 20px; }
+    .hero-inner h1 { font-size: 22px; }
+    .stat-value    { font-size: 28px; }
+    .hero-meta     { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<header class="hero">
+
+  <!-- Logo bar -->
+  <div class="hero-logo-bar">
+    <!-- Kemana logo (inline SVG — always visible, no external file needed) -->
+    <svg width="332" height="125" viewBox="0 0 332 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#logo-clip)">
+        <path d="M325 6V118.1H6V6H325ZM331 0H0V124.1H331V0Z" fill="white"/>
+        <path d="M79 51.4999C77.8 52.4999 76.3 53.5999 74.7 54.9999C74.4 55.2999 73.9 55.7999 73.1 56.4999L70.7 58.5999L68.3 60.6999C67.6 61.3999 67.1 61.7999 66.8 62.0999C67.5 63.8999 68.2 65.8999 69.1 67.9999C70 70.0999 70.7 72.2999 71.5 74.1999C72.3 76.0999 73 77.9999 73.7 79.4999C74.4 80.9999 74.8 82.0999 75.1 82.6999V82.9999C74.4 82.8999 73.7 82.8999 73 82.8999H67C66.1 82.8999 65.3 82.8999 64.4 82.9999C64 81.6999 63.7 80.6999 63.4 79.7999C63.1 78.8999 62.8 77.9999 62.5 76.9999C62.2 75.9999 61.8 74.7999 61.3 73.3999C60.8 71.9999 60.1 70.0999 59.3 67.5999C59.1 67.0999 58.9 66.4999 58.7 65.9999C58.6 65.7999 58.3 65.6999 58.1 65.6999C57.8 65.6999 57.5 65.8999 57.4 66.1999C57.3 66.4999 57.1 67.1999 56.8 68.1999C56.1 71.1999 55.6 73.8999 55.1 76.2999C54.6 78.6999 54.3 80.9999 53.9 83.0999C53.1 82.8999 52.4 82.8999 51.6 82.8999H45.9C45 82.8999 44.1 82.8999 43.2 82.9999C44.9 76.2999 46.5 69.5999 48.1 62.7999C49.7 55.9999 51.1 49.1999 52.5 42.1999C53 39.7999 53.5 37.3999 54 34.7999C54.5 32.4999 54.8 30.1999 55.1 27.8999L57.7 28.1999C58.7 28.2999 59.7 28.2999 60.7 28.2999C61.6 28.2999 62.5 28.2999 63.4 28.1999L65.8 27.8999C64.6 32.5999 63.6 36.9999 62.6 41.0999C61.6 45.1999 60.8 48.7999 60.2 51.8999C59.6 54.9999 58.8 58.3999 58.1 61.9999C58.1 62.3999 58.3 62.6999 58.7 62.6999C59.2 62.5999 59.7 62.2999 60.1 61.8999C60.8 61.3999 61.5 60.7999 62.3 60.0999C64.5 58.0999 66.7 56.1999 68.9 54.2999C71.1 52.3999 73.2 50.2999 75.1 48.0999C75.6 48.1999 76.2 48.2999 76.8 48.3999C77.5 48.4999 78.1 48.4999 78.8 48.4999C79.4 48.4999 80 48.4999 80.6 48.3999L82.1 48.0999L82.2 49.2999C81.3 49.7999 80.3 50.5999 79 51.4999Z" fill="white"/>
+        <path d="M110.3 77.8001C110.1 78.5001 109.7 79.5001 109.3 80.8001C107.7 81.9001 106 82.6001 104.1 83.0001C102.2 83.3001 100.2 83.5001 98.3 83.5001C95.8 83.6001 93.3 83.1001 90.9 82.2001C89 81.4001 87.2 80.2001 85.8 78.7001C84.5 77.2001 83.5 75.4001 82.8 73.5001C82.1 71.5001 81.8 69.4001 81.8 67.3001C81.8 64.9001 82.2 62.5001 83 60.2001C83.8 57.9001 85 55.7001 86.6 53.8001C90.2 49.6001 95.4 47.3001 100.9 47.4001C105.4 47.4001 108.9 48.6001 111.2 51.0001C113.6 53.6001 114.8 57.0001 114.7 60.5001C114.7 61.4001 114.6 62.4001 114.5 63.3001C114.4 64.3001 114.2 65.2001 114.1 66.1001C111 66.0001 108.5 65.9001 106.4 65.9001C104.3 65.9001 102.5 65.8001 100.9 65.8001H95.2C94.4 65.8001 93.4 65.8001 92.3 65.9001C92.2 66.5001 92.1 67.2001 92.1 67.8001C92.1 68.5001 92 69.2001 92 69.9001C91.9 72.4001 92.6 74.9001 94.1 76.9001C95.5 78.7001 97.7 79.5001 100.7 79.5001C102.3 79.5001 103.8 79.2001 105.3 78.6001C107.1 78.0001 108.6 76.9001 109.9 75.5001L111 76.0001C110.8 76.5001 110.6 77.2001 110.3 77.8001ZM104.8 52.3001C104.2 51.1001 102.9 50.5001 101.1 50.5001C100 50.5001 98.8 50.8001 97.9 51.5001C97 52.2001 96.2 53.2001 95.6 54.2001C94.9 55.4001 94.3 56.7001 93.9 58.0001C93.5 59.4001 93.1 60.9001 92.7 62.3001C93.1 62.4001 93.5 62.4001 93.9 62.4001H102.6C103.3 62.4001 104 62.3001 104.8 62.3001C104.9 61.7001 105.1 60.8001 105.3 59.7001C105.5 58.5001 105.6 57.4001 105.6 56.2001C105.8 54.8001 105.5 53.5001 104.8 52.3001Z" fill="white"/>
+        <path d="M125.8 48.5C127.6 48.6 129.4 48.6 131.2 48.5L133.4 48.2001C133.1 49.1001 132.9 50.0001 132.7 50.9001L132.1 53.6C132.6 52.9 133.2 52.3001 133.8 51.7001C134.5 50.9001 135.4 50.3001 136.3 49.7001C137.4 49.0001 138.5 48.5 139.7 48.1C141.1 47.6 142.7 47.4001 144.2 47.4001C146.2 47.3001 148.2 47.9 149.9 49.1C151.5 50.3 152.5 52.2001 152.8 54.2001C154.4 52.3001 156.3 50.6 158.4 49.3C160.5 48 162.9 47.3 165.3 47.3C166.4 47.3 167.5 47.5 168.5 47.8C169.6 48.1 170.6 48.6 171.5 49.3C172.4 50 173.2 50.9001 173.7 51.9001C174.3 53.1001 174.6 54.4001 174.5 55.7001C174.5 56.3001 174.5 56.9 174.4 57.5C174.3 58.2 174.2 58.8 174.1 59.5C173.9 60.2 173.8 61.2 173.5 62.3C173.2 63.4 172.9 64.8001 172.5 66.4001C172.4 66.7001 172.2 67.6 171.9 69C171.6 70.4 171.3 71.9 170.9 73.6C170.5 75.3 170.2 77.1001 169.8 78.9001C169.4 80.7001 169.2 82.1 169 83.2C168.2 83.1 167.3 83.1 166.5 83.1H160.7C159.9 83.1 159.1 83.1 158.3 83.2C159 81.1 159.7 78.6001 160.5 75.9001C161.3 73.2001 161.9 70.6 162.6 68.1C163.3 65.6 163.7 63.3 164.1 61.3C164.4 59.9 164.6 58.5 164.7 57.1C164.7 56 164.4 55.0001 163.7 54.2001C162.9 53.4001 161.8 52.9 160.6 53C160 53 159.4 53.1 158.8 53.3C157.9 53.6 157.2 54 156.5 54.6C155.6 55.4 154.7 56.4 154.1 57.5C153.1 59.1 152.4 60.8 151.9 62.6C151.4 64.3 150.7 66.9 149.9 70.6C149.1 74.3 148.3 78.5001 147.5 83.3001C146.6 83.2001 145.8 83.2 144.9 83.2H139.4C138.6 83.2 137.9 83.2001 137.1 83.3001C137.7 81.4001 138.3 79.1001 139.1 76.4001C139.9 73.7001 140.5 71.0001 141.2 68.4001C141.9 65.8001 142.4 63.5001 142.8 61.4001C143.1 60.0001 143.3 58.5 143.4 57.1C143.5 56 143.1 55 142.3 54.3C141.5 53.7 140.4 53.3001 139.4 53.4001C137.4 53.4001 135.4 54.3 134.1 55.8C132.4 57.8 131.2 60.1 130.5 62.6C130.4 63 130.1 63.8001 129.8 64.9001C129.5 66.0001 129.2 67.5001 128.7 69.3001C128.2 71.1001 127.8 73.2 127.3 75.6C126.8 78 126.3 80.6001 125.9 83.4001C125 83.3001 124.2 83.3001 123.3 83.3001H118C117.2 83.3001 116.4 83.3001 115.6 83.4001C116.2 81.2001 116.8 79.1001 117.2 77.3001C117.6 75.5001 118.1 73.6 118.5 71.7C118.9 69.8 119.4 67.6001 119.9 65.3001C120.4 63.0001 121 60 121.8 56.6C122 55.3 122.2 54.3 122.4 53.5C122.6 52.7 122.7 52 122.8 51.5C122.9 51 123 50.4 123.1 50C123.2 49.6 123.3 49.1 123.4 48.6C124.2 48.4 125 48.3 125.8 48.5Z" fill="white"/>
+        <path d="M207.9 83.2001C206.7 83.6001 205.5 83.7001 204.3 83.7001C203.2 83.7001 202 83.5001 201 83.1001C200.2 82.8001 199.6 82.3001 199 81.7001C198.5 81.2001 198.2 80.6001 197.9 79.9001C197.7 79.3001 197.5 78.8001 197.4 78.4001C196.5 80.2001 195.1 81.6001 193.4 82.7001C191.6 83.6001 189.5 84.0001 187.5 83.9001C184.9 84.0001 182.4 83.1001 180.5 81.4001C178.7 79.6001 177.8 77.1001 177.9 74.5001C177.9 72.2001 178.6 69.9001 179.9 68.0001C181.3 66.0001 183.3 64.5001 185.7 63.8001C186.8 63.5001 188.2 63.2001 189.9 62.9001C191.5 62.7001 193.1 62.4001 194.6 62.2001C195.7 62.1001 196.6 61.9001 197.3 61.8001C197.9 61.7001 198.5 61.5001 199 61.2001C199.4 60.9001 199.7 60.4001 199.9 59.9001C200.1 59.1001 200.2 58.3001 200.2 57.5001C200.2 56.6001 200 55.6001 199.6 54.8001C199.2 54.1001 198.7 53.5001 198.1 53.1001C197.5 52.7001 196.8 52.4001 196.1 52.2001C195.4 52.0001 194.6 51.9001 193.9 51.9001C192.5 51.9001 191.1 52.1001 189.8 52.6001C188.5 53.2001 187.3 53.8001 186.2 54.6001H185.8C185.9 53.6001 186 52.9001 186 52.4001C186 51.9001 186.1 51.2001 186.1 50.5001C190 48.3001 194.4 47.1001 198.9 47.1001C200.3 47.1001 201.7 47.2001 203 47.5001C204.3 47.8001 205.5 48.3001 206.6 49.0001C207.7 49.7001 208.5 50.6001 209.2 51.7001C209.9 53.0001 210.3 54.5001 210.2 56.0001C210.2 57.2001 210.1 58.3001 209.9 59.5001C209.7 60.8001 209.5 61.8001 209.3 62.6001L207.3 71.7001C207 73.0001 206.8 74.2001 206.6 75.5001C206.5 76.1001 206.5 76.8001 206.5 77.4001C206.5 78.1001 206.6 78.7001 206.9 79.3001C207.1 80.0001 207.8 80.4001 208.5 80.3001C208.7 80.3001 208.9 80.3001 209.1 80.1001C209.3 80.0001 209.4 79.9001 209.6 79.8001L210.2 81.5001C209.6 82.2001 208.8 82.8001 207.9 83.2001ZM188.9 77.7001C189.5 78.7001 190.7 79.3001 191.9 79.2001C192.9 79.2001 193.9 78.9001 194.7 78.3001C195.4 77.7001 196 76.9001 196.5 76.1001C197 75.2001 197.3 74.2001 197.6 73.2001C197.8 72.1001 198.1 71.1001 198.3 70.2001L199.4 64.6001C197.7 64.8001 196 65.2001 194.4 65.6001C193.3 65.8001 192.3 66.2001 191.4 66.8001C190.2 67.5001 189.3 68.7001 188.9 70.1001C188.4 71.5001 188.2 72.9001 188.2 74.3001C188 75.5001 188.3 76.7001 188.9 77.7001Z" fill="white"/>
+        <path d="M251.4 56.9001C251.3 57.5001 251.2 58.3001 251.1 59.1001C251 59.9001 250.7 61.0001 250.4 62.3001C250.1 63.6001 249.7 65.2001 249.2 67.2001C248.8 69.0001 248.4 70.6001 248.1 72.0001C247.8 73.4001 247.5 74.7001 247.3 75.9001C247.1 77.1001 246.8 78.3001 246.6 79.4001C246.4 80.5001 246.2 81.7001 245.9 83.0001C245.1 82.9001 244.2 82.9001 243.4 82.9001H237.6C236.7 82.9001 235.9 82.9001 235 83.0001C235.4 82.1001 235.7 81.2001 235.9 80.3001C236.3 79.0001 236.8 77.4001 237.3 75.7001C237.8 74.0001 238.3 72.1001 238.8 70.2001C239.3 68.3001 239.8 66.4001 240.2 64.7001C240.6 63.0001 241 61.4001 241.3 60.0001C241.5 59.0001 241.7 58.0001 241.7 57.0001C241.8 55.9001 241.4 54.7001 240.6 53.9001C239.7 53.2001 238.6 52.8001 237.5 52.9001C235.5 53.0001 233.7 53.8001 232.3 55.2001C230.3 57.2001 228.9 59.6001 228.2 62.3001C227.8 63.5001 227.4 64.9001 227 66.6001C226.6 68.3001 226.1 70.0001 225.7 71.9001C225.3 73.8001 224.9 75.7001 224.5 77.7001C224.1 79.7001 223.8 81.5001 223.6 83.1001C222.8 83.0001 221.9 83.0001 221.1 83.0001H215.9C215 83.0001 214.2 83.0001 213.3 83.1001C213.9 80.9001 214.6 78.5001 215.2 76.0001C215.8 73.5001 216.5 70.9001 217.1 68.1001C217.7 65.3001 218.4 62.3001 219 59.0001C219.6 55.7001 220.4 52.1001 221.1 48.2001C221.8 48.3001 222.7 48.4001 223.6 48.5001C224.5 48.6001 225.4 48.6001 226.3 48.6001C227.1 48.6001 227.9 48.6001 228.7 48.5001L230.9 48.2001C230.7 48.8001 230.5 49.4001 230.4 49.8001C230.3 50.2001 230.1 50.7001 230 51.1001C229.9 51.5001 229.8 52.0001 229.7 52.5001C229.6 53.0001 229.4 53.6001 229.3 54.3001C230.8 52.2001 232.8 50.5001 235 49.2001C237.3 47.9001 239.8 47.3001 242.4 47.4001C245.5 47.4001 247.7 48.1001 249.2 49.6001C250.6 51.1001 251.4 53.1001 251.3 55.1001C251.5 55.7001 251.5 56.3001 251.4 56.9001Z" fill="white"/>
+        <path d="M284.9 83.2001C283.7 83.6001 282.5 83.7001 281.3 83.7001C280.2 83.7001 279.1 83.5001 278.1 83.1001C277.3 82.8001 276.6 82.3001 276.1 81.7001C275.6 81.2001 275.3 80.6001 275 79.9001C274.8 79.3001 274.6 78.8001 274.5 78.4001C273.6 80.2001 272.2 81.6001 270.5 82.7001C268.7 83.6001 266.6 84.0001 264.6 83.9001C262 84.0001 259.5 83.1001 257.6 81.4001C255.8 79.6001 254.9 77.1001 255 74.5001C255 72.2001 255.7 69.9001 257 68.0001C258.4 66.0001 260.4 64.5001 262.8 63.8001C263.9 63.5001 265.3 63.2001 267 62.9001C268.7 62.7001 270.2 62.4001 271.7 62.2001C272.8 62.1001 273.7 61.9001 274.4 61.8001C275 61.7001 275.6 61.5001 276.1 61.2001C276.5 60.9001 276.8 60.4001 277 59.9001C277.2 59.1001 277.3 58.3001 277.3 57.5001C277.3 56.6001 277.1 55.6001 276.7 54.8001C276.3 54.1001 275.8 53.5001 275.2 53.1001C274.6 52.7001 273.9 52.4001 273.2 52.2001C272.5 52.0001 271.7 51.9001 271 51.9001C269.6 51.9001 268.2 52.1001 266.9 52.6001C265.6 53.2001 264.4 53.8001 263.3 54.6001H262.9C263 53.6001 263.1 52.9001 263.1 52.4001C263.1 51.9001 263.2 51.2001 263.3 50.5001C267.2 48.3001 271.6 47.1001 276.1 47.1001C277.5 47.1001 278.9 47.2001 280.2 47.5001C281.5 47.8001 282.7 48.3001 283.8 49.0001C284.9 49.7001 285.7 50.6001 286.4 51.7001C287.1 53.0001 287.5 54.5001 287.4 56.0001C287.4 57.2001 287.3 58.3001 287.1 59.5001C286.9 60.8001 286.7 61.8001 286.5 62.6001L284.5 71.7001C284.2 73.0001 284 74.2001 283.8 75.5001C283.7 76.3001 283.6 77.0001 283.6 77.4001C283.6 78.1001 283.7 78.7001 284 79.3001C284.2 80.0001 284.9 80.4001 285.6 80.3001C285.8 80.3001 286 80.3001 286.2 80.1001C286.4 80.0001 286.6 79.9001 286.8 79.8001L287.4 81.5001C286.7 82.2001 285.8 82.8001 284.9 83.2001ZM265.9 77.7001C266.5 78.7001 267.7 79.3001 268.9 79.2001C269.9 79.2001 270.9 78.9001 271.7 78.3001C272.4 77.7001 273 76.9001 273.5 76.1001C274 75.2001 274.3 74.2001 274.6 73.2001C274.8 72.1001 275.1 71.1001 275.3 70.2001L276.4 64.6001C274.7 64.8001 273 65.2001 271.4 65.6001C270.3 65.8001 269.3 66.2001 268.4 66.8001C267.2 67.5001 266.3 68.7001 265.9 70.1001C265.4 71.5001 265.2 72.9001 265.2 74.3001C265.1 75.5001 265.3 76.7001 265.9 77.7001Z" fill="white"/>
+      </g>
+      <defs>
+        <clipPath id="logo-clip"><rect width="331.1" height="124.1" fill="white"/></clipPath>
+      </defs>
+    </svg>
+    <div class="hero-live-badge"><span class="dot"></span>Lacoste QA</div>
+  </div>
+
+  <!-- Title + meta -->
+  <div class="hero-inner">
+    <h1>Test Execution Report</h1>
+    <p class="hero-sub">Automated UI Testing — lacoste.com</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Execution Date</span>
+        <span class="value">June 12, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Environment</span>
+        <span class="value">Production</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Browser</span>
+        <span class="value">Chromium</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Duration</span>
+        <span class="value">7m 7s</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ── STAT CARDS ────────────────────────────────────────────── -->
+<div class="stats-wrap">
+  <div class="stat-card total">
+    <span class="stat-label">Total Tests</span>
+    <span class="stat-value">49</span>
+  </div>
+  <div class="stat-card passed">
+    <span class="stat-label">Passed</span>
+    <span class="stat-value">42</span>
+  </div>
+  <div class="stat-card failed">
+    <span class="stat-label">Failed</span>
+    <span class="stat-value">7</span>
+  </div>
+  <div class="stat-card rate">
+    <span class="stat-label">Pass Rate</span>
+    <span class="stat-value">86%</span>
+    <div class="rate-ring">
+      <svg viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="18" stroke="rgba(217,119,6,0.15)" stroke-width="4"/>
+        <circle cx="22" cy="22" r="18" stroke="#d97706" stroke-width="4"
+          stroke-dasharray="113"
+          stroke-dashoffset="16"
+          stroke-linecap="round"
+          transform="rotate(-90 22 22)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS BAR ───────────────────────────────────────────── -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill pass" style="width:86%"></div>
+    <div class="progress-bar-fill fail" style="width:14%"></div>
+  </div>
+</div>
+
+<!-- ── SCENARIOS ──────────────────────────────────────────────── -->
+<main class="content">
+  <p class="section-title">Test Scenarios</p>
+  <div style="background:#7c2d12;color:#fed7aa;padding:14px 20px;border-radius:8px;
+        margin-bottom:20px;font-size:13px;border-left:4px solid #ea580c;line-height:1.6;">
+        <strong>⚠ Incomplete run detected</strong><br>
+        results.json has <strong>49</strong> scenarios but the YAML defines
+        <strong>58</strong>. Re-run for a complete report.
+      </div><div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Access to the site with providing password</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the breadcrumb is visible at the top of the Product Category Page</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify visible: </td>
+          <td class="result-col">Visible: </td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the &quot;Home&quot; breadcrumb link navigates back to the homepage</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the current category label in the breadcrumb is not a clickable link</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">5</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the category page heading is visible and correct</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">6</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the page heading text matches the navigated category</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">7</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the sub-category icon grid is visible below the page heading</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">8</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify sub-category icon tiles are visible with their labels</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">9</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify each sub-category tile contains a circular image and a label</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">10</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking a sub-category tile navigates to the correct sub-category collection</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-fail">
+          <td>#02</td>
+          <td class="action-col">Click undefined</td>
+          <td class="result-col">Click the Hand Tools sub-category tile<div class="step-error"><span class="step-error-label">⚠ Error</span><code>locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('undefined').first()[22m
+</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The website is in a password-protected &quot;Coming Soon&quot; / storefront lockdown mode. The entire public-facing storefront is inaccessible — instead of rendering the actual ACE Hardware Indonesia shop pages (including the hand-tools subcategory navigation), Shopify is serving a password gate page. No product categories, subcategory grids, or navigation links (including the expected <code class="ic">hand-tools</code> href link) exist in the DOM at all.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The entire page is replaced by a password/coming soon gate --&gt;
+&lt;div id=&quot;login&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;ACE Hardware Indonesia&lt;/h1&gt;
+    &lt;p&gt;&lt;span class=&quot;default-text&quot;&gt;Will be opening soon...&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;form method=&quot;post&quot; action=&quot;/password&quot; id=&quot;login_form&quot; ...&gt;
+    &lt;label for=&quot;password&quot;&gt;Enter store using password: &lt;/label&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; autofocus=&quot;&quot;&gt;
+    &lt;div class=&quot;actions&quot;&gt;
+      &lt;input class=&quot;btn&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Enter&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;
+&lt;!-- No subcategory grid, no navigation, no hand-tools links are rendered --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The storefront password protection must be disabled so the real --&gt;
+&lt;!-- store content is publicly accessible, including subcategory navigation --&gt;
+
+&lt;!-- Expected structure that should be present after unlocking: --&gt;
+&lt;section class=&quot;subcategory&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/collections/hand-tools&quot;&gt;Hand Tools&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;
+
+&lt;!-- OR alternatively as a subcategory grid: --&gt;
+&lt;div class=&quot;subcategory-grid&quot;&gt;
+  &lt;a href=&quot;/collections/hand-tools&quot;&gt;Hand Tools&lt;/a&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Disable the Shopify storefront password protection**: Go to Shopify Admin → Online Store → Preferences → Password Protection and uncheck &quot;Restrict access to this store&quot;</li></ul>
+<ul><li>**Verify the store is publicly accessible** without requiring a password before running any frontend automation tests</li></ul>
+<ul><li>**Ensure the hand-tools collection page/URL exists** at a path containing <code class="ic">hand-tools</code> (e.g. <code class="ic">/collections/hand-tools</code>) and is published/active in Shopify</li></ul>
+<ul><li>**Add the subcategory navigation HTML** with the correct <code class="ic">href</code> containing <code class="ic">hand-tools</code> to the appropriate collection or homepage template if it is missing from the theme</li></ul>
+<ul><li>**If password protection must remain** for staging, provide the automation test suite with the storefront password as an environment variable and add a login step at the start of the test flow before attempting to interact with store content</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-fail">
+          <td>#03</td>
+          <td class="action-col">Verify URL = https://ace-hardware-indo.myshopify.com/collections/hand-tools</td>
+          <td class="result-col">Should navigate to the Hand Tools collection page<div class="step-error"><span class="step-error-label">⚠ Error</span><code>page.waitForURL: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to &quot;https://ace-hardware-indo.myshopify.com/collections/hand-tools&quot; until &quot;load&quot;
+============================================================</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The page navigation to <code class="ic">https://ace-hardware-indo.myshopify.com/collections/hand-tools</code> never completed within the timeout window. The page HTML returned is completely empty, indicating the <code class="ic">/collections/hand-tools</code> collection page either does not exist, has not been created/published in the Shopify store, or the route is returning a 404/empty response. The collection &quot;hand-tools&quot; is missing from the Shopify store's published collections.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The /collections/hand-tools page returns no HTML content at all --&gt;
+&lt;!-- Empty response body — no collection page has been created or published --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The /collections/hand-tools collection page should render a valid Shopify collection page, e.g.: --&gt;
+&lt;div class=&quot;collection-container&quot;&gt;
+  &lt;h1 class=&quot;collection-title&quot;&gt;Hand Tools&lt;/h1&gt;
+  &lt;ul class=&quot;product-grid&quot;&gt;
+    &lt;!-- Shopify collection products loop --&gt;
+    {% for product in collection.products %}
+    &lt;li class=&quot;product-item&quot;&gt;
+      &lt;a href=&quot;{{ product.url }}&quot;&gt;{{ product.title }}&lt;/a&gt;
+    &lt;/li&gt;
+    {% endfor %}
+  &lt;/ul&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Create the &quot;Hand Tools&quot; collection** in the Shopify Admin under <code class="ic">Products &gt; Collections</code> with the handle exactly set to <code class="ic">hand-tools</code> so the URL resolves to <code class="ic">/collections/hand-tools</code></li></ul>
+<ul><li>**Publish the collection** — ensure it is set to &quot;Active&quot; / visible and not hidden or scheduled for a future date</li></ul>
+<ul><li>**Add products** to the <code class="ic">hand-tools</code> collection so the page renders content and does not redirect or return empty</li></ul>
+<ul><li>**Verify the collection handle** in Shopify Admin matches exactly <code class="ic">hand-tools</code> (lowercase, hyphen-separated) — the URL handle is case-sensitive</li></ul>
+<ul><li>**Check the collection template** in the Shopify theme to ensure a valid <code class="ic">collection.liquid</code> or <code class="ic">collection.hand-tools.liquid</code> template exists and is assigned to this collection</li></ul>
+<ul><li>**Test the URL directly** in a browser (<code class="ic">https://ace-hardware-indo.myshopify.com/collections/hand-tools</code>) to confirm it loads a proper page with HTTP 200 before re-running the automated test</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify visible: </td>
+          <td class="result-col">Visible: </td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">11</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking the &quot;Power Tools&quot; sub-category tile navigates to the correct page</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-fail">
+          <td>#02</td>
+          <td class="action-col">Click undefined</td>
+          <td class="result-col">Click the Power Tools sub-category tile<div class="step-error"><span class="step-error-label">⚠ Error</span><code>locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('undefined').first()[22m
+</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The entire website is behind a Shopify storefront password protection page (&quot;Will be opening soon...&quot;). The actual store content, including the subcategory grid with power-tools links, is completely inaccessible. The live site is rendering only a password gate instead of the real store pages, so no product category navigation elements exist in the DOM whatsoever.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;div id=&quot;login&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;ACE Hardware Indonesia&lt;/h1&gt;
+    &lt;p&gt;&lt;span class=&quot;default-text&quot;&gt;Will be opening soon...&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;form method=&quot;post&quot; action=&quot;/password&quot; id=&quot;login_form&quot; accept-charset=&quot;UTF-8&quot; class=&quot;storefront-password-form&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;form_type&quot; value=&quot;storefront_password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;utf8&quot; value=&quot;✓&quot;&gt;
+    &lt;label for=&quot;password&quot;&gt;Enter store using password: &lt;/label&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; autofocus=&quot;&quot;&gt;
+    &lt;div class=&quot;actions&quot;&gt;
+      &lt;input class=&quot;btn&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Enter&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The storefront password protection must be disabled so the actual
+     store content is publicly accessible, including subcategory navigation --&gt;
+
+&lt;!-- Expected navigational element that should be present after unlocking: --&gt;
+&lt;section class=&quot;subcategory&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/collections/power-tools&quot;&gt;Power Tools&lt;/a&gt;&lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Disable Shopify storefront password protection**: Go to Shopify Admin → Online Store → Preferences → Password Protection and uncheck &quot;Restrict access to this store&quot;</li></ul>
+<ul><li>**Ensure the store is published and publicly accessible** before running any frontend automated tests</li></ul>
+<ul><li>**If the password protection must remain** for certain environments, configure the test automation pipeline to authenticate through the password form first (inject the storefront password as a pre-test step), or use a staging/development environment that is already unlocked</li></ul>
+<ul><li>**Verify the subcategory grid with power-tools links** (<code class="ic">.subcategory-grid a[href*='power-tools']</code> or equivalent) is actually present in the relevant collection or homepage template in the Shopify theme code once the store is unlocked</li></ul>
+<ul><li>**Add environment checks** to your CI/CD pipeline to confirm the target URL returns a <code class="ic">200</code> status with real store content before executing UI test suites</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-fail">
+          <td>#03</td>
+          <td class="action-col">Verify URL = https://ace-hardware-indo.myshopify.com/collections/power-tools</td>
+          <td class="result-col">Should navigate to the Power Tools collection page<div class="step-error"><span class="step-error-label">⚠ Error</span><code>page.waitForURL: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to &quot;https://ace-hardware-indo.myshopify.com/collections/power-tools&quot; until &quot;load&quot;
+============================================================</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The page navigation to <code class="ic">https://ace-hardware-indo.myshopify.com/collections/power-tools</code> timed out, meaning the &quot;Power Tools&quot; collection page either does not exist, is not published, or there is no navigable link/redirect pointing to that URL. The page HTML provided is completely empty, indicating the collection page has not been created or is returning no content (possibly a 404 or unpublished Shopify collection).</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The /collections/power-tools page returns empty or no content --&gt;
+&lt;!-- No collection page exists at this URL --&gt;
+&lt;!-- Missing: Shopify collection &quot;power-tools&quot; is either unpublished, deleted, or the handle is incorrect --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- Shopify Collection Page should exist and be accessible at: --&gt;
+&lt;!-- https://ace-hardware-indo.myshopify.com/collections/power-tools --&gt;
+
+&lt;!-- Ensure the collection template renders content, e.g.: --&gt;
+&lt;div class=&quot;collection-page&quot; data-collection=&quot;power-tools&quot;&gt;
+  &lt;h1 class=&quot;collection-title&quot;&gt;Power Tools&lt;/h1&gt;
+  &lt;div class=&quot;collection-grid&quot;&gt;
+    &lt;!-- Product items rendered by Shopify Liquid template --&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Verify the Shopify collection exists**: Log in to the Shopify admin panel and confirm a collection with the handle <code class="ic">power-tools</code> exists under <code class="ic">Products &gt; Collections</code></li></ul>
+<ul><li>**Check the collection handle**: Ensure the URL handle is exactly <code class="ic">power-tools</code> (no typos, no capital letters) in the collection settings</li></ul>
+<ul><li>**Publish the collection**: If the collection exists but is hidden or set to a future publish date, make it visible/active immediately</li></ul>
+<ul><li>**Check visibility in sales channels**: Ensure the &quot;Power Tools&quot; collection is enabled for the Online Store sales channel in Shopify admin</li></ul>
+<ul><li>**Verify the collection is not password-protected or restricted**: Confirm the storefront is publicly accessible and not behind a development password that blocks navigation</li></ul>
+<ul><li>**Add a navigation link**: If the collection is published but has no entry point, add a link to <code class="ic">/collections/power-tools</code> in the store navigation menu so the page is reachable</li></ul>
+<ul><li>**Check for redirects or URL changes**: If the collection was renamed or the handle changed, either revert the handle back to <code class="ic">power-tools</code> or set up a URL redirect from <code class="ic">/collections/power-tools</code> to the new URL</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">12</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking the &quot;Safety Equipment&quot; sub-category tile navigates to the correct page</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-fail">
+          <td>#02</td>
+          <td class="action-col">Click undefined</td>
+          <td class="result-col">Click the Safety Equipment sub-category tile<div class="step-error"><span class="step-error-label">⚠ Error</span><code>locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('undefined').first()[22m
+</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The entire ACE Hardware Indonesia storefront is behind a password-protected &quot;Coming Soon&quot; page. The website is locked down and only displays a password entry form — none of the actual store content, including the subcategory navigation grid with safety equipment links, is rendered or accessible to any visitor or automated test.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;div id=&quot;login&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;ACE Hardware Indonesia&lt;/h1&gt;
+    &lt;p&gt;&lt;span class=&quot;default-text&quot;&gt;Will be opening soon...&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;form method=&quot;post&quot; action=&quot;/password&quot; id=&quot;login_form&quot; accept-charset=&quot;UTF-8&quot; class=&quot;storefront-password-form&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;form_type&quot; value=&quot;storefront_password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;utf8&quot; value=&quot;✓&quot;&gt;
+    &lt;label for=&quot;password&quot;&gt;Enter store using password: &lt;/label&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; autofocus=&quot;&quot;&gt;
+    &lt;div class=&quot;actions&quot;&gt;
+      &lt;input class=&quot;btn&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Enter&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The storefront password protection must be disabled in Shopify Admin --&gt;
+&lt;!-- Once unlocked, the expected subcategory navigation should be present, e.g.: --&gt;
+&lt;section class=&quot;subcategory-grid&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;&lt;a href=&quot;/collections/safety-equipment&quot;&gt;Safety Equipment&lt;/a&gt;&lt;/li&gt;
+    &lt;!-- additional subcategory links --&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Disable the Shopify storefront password**: Go to Shopify Admin → Online Store → Preferences → Password Protection and uncheck &quot;Enable password&quot; to make the store publicly accessible</li></ul>
+<ul><li>**Ensure the store is fully launched** before running frontend automated tests, as no page content beyond the password gate is rendered while protection is active</li></ul>
+<ul><li>**Add the subcategory navigation markup** containing safety equipment links (matching selectors like <code class="ic">.subcategory-grid a[href*='safety']</code>) to the appropriate collection or homepage template once the store is live</li></ul>
+<ul><li>**Verify the safety equipment collection URL** (<code class="ic">/collections/safety-equipment</code> or similar) exists and is published in Shopify Admin → Products → Collections</li></ul>
+<ul><li>**Re-run the automated test suite** only after the storefront is publicly accessible and the subcategory grid with safety links is confirmed to render in the page HTML</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-fail">
+          <td>#03</td>
+          <td class="action-col">Verify URL = https://ace-hardware-indo.myshopify.com/collections/safety-equipment</td>
+          <td class="result-col">Should navigate to the Safety Equipment collection page<div class="step-error"><span class="step-error-label">⚠ Error</span><code>page.waitForURL: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to &quot;https://ace-hardware-indo.myshopify.com/collections/safety-equipment&quot; until &quot;load&quot;
+============================================================</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The page at the expected URL <code class="ic">https://ace-hardware-indo.myshopify.com/collections/safety-equipment</code> is not loading or does not exist. The navigation timed out after 15 seconds, and the HTML content returned is completely empty. This indicates the <code class="ic">/collections/safety-equipment</code> collection page is either missing, unpublished, deleted, or has not been created in the Shopify store, causing the URL to never resolve to a valid loaded page.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The /collections/safety-equipment page returns no content at all --&gt;
+&lt;!-- Either the collection does not exist, is hidden, or has been deleted --&gt;
+&lt;!-- Current state: empty HTML response or non-existent Shopify collection --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The Shopify collection page must exist and be published --&gt;
+&lt;!-- Ensure the collection is created with the correct handle: &quot;safety-equipment&quot; --&gt;
+
+&lt;!-- In Shopify Admin: Collections &gt; Create Collection --&gt;
+&lt;!-- Collection Title : Safety Equipment --&gt;
+&lt;!-- Collection Handle: safety-equipment  (URL slug under SEO settings) --&gt;
+&lt;!-- Visibility       : set to &quot;Active / Visible&quot; on the Online Store channel --&gt;
+
+&lt;!-- Once published, this URL must resolve and load: --&gt;
+&lt;!-- https://ace-hardware-indo.myshopify.com/collections/safety-equipment --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Create or restore the collection**: In Shopify Admin, go to **Products → Collections** and check if a &quot;Safety Equipment&quot; collection exists — if not, create it</li></ul>
+<ul><li>**Verify the URL handle**: The collection's handle (found under SEO &amp; URL settings on the collection page) must be exactly <code class="ic">safety-equipment</code> (all lowercase, hyphen-separated)</li></ul>
+<ul><li>**Check visibility/publishing**: Ensure the collection is set to **Active** and is published/visible on the **Online Store** sales channel — draft or hidden collections will not load</li></ul>
+<ul><li>**Add products to the collection**: Shopify may redirect or fail to serve collection pages that are empty; add at least one active product to the collection</li></ul>
+<ul><li>**Check for redirects or URL conflicts**: Go to **Online Store → Navigation / URL Redirects** and verify there is no conflicting redirect on <code class="ic">/collections/safety-equipment</code></li></ul>
+<ul><li>**Test the URL manually** in a browser after the above steps to confirm the page loads before re-running the automated test</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">13</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking the &quot;Welding Accessories&quot; sub-category tile navigates to the correct page</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-fail">
+          <td>#02</td>
+          <td class="action-col">Click undefined</td>
+          <td class="result-col">Click the Welding Accessories sub-category tile<div class="step-error"><span class="step-error-label">⚠ Error</span><code>locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('undefined').first()[22m
+</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The entire website is behind a Shopify storefront password protection page (&quot;Will be opening soon...&quot;). The actual store content — including the subcategory navigation grid with welding/welding-accessories links — is completely inaccessible. No product categories, subcategory grids, or navigation elements exist in the rendered HTML because the store is locked. The test cannot find any <code class="ic">.subcategory-grid</code>, <code class="ic">.collection-subcategory</code>, or related welding links because they are never rendered to the page.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;div id=&quot;login&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;ACE Hardware Indonesia&lt;/h1&gt;
+    &lt;p&gt;&lt;span class=&quot;default-text&quot;&gt;Will be opening soon...&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;form method=&quot;post&quot; action=&quot;/password&quot; id=&quot;login_form&quot; accept-charset=&quot;UTF-8&quot; class=&quot;storefront-password-form&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;form_type&quot; value=&quot;storefront_password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;utf8&quot; value=&quot;✓&quot;&gt;
+    &lt;label for=&quot;password&quot;&gt;Enter store using password: &lt;/label&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; autofocus=&quot;&quot;&gt;
+    &lt;div class=&quot;actions&quot;&gt;
+      &lt;input class=&quot;btn&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Enter&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The storefront password protection must be disabled, OR the test environment
+     must be granted access so the actual store content is rendered, e.g.: --&gt;
+
+&lt;section class=&quot;subcategory-grid&quot;&gt;
+  &lt;ul&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;/collections/welding-accessories&quot;&gt;Welding Accessories&lt;/a&gt;
+    &lt;/li&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;/collections/welding&quot;&gt;Welding&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/section&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Disable the Shopify storefront password** on the test/staging environment: Go to Shopify Admin → Online Store → Preferences → uncheck &quot;Enable password protection&quot; so the full store HTML is rendered and accessible to automated tests</li></ul>
+<ul><li>**Or provide the test pipeline with valid storefront password credentials** so it can authenticate and reach the actual store pages before running UI assertions</li></ul>
+<ul><li>**Ensure the welding/welding-accessories subcategory links exist** in the store's navigation or collection pages with the correct <code class="ic">href</code> attributes (e.g. <code class="ic">/collections/welding</code> or <code class="ic">/collections/welding-accessories</code>) once the store is unlocked</li></ul>
+<ul><li>**Verify the correct CSS classes are applied** to the subcategory container (<code class="ic">subcategory-grid</code>, <code class="ic">collection-subcategory</code>, or <code class="ic">[class*='subcategory']</code>) in the theme templates so the test selectors can match</li></ul>
+<ul><li>**Add the password bypass to CI/CD environment variables** (e.g. <code class="ic">SHOPIFY_STOREFRONT_PASSWORD</code>) so automated test runs can authenticate without manual intervention</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-fail">
+          <td>#03</td>
+          <td class="action-col">Verify URL = https://ace-hardware-indo.myshopify.com/collections/welding-accessories</td>
+          <td class="result-col">Should navigate to the Welding Accessories collection page<div class="step-error"><span class="step-error-label">⚠ Error</span><code>page.waitForURL: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to &quot;https://ace-hardware-indo.myshopify.com/collections/welding-accessories&quot; until &quot;load&quot;
+============================================================</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The page at <code class="ic">https://ace-hardware-indo.myshopify.com/collections/welding-accessories</code> is not loading or does not exist. The collection page for &quot;welding-accessories&quot; is either missing, unpublished, deleted, or the URL slug does not match any existing collection handle in the Shopify store. The navigation never completes because the target URL is never reached within the 15-second timeout, and the page HTML returned is completely empty, indicating a redirect, 404, or an unrendered page.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The collections/welding-accessories page returns no HTML content --&gt;
+&lt;!-- The page is either: --&gt;
+&lt;!-- 1. Not published or does not exist in Shopify collections --&gt;
+&lt;!-- 2. The collection handle is incorrect or mismatched --&gt;
+&lt;!-- 3. A redirect is sending the user elsewhere before load completes --&gt;
+&lt;!-- Current response: empty page body --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- Shopify collection page should render with a valid handle --&gt;
+&lt;!-- Ensure the collection exists and is published with the correct handle --&gt;
+
+&lt;!-- In Shopify Admin: Collections &gt; Welding Accessories --&gt;
+&lt;!-- The URL handle should be set to: welding-accessories --&gt;
+&lt;!-- The collection must be set to &quot;Active&quot; / visible to the Online Store sales channel --&gt;
+
+&lt;!-- Expected rendered output example: --&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Welding Accessories | ACE Hardware Indo&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;section class=&quot;collection-page&quot; data-collection=&quot;welding-accessories&quot;&gt;
+      &lt;!-- Collection products grid here --&gt;
+    &lt;/section&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Check if the collection exists** in Shopify Admin under <code class="ic">Products &gt; Collections</code> — search for &quot;Welding Accessories&quot;</li></ul>
+<ul><li>**Verify the collection handle** is exactly <code class="ic">welding-accessories</code> (lowercase, hyphenated) under the collection's SEO / URL settings</li></ul>
+<ul><li>**Check visibility**: Ensure the collection is set to **Active** and is enabled for the **Online Store** sales channel — if it is hidden or draft, the page will not load</li></ul>
+<ul><li>**Check for redirects**: In Shopify Admin, go to <code class="ic">Online Store &gt; Navigation &gt; URL Redirects</code> and confirm there is no redirect overriding <code class="ic">/collections/welding-accessories</code> that could be causing a loop or sending users to a different page</li></ul>
+<ul><li>**Re-create the collection** if it was accidentally deleted, adding the correct handle <code class="ic">welding-accessories</code> before saving</li></ul>
+<ul><li>**Test manually** by navigating directly to <code class="ic">https://ace-hardware-indo.myshopify.com/collections/welding-accessories</code> in a browser to confirm whether it returns a 404, redirect, or blank page</li></ul>
+<ul><li>**Check theme template**: Ensure the Shopify theme has a valid <code class="ic">collection.liquid</code> (or <code class="ic">collection.json</code>) template that is not broken or empty</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">14</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the Top Brands section heading is visible</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify visible: </td>
+          <td class="result-col">Visible: </td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">15</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify brand logo tiles are visible in the Top Brands section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">16</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify each brand logo tile is inside a bordered container</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">17</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking a brand logo tile navigates to that brand's filtered collection</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-fail">
+          <td>#02</td>
+          <td class="action-col">Click undefined</td>
+          <td class="result-col">Click the DeWalt brand logo tile<div class="step-error"><span class="step-error-label">⚠ Error</span><code>locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('undefined').first()[22m
+</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The entire ACE Hardware Indonesia website is behind a Shopify storefront password protection page (&quot;Will be opening soon...&quot;). The actual store content, including the top brands section with DeWalt brand links, is completely inaccessible. The page only renders a password gate, so no brand navigation, product listings, or any other store UI elements exist in the DOM for the test to find.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;div id=&quot;login&quot;&gt;
+  &lt;div&gt;
+    &lt;h1&gt;ACE Hardware Indonesia&lt;/h1&gt;
+    &lt;p&gt;&lt;span class=&quot;default-text&quot;&gt;Will be opening soon...&lt;/span&gt;&lt;/p&gt;
+  &lt;/div&gt;
+  &lt;form method=&quot;post&quot; action=&quot;/password&quot; id=&quot;login_form&quot; accept-charset=&quot;UTF-8&quot; class=&quot;storefront-password-form&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;form_type&quot; value=&quot;storefront_password&quot;&gt;
+    &lt;input type=&quot;hidden&quot; name=&quot;utf8&quot; value=&quot;✓&quot;&gt;
+    &lt;label for=&quot;password&quot;&gt;Enter store using password: &lt;/label&gt;
+    &lt;input type=&quot;password&quot; name=&quot;password&quot; id=&quot;password&quot; autofocus=&quot;&quot;&gt;
+    &lt;div class=&quot;actions&quot;&gt;
+      &lt;input class=&quot;btn&quot; name=&quot;commit&quot; type=&quot;submit&quot; value=&quot;Enter&quot;&gt;
+    &lt;/div&gt;
+  &lt;/form&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The storefront password protection must be disabled, then the --&gt;
+&lt;!-- top brands section with DeWalt link must exist in the live store, e.g.: --&gt;
+&lt;div class=&quot;top-brands&quot;&gt;
+  &lt;a href=&quot;/collections/vendors?vendor=DeWalt&quot;&gt;DeWalt&lt;/a&gt;
+  &lt;!-- other brand links --&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Disable Shopify storefront password protection**: Go to Shopify Admin → Online Store → Preferences → Password protection and uncheck &quot;Restrict access to this store&quot;. This will make the real store content publicly accessible</li></ul>
+<ul><li>**Verify the store is fully published** and not in a draft/preview-only state before running any frontend automated tests</li></ul>
+<ul><li>**Ensure the top brands section exists** in the live store theme with a DeWalt brand link matching one of these selectors: <code class="ic">.top-brands a[href*='DeWalt']</code>, <code class="ic">.brand-list a[href*='DeWalt']</code>, <code class="ic">[class*='top-brands'] a[href*='vendor=DeWalt']</code>, or <code class="ic">[class*='brand'] a[href*='DeWalt']</code></li></ul>
+<ul><li>**If testing against a staging environment**, provide the storefront password to the test automation configuration so it can authenticate before running test scenarios</li></ul>
+<ul><li>**Confirm the DeWalt vendor/brand page exists** in the Shopify product catalog and that the brand link is included in the theme's brand/vendor navigation component</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify visible: </td>
+          <td class="result-col">Visible: </td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">18</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the Top Brands section has carousel navigation controls</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify visible: </td>
+          <td class="result-col">Visible: </td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">19</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking the next arrow in Top Brands scrolls to reveal additional brand tiles</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">20</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the Shop Best Sellers section heading is visible</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">21</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify product cards are visible in the Shop Best Sellers section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">22</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify each Best Sellers product card displays the required elements</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">23</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify sale badge is displayed on discounted products in Best Sellers</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">24</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify discounted products in Best Sellers display both sale price and original struck-through price</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">25</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify non-discounted products in Best Sellers display only the regular price</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">26</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the star rating widget is visible on each Best Sellers product card</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">27</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the review count is displayed next to the star rating on Best Sellers cards</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">28</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking &quot;Add to Cart&quot; on a Best Sellers product adds it to the cart</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">29</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking a product image in Best Sellers navigates to the Product Detail Page</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">30</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the Best Sellers carousel has a next arrow for scrolling</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">31</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify clicking the next arrow in Best Sellers reveals additional product cards</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">32</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the SEO descriptive content section is visible below the Best Sellers section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">33</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the SEO section contains a descriptive heading</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">34</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the SEO section contains a bulleted list of tool category descriptions</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">35</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the SEO descriptive paragraph text is fully readable on desktop</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">36</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the newsletter subscription banner is visible on the category page</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">37</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the newsletter banner heading is visible</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">38</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the email input field in the newsletter banner accepts text input</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">39</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the Subscribe button in the newsletter banner is visible and clickable</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">40</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify submitting a valid email via the Subscribe button shows a success confirmation</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">41</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify submitting an empty email in the newsletter banner shows a validation error</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">42</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify submitting an invalid email format shows a validation error</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">43</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify all major sections of the Product Category Page are visible on page load</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">44</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the page loads without any broken images in the sub-category grid</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">45</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the page loads without any broken images in the Top Brands section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">46</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the page loads without any broken product images in the Best Sellers section</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">47</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the Product Category Page is accessible via the main navigation</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://ace-hardware-indo.myshopify.com/</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-fail">
+          <td>#02</td>
+          <td class="action-col">Click undefined</td>
+          <td class="result-col">Click the Hand &amp; Power Tools link in the main navigation bar<div class="step-error"><span class="step-error-label">⚠ Error</span><code>locator.waitFor: Timeout 10000ms exceeded.
+Call log:
+[2m  - waiting for locator('undefined').first()[22m
+</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The website's header/navigation does not contain any anchor link pointing to a &quot;hand-power-tools&quot; section or page. The expected navigation link with an <code class="ic">href</code> containing <code class="ic">hand-power-tools</code> is completely absent from the header, inline menu, or header menu elements. The page HTML returned empty/not found, indicating either the navigation element itself is missing, or the specific &quot;Hand &amp; Power Tools&quot; category link has been removed or never added to the site's primary navigation.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- MISSING: No navigation link for hand-power-tools exists in any of these expected locations:
+     - header.header
+     - nav.header__inline-menu
+     - .header__menu
+
+The current HTML contains no matching element such as: --&gt;
+
+&lt;!-- ABSENT FROM SITE: --&gt;
+&lt;a href=&quot;/hand-power-tools&quot;&gt;Hand &amp; Power Tools&lt;/a&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- Add the missing link inside the appropriate header navigation container --&gt;
+
+&lt;!-- Option 1: Inside nav.header__inline-menu --&gt;
+&lt;nav class=&quot;header__inline-menu&quot;&gt;
+  &lt;ul&gt;
+    &lt;!-- ...existing nav items... --&gt;
+    &lt;li&gt;
+      &lt;a href=&quot;/hand-power-tools&quot;&gt;Hand &amp;amp; Power Tools&lt;/a&gt;
+    &lt;/li&gt;
+  &lt;/ul&gt;
+&lt;/nav&gt;
+
+&lt;!-- Option 2: Inside .header__menu --&gt;
+&lt;ul class=&quot;header__menu&quot;&gt;
+  &lt;!-- ...existing menu items... --&gt;
+  &lt;li class=&quot;header__menu-item&quot;&gt;
+    &lt;a href=&quot;/hand-power-tools&quot;&gt;Hand &amp;amp; Power Tools&lt;/a&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Add the missing navigation link** with an <code class="ic">href</code> that includes <code class="ic">hand-power-tools</code> (e.g., <code class="ic">/hand-power-tools</code> or <code class="ic">/categories/hand-power-tools</code>) inside one of the header navigation containers: <code class="ic">header.header</code>, <code class="ic">nav.header__inline-menu</code>, or <code class="ic">.header__menu</code></li></ul>
+<ul><li>**Verify the target URL slug** — confirm the correct path for the Hand &amp; Power Tools category page in the CMS or routing config and use that exact path in the <code class="ic">href</code></li></ul>
+<ul><li>**Check if the link was accidentally removed** during a recent header/nav template update or CMS menu configuration change and restore it</li></ul>
+<ul><li>**Ensure the header/nav components are fully rendered** on page load — if the menu is dynamically injected via JavaScript, confirm it is not failing silently before the test timeout of 10 seconds</li></ul>
+<ul><li>**Validate across all breakpoints** — confirm the link is present in both desktop and mobile navigation structures, as some implementations use separate markup for each</li></ul>
+<ul><li>**Re-run the automated test** after the link is added to confirm the selector resolves correctly</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-fail">
+          <td>#03</td>
+          <td class="action-col">Verify URL = https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</td>
+          <td class="result-col">Should navigate to the Hand &amp; Power Tools Product Category Page<div class="step-error"><span class="step-error-label">⚠ Error</span><code>page.waitForURL: Timeout 15000ms exceeded.
+=========================== logs ===========================
+waiting for navigation to &quot;https://ace-hardware-indo.myshopify.com/collections/hand-power-tools&quot; until &quot;load&quot;
+============================================================</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The page navigation to <code class="ic">https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</code> timed out, meaning the collection page either does not exist, is not published/enabled on the Shopify store, or there is no navigable link/redirect pointing to this URL. The page HTML returned is completely empty, indicating the route is returning no content or a non-load response (e.g., 404, redirect loop, or unpublished collection).</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The page at /collections/hand-power-tools returns empty HTML --&gt;
+&lt;!-- No collection page exists or is published at this URL --&gt;
+&lt;!-- Example of what is missing — a valid Shopify collection page rendering: --&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!-- The /collections/hand-power-tools collection page should render content such as: --&gt;
+&lt;div class=&quot;collection-hero&quot;&gt;
+  &lt;h1 class=&quot;collection-title&quot;&gt;Hand &amp; Power Tools&lt;/h1&gt;
+&lt;/div&gt;
+&lt;div class=&quot;collection-grid&quot;&gt;
+  &lt;!-- Product items for hand &amp; power tools --&gt;
+  &lt;div class=&quot;product-item&quot;&gt;...&lt;/div&gt;
+&lt;/div&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Verify the collection exists** in the Shopify Admin under <code class="ic">Products &gt; Collections</code> — confirm a collection with handle <code class="ic">hand-power-tools</code> has been created</li></ul>
+<ul><li>**Check the collection is published** — ensure the collection visibility is set to &quot;Online Store&quot; and is not hidden or scheduled for a future date</li></ul>
+<ul><li>**Confirm the URL handle** — in the collection settings, verify the URL handle is exactly <code class="ic">hand-power-tools</code> (no typos, no capital letters, no extra characters)</li></ul>
+<ul><li>**Check for redirects** — in Shopify Admin under <code class="ic">Online Store &gt; Navigation &gt; URL Redirects</code>, ensure there is no conflicting redirect on <code class="ic">/collections/hand-power-tools</code> causing a loop or pointing elsewhere</li></ul>
+<ul><li>**Add products to the collection** — Shopify may hide collections with zero products depending on theme settings; ensure at least one active product is assigned</li></ul>
+<ul><li>**Check theme template** — confirm the <code class="ic">collection.json</code> or <code class="ic">collection.liquid</code> template exists in the active theme and is not corrupted or missing</li></ul>
+<ul><li>**Test manually** by visiting <code class="ic">https://ace-hardware-indo.myshopify.com/collections/hand-power-tools</code> in a browser to confirm whether it returns a 404 or blank page, and act accordingly</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify visible: </td>
+          <td class="result-col">Visible: </td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">48</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the page title in the browser tab reflects the current category</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">Test case #10 explicitly marked as failed for this run.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>Test case #10 explicitly marked as failed for this run.</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The page <code class="ic">&lt;title&gt;</code> tag is either missing entirely or does not dynamically update to reflect the current category being viewed. When a user navigates to a category page, the browser tab title should update to display the relevant category name, but the website is failing to set this value correctly. The provided HTML source is empty, confirming no document content (including a proper <code class="ic">&lt;title&gt;</code> tag) is being rendered or returned by the page.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">&lt;!-- The &lt;head&gt; section is either missing entirely or contains a static/empty title --&gt;
+&lt;head&gt;
+  &lt;title&gt;&lt;/title&gt;
+  &lt;!-- OR the title is hardcoded and never updated per category --&gt;
+  &lt;title&gt;My Website&lt;/title&gt;
+&lt;/head&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot; /&gt;
+  &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot; /&gt;
+  &lt;!-- Title must reflect the current category dynamically --&gt;
+  &lt;title&gt;{{categoryName}} | My Website&lt;/title&gt;
+  &lt;!-- Example rendered output: &quot;Electronics | My Website&quot; --&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;!-- Category page content --&gt;
+
+  &lt;script&gt;
+    // If category is loaded client-side (SPA/JS-driven), update title dynamically:
+    function updatePageTitleForCategory(categoryName) {
+      document.title = categoryName + &quot; | My Website&quot;;
+    }
+
+    // Call this whenever the category changes, e.g.:
+    // updatePageTitleForCategory(&quot;Electronics&quot;);
+  &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt"><ul><li>**Add a <code class="ic">&lt;title&gt;</code> tag** inside the <code class="ic">&lt;head&gt;</code> section if it is missing — this is a required HTML element for every page</li></ul>
+<ul><li>**Make the title dynamic**: ensure the category name is injected into the <code class="ic">&lt;title&gt;</code> tag at render time (server-side templating) or updated via JavaScript when the category loads</li></ul>
+<ul><li>**For server-side rendered pages**: use the templating engine (e.g., Jinja2, Blade, Thymeleaf, ERB) to set <code class="ic">&lt;title&gt;{{ category.name }} | Site Name&lt;/title&gt;</code></li></ul>
+<ul><li>**For SPA / client-side routing** (React, Vue, Angular): use a head-management library (e.g., <code class="ic">react-helmet</code>, <code class="ic">vue-meta</code>, Angular <code class="ic">Title</code> service) to update <code class="ic">document.title</code> on every category route change</li></ul>
+<ul><li>**Verify the fix** by navigating to several different category pages and confirming the browser tab reflects each category name uniquely</li></ul>
+<ul><li>**Ensure the page is not returning an empty HTML body** — the blank HTML source suggests a possible rendering or routing failure that must be investigated at the server/framework level</li></ul></div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">49</div>
+        <div class="scenario-info">
+          <div class="scenario-name">Verify the page layout is consistent when navigating back from a PDP to the PCP</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Test verification</td>
+          <td class="result-col">All checks passed</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+</main>
+
+<!-- ── FOOTER ─────────────────────────────────────────────────── -->
+<footer class="footer">
+  <strong>Lacoste QA</strong> — Automated Test Report &nbsp;·&nbsp;
+  Generated on June 12, 2026 &nbsp;·&nbsp; Playwright MCP &nbsp;·&nbsp; All Rights Reserved
+</footer>
+
+<script>
+  // Toggle steps on click
+  document.querySelectorAll('.scenario-header').forEach(function(h) {
+    h.addEventListener('click', function() {
+      h.closest('.scenario-card').classList.toggle('open');
+    });
+  });
+  // Auto-expand all scenarios on load
+  document.querySelectorAll('.scenario-card').forEach(function(c) {
+    c.classList.add('open');
+  });
+</script>
+
+<style>
+  tr.sr-fail td { background:#fff5f5; }
+  .step-error { margin-top:6px;padding:6px 10px;background:#fff0f0;border-left:3px solid #e53e3e;border-radius:4px; }
+  .step-error-label { display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#e53e3e;margin-bottom:3px; }
+  .step-error code { font-size:11px;color:#c53030;word-break:break-all;white-space:pre-wrap; }
+  .ev-block { margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0; }
+  .ev-hdr { display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px; }
+  .ev-icon { font-size:15px; } .ev-title { font-weight:700;flex:1; }
+  .ev-meta { font-size:11px;opacity:.7; }
+  .ev-zoom-hint { font-size:10px;color:#89b4fa;font-style:italic;opacity:.8; }
+  .ev-body { padding:10px; }
+  .ev-code { border-color:#313244; }
+  .ev-code .ev-hdr { background:#1e1e2e;color:#cdd6f4; }
+  .ev-code-body { background:#181825;padding:6px; }
+  .ev-img { display:block;width:100%;border-radius:4px;cursor:zoom-in;
+    transition:box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,.4);
+    height:auto !important;max-height:none !important; }
+  .ev-img:hover { box-shadow:0 4px 20px rgba(0,0,0,.6); }
+  .ev-ai { border-color:#7c3aed; }
+  .ev-ai-body { background:#faf5ff;padding:14px 16px; }
+  .ai-s { margin-bottom:13px; } .ai-s:last-child { margin-bottom:0; }
+  .ai-lbl { font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.07em;color:#6d28d9;margin-bottom:5px; }
+  .ai-txt { font-size:13px;line-height:1.7;color:#2d3748; }
+  .ai-warn { color:#744210;background:#fefcbf;padding:8px 10px;
+    border-radius:4px;border-left:3px solid #d69e2e; }
+  .ai-txt ul { padding-left:18px;margin:4px 0; }
+  .ai-txt li { margin:2px 0; }
+  .ic { font-family:'Consolas','Monaco',monospace;font-size:11px;
+    background:#ede9fe;color:#4c1d95;padding:1px 5px;border-radius:3px; }
+  .ai-pre { font-family:'Consolas','Monaco',monospace;font-size:12px;
+    padding:10px 14px;border-radius:6px;overflow-x:auto;
+    white-space:pre-wrap;word-break:break-word;line-height:1.6;margin:0; }
+  .bad  { background:#2d0000;color:#fca5a5;border-left:3px solid #dc2626; }
+  .good { background:#052e16;color:#86efac;border-left:3px solid #16a34a; }
+  #zoom-overlay { display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;cursor:zoom-out; }
+  #zoom-overlay.active { display:flex; }
+  #zoom-overlay img { max-width:92vw;max-height:92vh;border-radius:8px;
+    box-shadow:0 8px 48px rgba(0,0,0,.8);cursor:zoom-out;object-fit:contain; }
+  #zoom-overlay .zoom-close { position:absolute;top:16px;right:24px;
+    color:#fff;font-size:28px;font-weight:700;cursor:pointer;
+    line-height:1;opacity:.8;transition:opacity .15s; }
+  #zoom-overlay .zoom-close:hover { opacity:1; }
+  #zoom-overlay .zoom-label { position:absolute;bottom:16px;left:50%;
+    transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:12px;
+    font-family:monospace;background:rgba(0,0,0,.5);padding:4px 12px;
+    border-radius:20px;pointer-events:none; }
+  .result-col { overflow:visible !important;white-space:normal !important;word-break:break-word; }
+  .steps-table { table-layout:fixed;width:100%; }
+  .steps-table th:first-child,.steps-table td:first-child { width:36px;min-width:36px;padding:6px 4px;text-align:center; }
+  .steps-table .action-col { width:20%; }
+  .ev-block,.ev-body,.ev-code-body,.ev-ai-body,.steps-wrap,.ai-txt,.scenario-card { overflow:visible !important; }
+  .ev-code-body { overflow-x:auto; }
+  tr.sr-fail td { overflow:visible !important; }
+</style>
+<div id="zoom-overlay">
+  <span class="zoom-close" onclick="closeZoom()">✕</span>
+  <img id="zoom-img" src="" alt="Zoomed" />
+  <span class="zoom-label">Click anywhere or press Esc to close</span>
+</div>
+<script>
+(function(){
+  window.openZoom=function(id){
+    var img=document.getElementById(id); if(!img)return;
+    document.getElementById('zoom-img').src=img.src;
+    document.getElementById('zoom-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  };
+  window.closeZoom=function(){
+    document.getElementById('zoom-overlay').classList.remove('active');
+    document.body.style.overflow='';
+    setTimeout(function(){document.getElementById('zoom-img').src='';},200);
+  };
+  document.getElementById('zoom-overlay').addEventListener('click',function(e){
+    if(e.target===this||e.target===document.getElementById('zoom-img'))closeZoom();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+})();
+</script>
+</body>
+</html>
