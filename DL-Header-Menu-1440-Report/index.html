@@ -1,0 +1,1101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Report — Test Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #f4f6f9;
+    --surface:     #ffffff;
+    --surface2:    #eaecf2;
+    --border:      rgba(24, 41, 79, 0.12);
+    --text:        #1a1f2e;
+    --muted:       #6b7592;
+    --brand:       #18294F;
+    --green:       #16a25a;
+    --green-soft:  rgba(22, 162, 90, 0.1);
+    --red:         #dc3545;
+    --red-soft:    rgba(220, 53, 69, 0.1);
+    --amber:       #d97706;
+    --amber-soft:  rgba(217, 119, 6, 0.1);
+    --mono:        'Courier New', monospace;
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  body {
+    font-family: "Instrument Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero {
+    background: #18294F;
+    padding: 0 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 90% at 90% 60%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Logo bar */
+  .hero-logo-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 32px;
+  }
+  .hero-logo-bar svg {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .hero-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 50px;
+    padding: 5px 14px 5px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-live-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Hero content */
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-inner h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hero-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-meta-item .value {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── STAT CARDS ─────────────────────────────────────────── */
+  .stats-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.07);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card.total::before  { background: var(--brand); }
+  .stat-card.passed::before { background: var(--green); }
+  .stat-card.failed::before { background: var(--red); }
+  .stat-card.rate::before   { background: var(--amber); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-card.total  .stat-value { color: var(--brand); }
+  .stat-card.passed .stat-value { color: var(--green); }
+  .stat-card.failed .stat-value { color: var(--red); }
+  .stat-card.rate   .stat-value { color: var(--amber); }
+
+  .rate-ring {
+    position: absolute;
+    right: 18px; bottom: 14px;
+    width: 44px; height: 44px;
+  }
+  .rate-ring svg { width: 100%; height: 100%; }
+
+  /* ── PROGRESS BAR ───────────────────────────────────────── */
+  .progress-bar-wrap {
+    max-width: 960px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: #e2e6ef;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .progress-bar-fill.pass { background: var(--green); }
+  .progress-bar-fill.fail { background: var(--red); }
+
+  /* ── MAIN CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SCENARIO CARD ──────────────────────────────────────── */
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.06);
+  }
+  .scenario-card:hover {
+    border-color: rgba(24,41,79,0.22);
+    box-shadow: 0 2px 8px rgba(24,41,79,0.1);
+  }
+
+  /* Scenario header — brand coloured bar */
+  .scenario-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: #18294F;
+  }
+  .scenario-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .scenario-card.pass .scenario-num { background: rgba(255,255,255,0.12); color: #ffffff; }
+  .scenario-card.fail .scenario-num { background: rgba(240,82,82,0.25);   color: #fca5a5; }
+  .scenario-card.skip .scenario-num { background: rgba(245,166,35,0.2);   color: #fcd34d; }
+
+  .scenario-info { flex: 1; min-width: 0; }
+  .scenario-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .scenario-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .scenario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .scenario-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .scenario-card.pass .scenario-badge { background: rgba(22,162,90,0.2);  color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .scenario-card.fail .scenario-badge { background: rgba(220,53,69,0.2);  color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+  .scenario-card.skip .scenario-badge { background: rgba(217,119,6,0.2);  color: #fcd34d; border: 1px solid rgba(252,211,77,0.3); }
+
+  .scenario-toggle {
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .scenario-card.open .scenario-toggle { transform: rotate(180deg); }
+
+  /* ── STEPS TABLE ─────────────────────────────────────────── */
+  .steps-wrap {
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .scenario-card.open .steps-wrap { display: block; }
+
+  .steps-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .steps-table thead tr { background: #f8f9fc; }
+  .steps-table th {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps-table th:last-child { text-align: center; width: 80px; }
+
+  .steps-table td {
+    padding: 12px 20px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+  }
+  .steps-table tr:last-child td  { border-bottom: none; }
+  .steps-table tr:nth-child(even) { background: #fafbfd; }
+
+  .steps-table td:first-child {
+    width: 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .steps-table td:last-child { text-align: center; }
+  .steps-table .action-col  { color: var(--text); font-weight: 500; }
+  .steps-table .result-col  { color: var(--muted); font-size: 12px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(24,41,79,0.06);
+    border: 1px solid rgba(24,41,79,0.1);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: #18294F;
+  }
+
+  .step-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-status.pass { background: var(--green-soft); color: var(--green); }
+  .step-status.fail { background: var(--red-soft);   color: var(--red); }
+  .step-status.skip { background: var(--amber-soft); color: var(--amber); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero, .stats-wrap, .content { padding-left: 20px; padding-right: 20px; }
+    .hero-inner h1 { font-size: 22px; }
+    .stat-value    { font-size: 28px; }
+    .hero-meta     { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<header class="hero">
+
+  <!-- Logo bar -->
+  <div class="hero-logo-bar">
+    <!-- Kemana logo (inline SVG — always visible, no external file needed) -->
+    <svg width="332" height="125" viewBox="0 0 332 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#logo-clip)">
+        <path d="M325 6V118.1H6V6H325ZM331 0H0V124.1H331V0Z" fill="white"/>
+        <path d="M79 51.4999C77.8 52.4999 76.3 53.5999 74.7 54.9999C74.4 55.2999 73.9 55.7999 73.1 56.4999L70.7 58.5999L68.3 60.6999C67.6 61.3999 67.1 61.7999 66.8 62.0999C67.5 63.8999 68.2 65.8999 69.1 67.9999C70 70.0999 70.7 72.2999 71.5 74.1999C72.3 76.0999 73 77.9999 73.7 79.4999C74.4 80.9999 74.8 82.0999 75.1 82.6999V82.9999C74.4 82.8999 73.7 82.8999 73 82.8999H67C66.1 82.8999 65.3 82.8999 64.4 82.9999C64 81.6999 63.7 80.6999 63.4 79.7999C63.1 78.8999 62.8 77.9999 62.5 76.9999C62.2 75.9999 61.8 74.7999 61.3 73.3999C60.8 71.9999 60.1 70.0999 59.3 67.5999C59.1 67.0999 58.9 66.4999 58.7 65.9999C58.6 65.7999 58.3 65.6999 58.1 65.6999C57.8 65.6999 57.5 65.8999 57.4 66.1999C57.3 66.4999 57.1 67.1999 56.8 68.1999C56.1 71.1999 55.6 73.8999 55.1 76.2999C54.6 78.6999 54.3 80.9999 53.9 83.0999C53.1 82.8999 52.4 82.8999 51.6 82.8999H45.9C45 82.8999 44.1 82.8999 43.2 82.9999C44.9 76.2999 46.5 69.5999 48.1 62.7999C49.7 55.9999 51.1 49.1999 52.5 42.1999C53 39.7999 53.5 37.3999 54 34.7999C54.5 32.4999 54.8 30.1999 55.1 27.8999L57.7 28.1999C58.7 28.2999 59.7 28.2999 60.7 28.2999C61.6 28.2999 62.5 28.2999 63.4 28.1999L65.8 27.8999C64.6 32.5999 63.6 36.9999 62.6 41.0999C61.6 45.1999 60.8 48.7999 60.2 51.8999C59.6 54.9999 58.8 58.3999 58.1 61.9999C58.1 62.3999 58.3 62.6999 58.7 62.6999C59.2 62.5999 59.7 62.2999 60.1 61.8999C60.8 61.3999 61.5 60.7999 62.3 60.0999C64.5 58.0999 66.7 56.1999 68.9 54.2999C71.1 52.3999 73.2 50.2999 75.1 48.0999C75.6 48.1999 76.2 48.2999 76.8 48.3999C77.5 48.4999 78.1 48.4999 78.8 48.4999C79.4 48.4999 80 48.4999 80.6 48.3999L82.1 48.0999L82.2 49.2999C81.3 49.7999 80.3 50.5999 79 51.4999Z" fill="white"/>
+        <path d="M110.3 77.8001C110.1 78.5001 109.7 79.5001 109.3 80.8001C107.7 81.9001 106 82.6001 104.1 83.0001C102.2 83.3001 100.2 83.5001 98.3 83.5001C95.8 83.6001 93.3 83.1001 90.9 82.2001C89 81.4001 87.2 80.2001 85.8 78.7001C84.5 77.2001 83.5 75.4001 82.8 73.5001C82.1 71.5001 81.8 69.4001 81.8 67.3001C81.8 64.9001 82.2 62.5001 83 60.2001C83.8 57.9001 85 55.7001 86.6 53.8001C90.2 49.6001 95.4 47.3001 100.9 47.4001C105.4 47.4001 108.9 48.6001 111.2 51.0001C113.6 53.6001 114.8 57.0001 114.7 60.5001C114.7 61.4001 114.6 62.4001 114.5 63.3001C114.4 64.3001 114.2 65.2001 114.1 66.1001C111 66.0001 108.5 65.9001 106.4 65.9001C104.3 65.9001 102.5 65.8001 100.9 65.8001H95.2C94.4 65.8001 93.4 65.8001 92.3 65.9001C92.2 66.5001 92.1 67.2001 92.1 67.8001C92.1 68.5001 92 69.2001 92 69.9001C91.9 72.4001 92.6 74.9001 94.1 76.9001C95.5 78.7001 97.7 79.5001 100.7 79.5001C102.3 79.5001 103.8 79.2001 105.3 78.6001C107.1 78.0001 108.6 76.9001 109.9 75.5001L111 76.0001C110.8 76.5001 110.6 77.2001 110.3 77.8001ZM104.8 52.3001C104.2 51.1001 102.9 50.5001 101.1 50.5001C100 50.5001 98.8 50.8001 97.9 51.5001C97 52.2001 96.2 53.2001 95.6 54.2001C94.9 55.4001 94.3 56.7001 93.9 58.0001C93.5 59.4001 93.1 60.9001 92.7 62.3001C93.1 62.4001 93.5 62.4001 93.9 62.4001H102.6C103.3 62.4001 104 62.3001 104.8 62.3001C104.9 61.7001 105.1 60.8001 105.3 59.7001C105.5 58.5001 105.6 57.4001 105.6 56.2001C105.8 54.8001 105.5 53.5001 104.8 52.3001Z" fill="white"/>
+        <path d="M125.8 48.5C127.6 48.6 129.4 48.6 131.2 48.5L133.4 48.2001C133.1 49.1001 132.9 50.0001 132.7 50.9001L132.1 53.6C132.6 52.9 133.2 52.3001 133.8 51.7001C134.5 50.9001 135.4 50.3001 136.3 49.7001C137.4 49.0001 138.5 48.5 139.7 48.1C141.1 47.6 142.7 47.4001 144.2 47.4001C146.2 47.3001 148.2 47.9 149.9 49.1C151.5 50.3 152.5 52.2001 152.8 54.2001C154.4 52.3001 156.3 50.6 158.4 49.3C160.5 48 162.9 47.3 165.3 47.3C166.4 47.3 167.5 47.5 168.5 47.8C169.6 48.1 170.6 48.6 171.5 49.3C172.4 50 173.2 50.9001 173.7 51.9001C174.3 53.1001 174.6 54.4001 174.5 55.7001C174.5 56.3001 174.5 56.9 174.4 57.5C174.3 58.2 174.2 58.8 174.1 59.5C173.9 60.2 173.8 61.2 173.5 62.3C173.2 63.4 172.9 64.8001 172.5 66.4001C172.4 66.7001 172.2 67.6 171.9 69C171.6 70.4 171.3 71.9 170.9 73.6C170.5 75.3 170.2 77.1001 169.8 78.9001C169.4 80.7001 169.2 82.1 169 83.2C168.2 83.1 167.3 83.1 166.5 83.1H160.7C159.9 83.1 159.1 83.1 158.3 83.2C159 81.1 159.7 78.6001 160.5 75.9001C161.3 73.2001 161.9 70.6 162.6 68.1C163.3 65.6 163.7 63.3 164.1 61.3C164.4 59.9 164.6 58.5 164.7 57.1C164.7 56 164.4 55.0001 163.7 54.2001C162.9 53.4001 161.8 52.9 160.6 53C160 53 159.4 53.1 158.8 53.3C157.9 53.6 157.2 54 156.5 54.6C155.6 55.4 154.7 56.4 154.1 57.5C153.1 59.1 152.4 60.8 151.9 62.6C151.4 64.3 150.7 66.9 149.9 70.6C149.1 74.3 148.3 78.5001 147.5 83.3001C146.6 83.2001 145.8 83.2 144.9 83.2H139.4C138.6 83.2 137.9 83.2001 137.1 83.3001C137.7 81.4001 138.3 79.1001 139.1 76.4001C139.9 73.7001 140.5 71.0001 141.2 68.4001C141.9 65.8001 142.4 63.5001 142.8 61.4001C143.1 60.0001 143.3 58.5 143.4 57.1C143.5 56 143.1 55 142.3 54.3C141.5 53.7 140.4 53.3001 139.4 53.4001C137.4 53.4001 135.4 54.3 134.1 55.8C132.4 57.8 131.2 60.1 130.5 62.6C130.4 63 130.1 63.8001 129.8 64.9001C129.5 66.0001 129.2 67.5001 128.7 69.3001C128.2 71.1001 127.8 73.2 127.3 75.6C126.8 78 126.3 80.6001 125.9 83.4001C125 83.3001 124.2 83.3001 123.3 83.3001H118C117.2 83.3001 116.4 83.3001 115.6 83.4001C116.2 81.2001 116.8 79.1001 117.2 77.3001C117.6 75.5001 118.1 73.6 118.5 71.7C118.9 69.8 119.4 67.6001 119.9 65.3001C120.4 63.0001 121 60 121.8 56.6C122 55.3 122.2 54.3 122.4 53.5C122.6 52.7 122.7 52 122.8 51.5C122.9 51 123 50.4 123.1 50C123.2 49.6 123.3 49.1 123.4 48.6C124.2 48.4 125 48.3 125.8 48.5Z" fill="white"/>
+        <path d="M207.9 83.2001C206.7 83.6001 205.5 83.7001 204.3 83.7001C203.2 83.7001 202 83.5001 201 83.1001C200.2 82.8001 199.6 82.3001 199 81.7001C198.5 81.2001 198.2 80.6001 197.9 79.9001C197.7 79.3001 197.5 78.8001 197.4 78.4001C196.5 80.2001 195.1 81.6001 193.4 82.7001C191.6 83.6001 189.5 84.0001 187.5 83.9001C184.9 84.0001 182.4 83.1001 180.5 81.4001C178.7 79.6001 177.8 77.1001 177.9 74.5001C177.9 72.2001 178.6 69.9001 179.9 68.0001C181.3 66.0001 183.3 64.5001 185.7 63.8001C186.8 63.5001 188.2 63.2001 189.9 62.9001C191.5 62.7001 193.1 62.4001 194.6 62.2001C195.7 62.1001 196.6 61.9001 197.3 61.8001C197.9 61.7001 198.5 61.5001 199 61.2001C199.4 60.9001 199.7 60.4001 199.9 59.9001C200.1 59.1001 200.2 58.3001 200.2 57.5001C200.2 56.6001 200 55.6001 199.6 54.8001C199.2 54.1001 198.7 53.5001 198.1 53.1001C197.5 52.7001 196.8 52.4001 196.1 52.2001C195.4 52.0001 194.6 51.9001 193.9 51.9001C192.5 51.9001 191.1 52.1001 189.8 52.6001C188.5 53.2001 187.3 53.8001 186.2 54.6001H185.8C185.9 53.6001 186 52.9001 186 52.4001C186 51.9001 186.1 51.2001 186.1 50.5001C190 48.3001 194.4 47.1001 198.9 47.1001C200.3 47.1001 201.7 47.2001 203 47.5001C204.3 47.8001 205.5 48.3001 206.6 49.0001C207.7 49.7001 208.5 50.6001 209.2 51.7001C209.9 53.0001 210.3 54.5001 210.2 56.0001C210.2 57.2001 210.1 58.3001 209.9 59.5001C209.7 60.8001 209.5 61.8001 209.3 62.6001L207.3 71.7001C207 73.0001 206.8 74.2001 206.6 75.5001C206.5 76.1001 206.5 76.8001 206.5 77.4001C206.5 78.1001 206.6 78.7001 206.9 79.3001C207.1 80.0001 207.8 80.4001 208.5 80.3001C208.7 80.3001 208.9 80.3001 209.1 80.1001C209.3 80.0001 209.4 79.9001 209.6 79.8001L210.2 81.5001C209.6 82.2001 208.8 82.8001 207.9 83.2001ZM188.9 77.7001C189.5 78.7001 190.7 79.3001 191.9 79.2001C192.9 79.2001 193.9 78.9001 194.7 78.3001C195.4 77.7001 196 76.9001 196.5 76.1001C197 75.2001 197.3 74.2001 197.6 73.2001C197.8 72.1001 198.1 71.1001 198.3 70.2001L199.4 64.6001C197.7 64.8001 196 65.2001 194.4 65.6001C193.3 65.8001 192.3 66.2001 191.4 66.8001C190.2 67.5001 189.3 68.7001 188.9 70.1001C188.4 71.5001 188.2 72.9001 188.2 74.3001C188 75.5001 188.3 76.7001 188.9 77.7001Z" fill="white"/>
+        <path d="M251.4 56.9001C251.3 57.5001 251.2 58.3001 251.1 59.1001C251 59.9001 250.7 61.0001 250.4 62.3001C250.1 63.6001 249.7 65.2001 249.2 67.2001C248.8 69.0001 248.4 70.6001 248.1 72.0001C247.8 73.4001 247.5 74.7001 247.3 75.9001C247.1 77.1001 246.8 78.3001 246.6 79.4001C246.4 80.5001 246.2 81.7001 245.9 83.0001C245.1 82.9001 244.2 82.9001 243.4 82.9001H237.6C236.7 82.9001 235.9 82.9001 235 83.0001C235.4 82.1001 235.7 81.2001 235.9 80.3001C236.3 79.0001 236.8 77.4001 237.3 75.7001C237.8 74.0001 238.3 72.1001 238.8 70.2001C239.3 68.3001 239.8 66.4001 240.2 64.7001C240.6 63.0001 241 61.4001 241.3 60.0001C241.5 59.0001 241.7 58.0001 241.7 57.0001C241.8 55.9001 241.4 54.7001 240.6 53.9001C239.7 53.2001 238.6 52.8001 237.5 52.9001C235.5 53.0001 233.7 53.8001 232.3 55.2001C230.3 57.2001 228.9 59.6001 228.2 62.3001C227.8 63.5001 227.4 64.9001 227 66.6001C226.6 68.3001 226.1 70.0001 225.7 71.9001C225.3 73.8001 224.9 75.7001 224.5 77.7001C224.1 79.7001 223.8 81.5001 223.6 83.1001C222.8 83.0001 221.9 83.0001 221.1 83.0001H215.9C215 83.0001 214.2 83.0001 213.3 83.1001C213.9 80.9001 214.6 78.5001 215.2 76.0001C215.8 73.5001 216.5 70.9001 217.1 68.1001C217.7 65.3001 218.4 62.3001 219 59.0001C219.6 55.7001 220.4 52.1001 221.1 48.2001C221.8 48.3001 222.7 48.4001 223.6 48.5001C224.5 48.6001 225.4 48.6001 226.3 48.6001C227.1 48.6001 227.9 48.6001 228.7 48.5001L230.9 48.2001C230.7 48.8001 230.5 49.4001 230.4 49.8001C230.3 50.2001 230.1 50.7001 230 51.1001C229.9 51.5001 229.8 52.0001 229.7 52.5001C229.6 53.0001 229.4 53.6001 229.3 54.3001C230.8 52.2001 232.8 50.5001 235 49.2001C237.3 47.9001 239.8 47.3001 242.4 47.4001C245.5 47.4001 247.7 48.1001 249.2 49.6001C250.6 51.1001 251.4 53.1001 251.3 55.1001C251.5 55.7001 251.5 56.3001 251.4 56.9001Z" fill="white"/>
+        <path d="M284.9 83.2001C283.7 83.6001 282.5 83.7001 281.3 83.7001C280.2 83.7001 279.1 83.5001 278.1 83.1001C277.3 82.8001 276.6 82.3001 276.1 81.7001C275.6 81.2001 275.3 80.6001 275 79.9001C274.8 79.3001 274.6 78.8001 274.5 78.4001C273.6 80.2001 272.2 81.6001 270.5 82.7001C268.7 83.6001 266.6 84.0001 264.6 83.9001C262 84.0001 259.5 83.1001 257.6 81.4001C255.8 79.6001 254.9 77.1001 255 74.5001C255 72.2001 255.7 69.9001 257 68.0001C258.4 66.0001 260.4 64.5001 262.8 63.8001C263.9 63.5001 265.3 63.2001 267 62.9001C268.7 62.7001 270.2 62.4001 271.7 62.2001C272.8 62.1001 273.7 61.9001 274.4 61.8001C275 61.7001 275.6 61.5001 276.1 61.2001C276.5 60.9001 276.8 60.4001 277 59.9001C277.2 59.1001 277.3 58.3001 277.3 57.5001C277.3 56.6001 277.1 55.6001 276.7 54.8001C276.3 54.1001 275.8 53.5001 275.2 53.1001C274.6 52.7001 273.9 52.4001 273.2 52.2001C272.5 52.0001 271.7 51.9001 271 51.9001C269.6 51.9001 268.2 52.1001 266.9 52.6001C265.6 53.2001 264.4 53.8001 263.3 54.6001H262.9C263 53.6001 263.1 52.9001 263.1 52.4001C263.1 51.9001 263.2 51.2001 263.3 50.5001C267.2 48.3001 271.6 47.1001 276.1 47.1001C277.5 47.1001 278.9 47.2001 280.2 47.5001C281.5 47.8001 282.7 48.3001 283.8 49.0001C284.9 49.7001 285.7 50.6001 286.4 51.7001C287.1 53.0001 287.5 54.5001 287.4 56.0001C287.4 57.2001 287.3 58.3001 287.1 59.5001C286.9 60.8001 286.7 61.8001 286.5 62.6001L284.5 71.7001C284.2 73.0001 284 74.2001 283.8 75.5001C283.7 76.3001 283.6 77.0001 283.6 77.4001C283.6 78.1001 283.7 78.7001 284 79.3001C284.2 80.0001 284.9 80.4001 285.6 80.3001C285.8 80.3001 286 80.3001 286.2 80.1001C286.4 80.0001 286.6 79.9001 286.8 79.8001L287.4 81.5001C286.7 82.2001 285.8 82.8001 284.9 83.2001ZM265.9 77.7001C266.5 78.7001 267.7 79.3001 268.9 79.2001C269.9 79.2001 270.9 78.9001 271.7 78.3001C272.4 77.7001 273 76.9001 273.5 76.1001C274 75.2001 274.3 74.2001 274.6 73.2001C274.8 72.1001 275.1 71.1001 275.3 70.2001L276.4 64.6001C274.7 64.8001 273 65.2001 271.4 65.6001C270.3 65.8001 269.3 66.2001 268.4 66.8001C267.2 67.5001 266.3 68.7001 265.9 70.1001C265.4 71.5001 265.2 72.9001 265.2 74.3001C265.1 75.5001 265.3 76.7001 265.9 77.7001Z" fill="white"/>
+      </g>
+      <defs>
+        <clipPath id="logo-clip"><rect width="331.1" height="124.1" fill="white"/></clipPath>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Title + meta -->
+  <div class="hero-inner">
+    <h1>Test Execution Report</h1>
+    <p class="hero-sub">Automated UI Testing — https://departure-luggage-th-dev.myshopify.com/</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Execution Date</span>
+        <span class="value">July 26, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Environment</span>
+        <span class="value">Production</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Browser</span>
+        <span class="value">Chromium</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Duration</span>
+        <span class="value">17s</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ── STAT CARDS ────────────────────────────────────────────── -->
+<div class="stats-wrap">
+  <div class="stat-card total">
+    <span class="stat-label">Total Tests</span>
+    <span class="stat-value">14</span>
+  </div>
+  <div class="stat-card passed">
+    <span class="stat-label">Passed</span>
+    <span class="stat-value">11</span>
+  </div>
+  <div class="stat-card failed">
+    <span class="stat-label">Failed</span>
+    <span class="stat-value">3</span>
+  </div>
+  <div class="stat-card rate">
+    <span class="stat-label">Pass Rate</span>
+    <span class="stat-value">79%</span>
+    <div class="rate-ring">
+      <svg viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="18" stroke="rgba(217,119,6,0.15)" stroke-width="4"/>
+        <circle cx="22" cy="22" r="18" stroke="#d97706" stroke-width="4"
+          stroke-dasharray="113"
+          stroke-dashoffset="24"
+          stroke-linecap="round"
+          transform="rotate(-90 22 22)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS BAR ───────────────────────────────────────────── -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill pass" style="width:79%"></div>
+    <div class="progress-bar-fill fail" style="width:21%"></div>
+  </div>
+</div>
+
+<!-- ── SCENARIOS ──────────────────────────────────────────────── -->
+<main class="content">
+  <p class="section-title">Test Scenarios</p>
+  <div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div class="scenario-info">
+          <div class="scenario-name">01 - Navigate to the Home page at 1440px and verify header/announcement bar load</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://departure-luggage-th-dev.myshopify.com/en</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for main</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Click if present xpath=//button[@aria-label='Close (esc)'] | //*[contains(@class,'popup')]//button[contains(@class,'close')]</td>
+          <td class="result-col">Element not present — skipped</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div class="scenario-info">
+          <div class="scenario-name">02 - Announcement bar: verify background color matches Figma exactly (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=.announcement-bar style background-color = &quot;rgb(255, 119, 13)&quot;</td>
+          <td class="result-col">background-color = &quot;rgb(255, 119, 13)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div class="scenario-info">
+          <div class="scenario-name">03 - Announcement bar text: verify color, font-family, weight, alignment match Figma (correct, no fix needed)</div>
+          <div class="scenario-desc">Included as a documented PASS on every checked property except font-size (test 04) -- color, font-family, weight, and centered alignment all match Figma's spec exactly.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_text → css=.announcement-link-text</td>
+          <td class="result-col">Text contains &quot;Final call for Vista Collection luggage&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=.announcement-link-text style color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td class="result-col">color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=.announcement-link-text style font-weight = &quot;400&quot;</td>
+          <td class="result-col">font-weight = &quot;400&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify css=.announcement-link-text style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div class="scenario-info">
+          <div class="scenario-name">04 - Announcement bar text: verify font-size matches Figma (13px, not 12.4px)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH: Figma specifies a clean 13px for this text; live renders a non-round 12.4px instead (confirmed stable across repeated checks, not a sub-pixel text-reflow artifact) -- roughly 5% smaller than spec, likely a responsive font-size scale/clamp calculation that doesn't land on the intended value at this viewport.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785069875926-0z5q8" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785069875926-0z5q8')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Figma specifies a clean 13px for the announcement text; live renders a non-round 12.4px instead. Confirmed stable across repeated checks (not a text-reflow/sub-pixel artifact) -- the deviation is exactly ~5%, consistent with a responsive font-size scale token (e.g. a <code class="ic">clamp()</code> or viewport-relative calculation) landing slightly under its intended value at this viewport width.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Correct the announcement bar's font-size token/rule to resolve to exactly 13px at 1440px viewport. If it uses a fluid/clamp-based scale, check the scale's reference breakpoint math rather than hardcoding a fixed px value, since other viewports may need the same fix verified.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">5</div>
+        <div class="scenario-info">
+          <div class="scenario-name">05 - Announcement bar: verify slide count (not a bug -- Figma's 2-slide mockup vs live's 1 configured announcement)</div>
+          <div class="scenario-desc">NOT FLAGGED as a defect: Figma's mockup shows prev/next arrows, implying multiple slides, but the live Flickity carousel currently has exactly 1 real announcement configured -- confirmed via `.announcement-slider__slide` count. Flickity correctly omits prev/next arrows entirely when there is nothing to navigate to; this is expected behavior given the current (single) content, not a missing-arrows bug. Same treatment as this engagement's other live-content-count differences (Blog/Press's extra articles, Compare's extra columns) -- a content-driven difference, not a style or functional defect.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify count of css=.announcement-slider__slide = 1</td>
+          <td class="result-col">Count of css=.announcement-slider__slide = 1</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">6</div>
+        <div class="scenario-info">
+          <div class="scenario-name">06 - Logo: verify rendered size matches Figma exactly (74x26px, correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=.header-item--logo img style width = &quot;74px&quot;</td>
+          <td class="result-col">width = &quot;74px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=.header-item--logo img style height = &quot;26px&quot;</td>
+          <td class="result-col">height = &quot;26px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">7</div>
+        <div class="scenario-info">
+          <div class="scenario-name">07 - Verify all 6 nav links show in the correct left-to-right order matching Figma</div>
+          <div class="scenario-desc">Selector note: 5 of these 6 items (&quot;Explore&quot;, &quot;Luggage&quot;, &quot;Bags&quot;, &quot;Accessories&quot;, &quot;About&quot;) are native `&lt;summary&gt;` elements (each nested in a `&lt;details&gt;` disclosure widget powering its mega-menu dropdown) -- only &quot;Stores&quot; (no dropdown) is a genuine `&lt;a&gt;` tag. An initial `//a[...]` xpath only ever matched &quot;Stores&quot; and timed out on the other 5. Fixed by matching `*` (any element) on the shared `site-nav__link--underline` class instead of assuming `&lt;a&gt;`.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: xpath=(//*[contains(@class,'site-nav__link--underline')])[1][normalize-space()='Explore'], xpath=(//*[contains(@class,'site-nav__link--underline')])[2][normalize-space()='Luggage'], xpath=(//*[contains(@class,'site-nav__link--underline')])[3][normalize-space()='Bags'], xpath=(//*[contains(@class,'site-nav__link--underline')])[4][normalize-space()='Accessories'], xpath=(//*[contains(@class,'site-nav__link--underline')])[5][normalize-space()='Stores'], xpath=(//*[contains(@class,'site-nav__link--underline')])[6][normalize-space()='About']</td>
+          <td class="result-col">Visible: xpath=(//*[contains(@class,'site-nav__link--underline')])[1][normalize-space()='Explore'], xpath=(//*[contains(@class,'site-nav__link--underline')])[2][normalize-space()='Luggage'], xpath=(//*[contains(@class,'site-nav__link--underline')])[3][normalize-space()='Bags'], xpath=(//*[contains(@class,'site-nav__link--underline')])[4][normalize-space()='Accessories'], xpath=(//*[contains(@class,'site-nav__link--underline')])[5][normalize-space()='Stores'], xpath=(//*[contains(@class,'site-nav__link--underline')])[6][normalize-space()='About']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">8</div>
+        <div class="scenario-info">
+          <div class="scenario-name">08 - Nav links: verify font-family, size, weight, color match Figma (correct, no fix needed)</div>
+          <div class="scenario-desc">Included as a documented PASS on every checked property except letter-spacing (test 09) -- font-family (Serif), size (16px), weight (300), and color (#444444, NOT the recurring wrong-gray) all match Figma exactly across all 6 links.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=.site-nav__link--underline style font-family = &quot;&quot;Noto Serif&quot;, serif&quot;</td>
+          <td class="result-col">font-family = &quot;&quot;Noto Serif&quot;, serif&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=.site-nav__link--underline style font-size = &quot;16px&quot;</td>
+          <td class="result-col">font-size = &quot;16px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=.site-nav__link--underline style font-weight = &quot;300&quot;</td>
+          <td class="result-col">font-weight = &quot;300&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify css=.site-nav__link--underline style color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td class="result-col">color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">9</div>
+        <div class="scenario-info">
+          <div class="scenario-name">09 - Nav links: verify letter-spacing matches Figma (0, not -0.8px)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH: Figma specifies 0 letter-spacing for these links; the shared `.site-nav__link` class applies -0.8px instead, affecting all 6 top-level nav links identically (one shared CSS rule, not a per-link issue).
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785069875927-u436t" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785069875927-u436t')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Figma specifies 0 letter-spacing for the 6 top-level nav items; the shared <code class="ic">.site-nav__link</code> base class applies -0.8px instead. Confirmed identical across all 6 links (Explore, Luggage, Bags, Accessories, Stores, About) -- one shared CSS rule, not a per-link issue.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Remove or zero out the <code class="ic">letter-spacing: -0.8px</code> declaration on <code class="ic">.site-nav__link</code> (or the shared typography mixin it inherits from). Check whether this same base class is reused elsewhere on the site (e.g. footer nav) before assuming the fix is header-scoped only.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">10</div>
+        <div class="scenario-info">
+          <div class="scenario-name">10 - 'Stores' link: verify it has no dropdown and points to the correct page (correct, no fix needed)</div>
+          <div class="scenario-desc">&quot;Stores&quot; is the only one of the 6 top-nav items that is a genuine `&lt;a&gt;` tag (the other 5 are `&lt;summary&gt;` disclosure triggers, see test 07) -- so `a.site-nav__link--underline` unambiguously targets it without needing a positional index.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=a.site-nav__link--underline @href=&quot;/en/pages/stores&quot;</td>
+          <td class="result-col">@href = &quot;/en/pages/stores&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">11</div>
+        <div class="scenario-info">
+          <div class="scenario-name">11 - 'EN' language selector: verify text, font, weight, size, color match Figma exactly (correct, no fix needed)</div>
+          <div class="scenario-desc">Included as a documented PASS on every checked property -- Figma specifies an unusually bold (700) Serif 16px label for this element (distinct from every other nav link's weight-300 styling), and live matches it exactly. Selector note: `.disclosure-list__label` matches 9 elements sitewide (a hidden mobile-nav duplicate and a footer instance alongside the real header one) -- appending the `:visible` pseudo-class was required, same recurring lesson as PLP/Compare's `:visible`-scoped selectors elsewhere in this engagement.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_text → css=.disclosure-list__label:visible</td>
+          <td class="result-col">Text contains &quot;EN&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=.disclosure-list__label:visible style font-family = &quot;&quot;Noto Serif&quot;, serif&quot;</td>
+          <td class="result-col">font-family = &quot;&quot;Noto Serif&quot;, serif&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=.disclosure-list__label:visible style font-weight = &quot;700&quot;</td>
+          <td class="result-col">font-weight = &quot;700&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify css=.disclosure-list__label:visible style font-size = &quot;16px&quot;</td>
+          <td class="result-col">font-size = &quot;16px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#05</td>
+          <td class="action-col">Verify css=.disclosure-list__label:visible style color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td class="result-col">color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">12</div>
+        <div class="scenario-info">
+          <div class="scenario-name">12 - Verify icon links appear in the correct order matching Figma (Account, Search, Cart)</div>
+          <div class="scenario-desc">Order confirmed via the Figma images API render (not guessed from abstract vector paths) -- Account (person icon), then Search (magnifying glass), then Cart (bag icon), left to right. Live matches this order exactly.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: css=a[href='/en/account'].site-nav__link--icon, css=.js-search-header, css=.js-drawer-open-cart</td>
+          <td class="result-col">Visible: css=a[href='/en/account'].site-nav__link--icon, css=.js-search-header, css=.js-drawer-open-cart</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">13</div>
+        <div class="scenario-info">
+          <div class="scenario-name">13 - Search and Cart icons: verify color matches Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=.js-search-header svg style color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td class="result-col">color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=.js-drawer-open-cart svg style color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td class="result-col">color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">14</div>
+        <div class="scenario-info">
+          <div class="scenario-name">14 - Icon links: verify clickable-area width matches Figma (52px, not 46px)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH: Figma's icon &quot;Link&quot; container frames are 52px wide; live's `.site-nav__link--icon` clickable area computes to 46px wide instead (height matches at 43px) -- confirmed identically on both the Search and Cart icons, so this is a shared class-level sizing difference, not per-icon.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785069875927-597gk" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785069875927-597gk')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Figma's icon &quot;Link&quot; container frames (Account/Search/Cart) are 52px wide; live's <code class="ic">.site-nav__link--icon</code> clickable area computes to 46px wide instead (height matches Figma exactly at 43px). Confirmed identically on both the Search and Cart icons, so this is a shared class-level sizing difference, not per-icon.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Adjust the <code class="ic">.site-nav__link--icon</code> width (or its padding/flex-basis, whichever drives the 46px result) to 52px to match the Figma spec. A 6px difference across 3 icons is a minor but real clickable-area/touch-target shrink from the design.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+</main>
+
+<script>
+  // Toggle steps on click
+  document.querySelectorAll('.scenario-header').forEach(function(h) {
+    h.addEventListener('click', function() {
+      h.closest('.scenario-card').classList.toggle('open');
+    });
+  });
+  // Auto-expand all scenarios on load
+  document.querySelectorAll('.scenario-card').forEach(function(c) {
+    c.classList.add('open');
+  });
+</script>
+
+<style>
+  /* ── hold card ── */
+  .scenario-card.hold { border-left: 4px solid #f59e0b; }
+  .scenario-card.hold .scenario-header { background: #fffbeb; }
+  .scenario-card.hold .scenario-badge  { background:#f59e0b;color:#fff; }
+  .scenario-card.hold .scenario-num    { background:#f59e0b;color:#fff; }
+
+  /* ── hold step row ── */
+  tr.sr-hold td { background: #fffbeb; }
+
+  /* ── hold step-status pill ── */
+  .step-status.hold {
+    background: #f59e0b;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  tr.sr-fail td { background:#fff5f5; }
+  .step-error { margin-top:6px;padding:6px 10px;background:#fff0f0;border-left:3px solid #e53e3e;border-radius:4px; }
+  .step-error-label { display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#e53e3e;margin-bottom:3px; }
+  .step-error code { font-size:11px;color:#c53030;word-break:break-all;white-space:pre-wrap; }
+  .ev-block { margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0; }
+  .ev-hdr { display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px; }
+  .ev-icon { font-size:15px; } .ev-title { font-weight:700;flex:1; }
+  .ev-meta { font-size:11px;opacity:.7; }
+  .ev-zoom-hint { font-size:10px;color:#89b4fa;font-style:italic;opacity:.8; }
+  .ev-body { padding:10px; }
+  .ev-code { border-color:#313244; }
+  .ev-code .ev-hdr { background:#1e1e2e;color:#cdd6f4; }
+  .ev-code-body { background:#181825;padding:6px; }
+  .ev-img { display:block;width:100%;border-radius:4px;cursor:zoom-in;
+    transition:box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,.4);
+    height:auto !important;max-height:none !important; }
+  .ev-img:hover { box-shadow:0 4px 20px rgba(0,0,0,.6); }
+  .ev-ai { border-color:#7c3aed; }
+  .ev-ai-body { background:#faf5ff;padding:14px 16px; }
+  .ai-s { margin-bottom:13px; } .ai-s:last-child { margin-bottom:0; }
+  .ai-lbl { font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.07em;color:#6d28d9;margin-bottom:5px; }
+  .ai-txt { font-size:13px;line-height:1.7;color:#2d3748; }
+  .ai-warn { color:#744210;background:#fefcbf;padding:8px 10px;
+    border-radius:4px;border-left:3px solid #d69e2e; }
+  .ai-txt ul { padding-left:18px;margin:4px 0; }
+  .ai-txt li { margin:2px 0; }
+  .ic { font-family:'Consolas','Monaco',monospace;font-size:11px;
+    background:#ede9fe;color:#4c1d95;padding:1px 5px;border-radius:3px; }
+  .ai-pre { font-family:'Consolas','Monaco',monospace;font-size:12px;
+    padding:10px 14px;border-radius:6px;overflow-x:auto;
+    white-space:pre-wrap;word-break:break-word;line-height:1.6;margin:0; }
+  .bad  { background:#2d0000;color:#fca5a5;border-left:3px solid #dc2626; }
+  .good { background:#052e16;color:#86efac;border-left:3px solid #16a34a; }
+  #zoom-overlay { display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;cursor:zoom-out; }
+  #zoom-overlay.active { display:flex; }
+  #zoom-overlay img { max-width:92vw;max-height:92vh;border-radius:8px;
+    box-shadow:0 8px 48px rgba(0,0,0,.8);cursor:zoom-out;object-fit:contain; }
+  #zoom-overlay .zoom-close { position:absolute;top:16px;right:24px;
+    color:#fff;font-size:28px;font-weight:700;cursor:pointer;
+    line-height:1;opacity:.8;transition:opacity .15s; }
+  #zoom-overlay .zoom-close:hover { opacity:1; }
+  #zoom-overlay .zoom-label { position:absolute;bottom:16px;left:50%;
+    transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:12px;
+    font-family:monospace;background:rgba(0,0,0,.5);padding:4px 12px;
+    border-radius:20px;pointer-events:none; }
+  .result-col { overflow:visible !important;white-space:normal !important;word-break:break-word; }
+  .steps-table { table-layout:fixed;width:100%; }
+  .steps-table th:first-child,.steps-table td:first-child { width:36px;min-width:36px;padding:6px 4px;text-align:center; }
+  .steps-table .action-col { width:20%; }
+  .ev-block,.ev-body,.ev-code-body,.ev-ai-body,.steps-wrap,.ai-txt,.scenario-card { overflow:visible !important; }
+  .ev-code-body { overflow-x:auto; }
+  tr.sr-fail td { overflow:visible !important; }
+</style>
+<div id="zoom-overlay">
+  <span class="zoom-close" onclick="closeZoom()">✕</span>
+  <img id="zoom-img" src="" alt="Zoomed" />
+  <span class="zoom-label">Click anywhere or press Esc to close</span>
+</div>
+<script>
+(function(){
+  window.openZoom=function(id){
+    var img=document.getElementById(id); if(!img)return;
+    document.getElementById('zoom-img').src=img.src;
+    document.getElementById('zoom-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  };
+  window.closeZoom=function(){
+    document.getElementById('zoom-overlay').classList.remove('active');
+    document.body.style.overflow='';
+    setTimeout(function(){document.getElementById('zoom-img').src='';},200);
+  };
+  document.getElementById('zoom-overlay').addEventListener('click',function(e){
+    if(e.target===this||e.target===document.getElementById('zoom-img'))closeZoom();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+})();
+</script>
+</body>
+</html>
