@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Report — Test Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #f4f6f9;
+    --surface:     #ffffff;
+    --surface2:    #eaecf2;
+    --border:      rgba(24, 41, 79, 0.12);
+    --text:        #1a1f2e;
+    --muted:       #6b7592;
+    --brand:       #18294F;
+    --green:       #16a25a;
+    --green-soft:  rgba(22, 162, 90, 0.1);
+    --red:         #dc3545;
+    --red-soft:    rgba(220, 53, 69, 0.1);
+    --amber:       #d97706;
+    --amber-soft:  rgba(217, 119, 6, 0.1);
+    --mono:        'Courier New', monospace;
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  body {
+    font-family: "Instrument Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero {
+    background: #18294F;
+    padding: 0 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 90% at 90% 60%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Logo bar */
+  .hero-logo-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 32px;
+  }
+  .hero-logo-bar svg {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .hero-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 50px;
+    padding: 5px 14px 5px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-live-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Hero content */
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-inner h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hero-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-meta-item .value {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── STAT CARDS ─────────────────────────────────────────── */
+  .stats-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.07);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card.total::before  { background: var(--brand); }
+  .stat-card.passed::before { background: var(--green); }
+  .stat-card.failed::before { background: var(--red); }
+  .stat-card.rate::before   { background: var(--amber); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-card.total  .stat-value { color: var(--brand); }
+  .stat-card.passed .stat-value { color: var(--green); }
+  .stat-card.failed .stat-value { color: var(--red); }
+  .stat-card.rate   .stat-value { color: var(--amber); }
+
+  .rate-ring {
+    position: absolute;
+    right: 18px; bottom: 14px;
+    width: 44px; height: 44px;
+  }
+  .rate-ring svg { width: 100%; height: 100%; }
+
+  /* ── PROGRESS BAR ───────────────────────────────────────── */
+  .progress-bar-wrap {
+    max-width: 960px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: #e2e6ef;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .progress-bar-fill.pass { background: var(--green); }
+  .progress-bar-fill.fail { background: var(--red); }
+
+  /* ── MAIN CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SCENARIO CARD ──────────────────────────────────────── */
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.06);
+  }
+  .scenario-card:hover {
+    border-color: rgba(24,41,79,0.22);
+    box-shadow: 0 2px 8px rgba(24,41,79,0.1);
+  }
+
+  /* Scenario header — brand coloured bar */
+  .scenario-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: #18294F;
+  }
+  .scenario-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .scenario-card.pass .scenario-num { background: rgba(255,255,255,0.12); color: #ffffff; }
+  .scenario-card.fail .scenario-num { background: rgba(240,82,82,0.25);   color: #fca5a5; }
+  .scenario-card.skip .scenario-num { background: rgba(245,166,35,0.2);   color: #fcd34d; }
+
+  .scenario-info { flex: 1; min-width: 0; }
+  .scenario-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .scenario-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .scenario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .scenario-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .scenario-card.pass .scenario-badge { background: rgba(22,162,90,0.2);  color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .scenario-card.fail .scenario-badge { background: rgba(220,53,69,0.2);  color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+  .scenario-card.skip .scenario-badge { background: rgba(217,119,6,0.2);  color: #fcd34d; border: 1px solid rgba(252,211,77,0.3); }
+
+  .scenario-toggle {
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .scenario-card.open .scenario-toggle { transform: rotate(180deg); }
+
+  /* ── STEPS TABLE ─────────────────────────────────────────── */
+  .steps-wrap {
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .scenario-card.open .steps-wrap { display: block; }
+
+  .steps-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .steps-table thead tr { background: #f8f9fc; }
+  .steps-table th {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps-table th:last-child { text-align: center; width: 80px; }
+
+  .steps-table td {
+    padding: 12px 20px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+  }
+  .steps-table tr:last-child td  { border-bottom: none; }
+  .steps-table tr:nth-child(even) { background: #fafbfd; }
+
+  .steps-table td:first-child {
+    width: 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .steps-table td:last-child { text-align: center; }
+  .steps-table .action-col  { color: var(--text); font-weight: 500; }
+  .steps-table .result-col  { color: var(--muted); font-size: 12px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(24,41,79,0.06);
+    border: 1px solid rgba(24,41,79,0.1);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: #18294F;
+  }
+
+  .step-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-status.pass { background: var(--green-soft); color: var(--green); }
+  .step-status.fail { background: var(--red-soft);   color: var(--red); }
+  .step-status.skip { background: var(--amber-soft); color: var(--amber); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero, .stats-wrap, .content { padding-left: 20px; padding-right: 20px; }
+    .hero-inner h1 { font-size: 22px; }
+    .stat-value    { font-size: 28px; }
+    .hero-meta     { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<header class="hero">
+
+  <!-- Logo bar -->
+  <div class="hero-logo-bar">
+    <!-- Kemana logo (inline SVG — always visible, no external file needed) -->
+    <svg width="332" height="125" viewBox="0 0 332 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#logo-clip)">
+        <path d="M325 6V118.1H6V6H325ZM331 0H0V124.1H331V0Z" fill="white"/>
+        <path d="M79 51.4999C77.8 52.4999 76.3 53.5999 74.7 54.9999C74.4 55.2999 73.9 55.7999 73.1 56.4999L70.7 58.5999L68.3 60.6999C67.6 61.3999 67.1 61.7999 66.8 62.0999C67.5 63.8999 68.2 65.8999 69.1 67.9999C70 70.0999 70.7 72.2999 71.5 74.1999C72.3 76.0999 73 77.9999 73.7 79.4999C74.4 80.9999 74.8 82.0999 75.1 82.6999V82.9999C74.4 82.8999 73.7 82.8999 73 82.8999H67C66.1 82.8999 65.3 82.8999 64.4 82.9999C64 81.6999 63.7 80.6999 63.4 79.7999C63.1 78.8999 62.8 77.9999 62.5 76.9999C62.2 75.9999 61.8 74.7999 61.3 73.3999C60.8 71.9999 60.1 70.0999 59.3 67.5999C59.1 67.0999 58.9 66.4999 58.7 65.9999C58.6 65.7999 58.3 65.6999 58.1 65.6999C57.8 65.6999 57.5 65.8999 57.4 66.1999C57.3 66.4999 57.1 67.1999 56.8 68.1999C56.1 71.1999 55.6 73.8999 55.1 76.2999C54.6 78.6999 54.3 80.9999 53.9 83.0999C53.1 82.8999 52.4 82.8999 51.6 82.8999H45.9C45 82.8999 44.1 82.8999 43.2 82.9999C44.9 76.2999 46.5 69.5999 48.1 62.7999C49.7 55.9999 51.1 49.1999 52.5 42.1999C53 39.7999 53.5 37.3999 54 34.7999C54.5 32.4999 54.8 30.1999 55.1 27.8999L57.7 28.1999C58.7 28.2999 59.7 28.2999 60.7 28.2999C61.6 28.2999 62.5 28.2999 63.4 28.1999L65.8 27.8999C64.6 32.5999 63.6 36.9999 62.6 41.0999C61.6 45.1999 60.8 48.7999 60.2 51.8999C59.6 54.9999 58.8 58.3999 58.1 61.9999C58.1 62.3999 58.3 62.6999 58.7 62.6999C59.2 62.5999 59.7 62.2999 60.1 61.8999C60.8 61.3999 61.5 60.7999 62.3 60.0999C64.5 58.0999 66.7 56.1999 68.9 54.2999C71.1 52.3999 73.2 50.2999 75.1 48.0999C75.6 48.1999 76.2 48.2999 76.8 48.3999C77.5 48.4999 78.1 48.4999 78.8 48.4999C79.4 48.4999 80 48.4999 80.6 48.3999L82.1 48.0999L82.2 49.2999C81.3 49.7999 80.3 50.5999 79 51.4999Z" fill="white"/>
+        <path d="M110.3 77.8001C110.1 78.5001 109.7 79.5001 109.3 80.8001C107.7 81.9001 106 82.6001 104.1 83.0001C102.2 83.3001 100.2 83.5001 98.3 83.5001C95.8 83.6001 93.3 83.1001 90.9 82.2001C89 81.4001 87.2 80.2001 85.8 78.7001C84.5 77.2001 83.5 75.4001 82.8 73.5001C82.1 71.5001 81.8 69.4001 81.8 67.3001C81.8 64.9001 82.2 62.5001 83 60.2001C83.8 57.9001 85 55.7001 86.6 53.8001C90.2 49.6001 95.4 47.3001 100.9 47.4001C105.4 47.4001 108.9 48.6001 111.2 51.0001C113.6 53.6001 114.8 57.0001 114.7 60.5001C114.7 61.4001 114.6 62.4001 114.5 63.3001C114.4 64.3001 114.2 65.2001 114.1 66.1001C111 66.0001 108.5 65.9001 106.4 65.9001C104.3 65.9001 102.5 65.8001 100.9 65.8001H95.2C94.4 65.8001 93.4 65.8001 92.3 65.9001C92.2 66.5001 92.1 67.2001 92.1 67.8001C92.1 68.5001 92 69.2001 92 69.9001C91.9 72.4001 92.6 74.9001 94.1 76.9001C95.5 78.7001 97.7 79.5001 100.7 79.5001C102.3 79.5001 103.8 79.2001 105.3 78.6001C107.1 78.0001 108.6 76.9001 109.9 75.5001L111 76.0001C110.8 76.5001 110.6 77.2001 110.3 77.8001ZM104.8 52.3001C104.2 51.1001 102.9 50.5001 101.1 50.5001C100 50.5001 98.8 50.8001 97.9 51.5001C97 52.2001 96.2 53.2001 95.6 54.2001C94.9 55.4001 94.3 56.7001 93.9 58.0001C93.5 59.4001 93.1 60.9001 92.7 62.3001C93.1 62.4001 93.5 62.4001 93.9 62.4001H102.6C103.3 62.4001 104 62.3001 104.8 62.3001C104.9 61.7001 105.1 60.8001 105.3 59.7001C105.5 58.5001 105.6 57.4001 105.6 56.2001C105.8 54.8001 105.5 53.5001 104.8 52.3001Z" fill="white"/>
+        <path d="M125.8 48.5C127.6 48.6 129.4 48.6 131.2 48.5L133.4 48.2001C133.1 49.1001 132.9 50.0001 132.7 50.9001L132.1 53.6C132.6 52.9 133.2 52.3001 133.8 51.7001C134.5 50.9001 135.4 50.3001 136.3 49.7001C137.4 49.0001 138.5 48.5 139.7 48.1C141.1 47.6 142.7 47.4001 144.2 47.4001C146.2 47.3001 148.2 47.9 149.9 49.1C151.5 50.3 152.5 52.2001 152.8 54.2001C154.4 52.3001 156.3 50.6 158.4 49.3C160.5 48 162.9 47.3 165.3 47.3C166.4 47.3 167.5 47.5 168.5 47.8C169.6 48.1 170.6 48.6 171.5 49.3C172.4 50 173.2 50.9001 173.7 51.9001C174.3 53.1001 174.6 54.4001 174.5 55.7001C174.5 56.3001 174.5 56.9 174.4 57.5C174.3 58.2 174.2 58.8 174.1 59.5C173.9 60.2 173.8 61.2 173.5 62.3C173.2 63.4 172.9 64.8001 172.5 66.4001C172.4 66.7001 172.2 67.6 171.9 69C171.6 70.4 171.3 71.9 170.9 73.6C170.5 75.3 170.2 77.1001 169.8 78.9001C169.4 80.7001 169.2 82.1 169 83.2C168.2 83.1 167.3 83.1 166.5 83.1H160.7C159.9 83.1 159.1 83.1 158.3 83.2C159 81.1 159.7 78.6001 160.5 75.9001C161.3 73.2001 161.9 70.6 162.6 68.1C163.3 65.6 163.7 63.3 164.1 61.3C164.4 59.9 164.6 58.5 164.7 57.1C164.7 56 164.4 55.0001 163.7 54.2001C162.9 53.4001 161.8 52.9 160.6 53C160 53 159.4 53.1 158.8 53.3C157.9 53.6 157.2 54 156.5 54.6C155.6 55.4 154.7 56.4 154.1 57.5C153.1 59.1 152.4 60.8 151.9 62.6C151.4 64.3 150.7 66.9 149.9 70.6C149.1 74.3 148.3 78.5001 147.5 83.3001C146.6 83.2001 145.8 83.2 144.9 83.2H139.4C138.6 83.2 137.9 83.2001 137.1 83.3001C137.7 81.4001 138.3 79.1001 139.1 76.4001C139.9 73.7001 140.5 71.0001 141.2 68.4001C141.9 65.8001 142.4 63.5001 142.8 61.4001C143.1 60.0001 143.3 58.5 143.4 57.1C143.5 56 143.1 55 142.3 54.3C141.5 53.7 140.4 53.3001 139.4 53.4001C137.4 53.4001 135.4 54.3 134.1 55.8C132.4 57.8 131.2 60.1 130.5 62.6C130.4 63 130.1 63.8001 129.8 64.9001C129.5 66.0001 129.2 67.5001 128.7 69.3001C128.2 71.1001 127.8 73.2 127.3 75.6C126.8 78 126.3 80.6001 125.9 83.4001C125 83.3001 124.2 83.3001 123.3 83.3001H118C117.2 83.3001 116.4 83.3001 115.6 83.4001C116.2 81.2001 116.8 79.1001 117.2 77.3001C117.6 75.5001 118.1 73.6 118.5 71.7C118.9 69.8 119.4 67.6001 119.9 65.3001C120.4 63.0001 121 60 121.8 56.6C122 55.3 122.2 54.3 122.4 53.5C122.6 52.7 122.7 52 122.8 51.5C122.9 51 123 50.4 123.1 50C123.2 49.6 123.3 49.1 123.4 48.6C124.2 48.4 125 48.3 125.8 48.5Z" fill="white"/>
+        <path d="M207.9 83.2001C206.7 83.6001 205.5 83.7001 204.3 83.7001C203.2 83.7001 202 83.5001 201 83.1001C200.2 82.8001 199.6 82.3001 199 81.7001C198.5 81.2001 198.2 80.6001 197.9 79.9001C197.7 79.3001 197.5 78.8001 197.4 78.4001C196.5 80.2001 195.1 81.6001 193.4 82.7001C191.6 83.6001 189.5 84.0001 187.5 83.9001C184.9 84.0001 182.4 83.1001 180.5 81.4001C178.7 79.6001 177.8 77.1001 177.9 74.5001C177.9 72.2001 178.6 69.9001 179.9 68.0001C181.3 66.0001 183.3 64.5001 185.7 63.8001C186.8 63.5001 188.2 63.2001 189.9 62.9001C191.5 62.7001 193.1 62.4001 194.6 62.2001C195.7 62.1001 196.6 61.9001 197.3 61.8001C197.9 61.7001 198.5 61.5001 199 61.2001C199.4 60.9001 199.7 60.4001 199.9 59.9001C200.1 59.1001 200.2 58.3001 200.2 57.5001C200.2 56.6001 200 55.6001 199.6 54.8001C199.2 54.1001 198.7 53.5001 198.1 53.1001C197.5 52.7001 196.8 52.4001 196.1 52.2001C195.4 52.0001 194.6 51.9001 193.9 51.9001C192.5 51.9001 191.1 52.1001 189.8 52.6001C188.5 53.2001 187.3 53.8001 186.2 54.6001H185.8C185.9 53.6001 186 52.9001 186 52.4001C186 51.9001 186.1 51.2001 186.1 50.5001C190 48.3001 194.4 47.1001 198.9 47.1001C200.3 47.1001 201.7 47.2001 203 47.5001C204.3 47.8001 205.5 48.3001 206.6 49.0001C207.7 49.7001 208.5 50.6001 209.2 51.7001C209.9 53.0001 210.3 54.5001 210.2 56.0001C210.2 57.2001 210.1 58.3001 209.9 59.5001C209.7 60.8001 209.5 61.8001 209.3 62.6001L207.3 71.7001C207 73.0001 206.8 74.2001 206.6 75.5001C206.5 76.1001 206.5 76.8001 206.5 77.4001C206.5 78.1001 206.6 78.7001 206.9 79.3001C207.1 80.0001 207.8 80.4001 208.5 80.3001C208.7 80.3001 208.9 80.3001 209.1 80.1001C209.3 80.0001 209.4 79.9001 209.6 79.8001L210.2 81.5001C209.6 82.2001 208.8 82.8001 207.9 83.2001ZM188.9 77.7001C189.5 78.7001 190.7 79.3001 191.9 79.2001C192.9 79.2001 193.9 78.9001 194.7 78.3001C195.4 77.7001 196 76.9001 196.5 76.1001C197 75.2001 197.3 74.2001 197.6 73.2001C197.8 72.1001 198.1 71.1001 198.3 70.2001L199.4 64.6001C197.7 64.8001 196 65.2001 194.4 65.6001C193.3 65.8001 192.3 66.2001 191.4 66.8001C190.2 67.5001 189.3 68.7001 188.9 70.1001C188.4 71.5001 188.2 72.9001 188.2 74.3001C188 75.5001 188.3 76.7001 188.9 77.7001Z" fill="white"/>
+        <path d="M251.4 56.9001C251.3 57.5001 251.2 58.3001 251.1 59.1001C251 59.9001 250.7 61.0001 250.4 62.3001C250.1 63.6001 249.7 65.2001 249.2 67.2001C248.8 69.0001 248.4 70.6001 248.1 72.0001C247.8 73.4001 247.5 74.7001 247.3 75.9001C247.1 77.1001 246.8 78.3001 246.6 79.4001C246.4 80.5001 246.2 81.7001 245.9 83.0001C245.1 82.9001 244.2 82.9001 243.4 82.9001H237.6C236.7 82.9001 235.9 82.9001 235 83.0001C235.4 82.1001 235.7 81.2001 235.9 80.3001C236.3 79.0001 236.8 77.4001 237.3 75.7001C237.8 74.0001 238.3 72.1001 238.8 70.2001C239.3 68.3001 239.8 66.4001 240.2 64.7001C240.6 63.0001 241 61.4001 241.3 60.0001C241.5 59.0001 241.7 58.0001 241.7 57.0001C241.8 55.9001 241.4 54.7001 240.6 53.9001C239.7 53.2001 238.6 52.8001 237.5 52.9001C235.5 53.0001 233.7 53.8001 232.3 55.2001C230.3 57.2001 228.9 59.6001 228.2 62.3001C227.8 63.5001 227.4 64.9001 227 66.6001C226.6 68.3001 226.1 70.0001 225.7 71.9001C225.3 73.8001 224.9 75.7001 224.5 77.7001C224.1 79.7001 223.8 81.5001 223.6 83.1001C222.8 83.0001 221.9 83.0001 221.1 83.0001H215.9C215 83.0001 214.2 83.0001 213.3 83.1001C213.9 80.9001 214.6 78.5001 215.2 76.0001C215.8 73.5001 216.5 70.9001 217.1 68.1001C217.7 65.3001 218.4 62.3001 219 59.0001C219.6 55.7001 220.4 52.1001 221.1 48.2001C221.8 48.3001 222.7 48.4001 223.6 48.5001C224.5 48.6001 225.4 48.6001 226.3 48.6001C227.1 48.6001 227.9 48.6001 228.7 48.5001L230.9 48.2001C230.7 48.8001 230.5 49.4001 230.4 49.8001C230.3 50.2001 230.1 50.7001 230 51.1001C229.9 51.5001 229.8 52.0001 229.7 52.5001C229.6 53.0001 229.4 53.6001 229.3 54.3001C230.8 52.2001 232.8 50.5001 235 49.2001C237.3 47.9001 239.8 47.3001 242.4 47.4001C245.5 47.4001 247.7 48.1001 249.2 49.6001C250.6 51.1001 251.4 53.1001 251.3 55.1001C251.5 55.7001 251.5 56.3001 251.4 56.9001Z" fill="white"/>
+        <path d="M284.9 83.2001C283.7 83.6001 282.5 83.7001 281.3 83.7001C280.2 83.7001 279.1 83.5001 278.1 83.1001C277.3 82.8001 276.6 82.3001 276.1 81.7001C275.6 81.2001 275.3 80.6001 275 79.9001C274.8 79.3001 274.6 78.8001 274.5 78.4001C273.6 80.2001 272.2 81.6001 270.5 82.7001C268.7 83.6001 266.6 84.0001 264.6 83.9001C262 84.0001 259.5 83.1001 257.6 81.4001C255.8 79.6001 254.9 77.1001 255 74.5001C255 72.2001 255.7 69.9001 257 68.0001C258.4 66.0001 260.4 64.5001 262.8 63.8001C263.9 63.5001 265.3 63.2001 267 62.9001C268.7 62.7001 270.2 62.4001 271.7 62.2001C272.8 62.1001 273.7 61.9001 274.4 61.8001C275 61.7001 275.6 61.5001 276.1 61.2001C276.5 60.9001 276.8 60.4001 277 59.9001C277.2 59.1001 277.3 58.3001 277.3 57.5001C277.3 56.6001 277.1 55.6001 276.7 54.8001C276.3 54.1001 275.8 53.5001 275.2 53.1001C274.6 52.7001 273.9 52.4001 273.2 52.2001C272.5 52.0001 271.7 51.9001 271 51.9001C269.6 51.9001 268.2 52.1001 266.9 52.6001C265.6 53.2001 264.4 53.8001 263.3 54.6001H262.9C263 53.6001 263.1 52.9001 263.1 52.4001C263.1 51.9001 263.2 51.2001 263.3 50.5001C267.2 48.3001 271.6 47.1001 276.1 47.1001C277.5 47.1001 278.9 47.2001 280.2 47.5001C281.5 47.8001 282.7 48.3001 283.8 49.0001C284.9 49.7001 285.7 50.6001 286.4 51.7001C287.1 53.0001 287.5 54.5001 287.4 56.0001C287.4 57.2001 287.3 58.3001 287.1 59.5001C286.9 60.8001 286.7 61.8001 286.5 62.6001L284.5 71.7001C284.2 73.0001 284 74.2001 283.8 75.5001C283.7 76.3001 283.6 77.0001 283.6 77.4001C283.6 78.1001 283.7 78.7001 284 79.3001C284.2 80.0001 284.9 80.4001 285.6 80.3001C285.8 80.3001 286 80.3001 286.2 80.1001C286.4 80.0001 286.6 79.9001 286.8 79.8001L287.4 81.5001C286.7 82.2001 285.8 82.8001 284.9 83.2001ZM265.9 77.7001C266.5 78.7001 267.7 79.3001 268.9 79.2001C269.9 79.2001 270.9 78.9001 271.7 78.3001C272.4 77.7001 273 76.9001 273.5 76.1001C274 75.2001 274.3 74.2001 274.6 73.2001C274.8 72.1001 275.1 71.1001 275.3 70.2001L276.4 64.6001C274.7 64.8001 273 65.2001 271.4 65.6001C270.3 65.8001 269.3 66.2001 268.4 66.8001C267.2 67.5001 266.3 68.7001 265.9 70.1001C265.4 71.5001 265.2 72.9001 265.2 74.3001C265.1 75.5001 265.3 76.7001 265.9 77.7001Z" fill="white"/>
+      </g>
+      <defs>
+        <clipPath id="logo-clip"><rect width="331.1" height="124.1" fill="white"/></clipPath>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Title + meta -->
+  <div class="hero-inner">
+    <h1>Test Execution Report</h1>
+    <p class="hero-sub">Automated UI Testing — https://departure-luggage-th-dev.myshopify.com/</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Execution Date</span>
+        <span class="value">July 26, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Environment</span>
+        <span class="value">Production</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Browser</span>
+        <span class="value">Chromium</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Duration</span>
+        <span class="value">19s</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ── STAT CARDS ────────────────────────────────────────────── -->
+<div class="stats-wrap">
+  <div class="stat-card total">
+    <span class="stat-label">Total Tests</span>
+    <span class="stat-value">17</span>
+  </div>
+  <div class="stat-card passed">
+    <span class="stat-label">Passed</span>
+    <span class="stat-value">10</span>
+  </div>
+  <div class="stat-card failed">
+    <span class="stat-label">Failed</span>
+    <span class="stat-value">7</span>
+  </div>
+  <div class="stat-card rate">
+    <span class="stat-label">Pass Rate</span>
+    <span class="stat-value">59%</span>
+    <div class="rate-ring">
+      <svg viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="18" stroke="rgba(217,119,6,0.15)" stroke-width="4"/>
+        <circle cx="22" cy="22" r="18" stroke="#d97706" stroke-width="4"
+          stroke-dasharray="113"
+          stroke-dashoffset="46"
+          stroke-linecap="round"
+          transform="rotate(-90 22 22)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS BAR ───────────────────────────────────────────── -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill pass" style="width:59%"></div>
+    <div class="progress-bar-fill fail" style="width:41%"></div>
+  </div>
+</div>
+
+<!-- ── SCENARIOS ──────────────────────────────────────────────── -->
+<main class="content">
+  <p class="section-title">Test Scenarios</p>
+  <div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div class="scenario-info">
+          <div class="scenario-name">01 - Navigate to the Home page at 375px and scroll footer into view</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://departure-luggage-th-dev.myshopify.com/en</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for main</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Click if present xpath=//button[@aria-label='Close (esc)'] | //*[contains(@class,'popup')]//button[contains(@class,'close')]</td>
+          <td class="result-col">Element not present — skipped</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Scroll to css=footer.site-footer</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div class="scenario-info">
+          <div class="scenario-name">02 - Footer background: verify color matches Figma exactly (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=footer.site-footer style background-color = &quot;rgb(95, 92, 92)&quot;</td>
+          <td class="result-col">background-color = &quot;rgb(95, 92, 92)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div class="scenario-info">
+          <div class="scenario-name">03 - Verify all 5 column headings show the correct text (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: xpath=(//h2[contains(@class,'footer__title')])[1][normalize-space()='Be in the know'], xpath=(//h2[contains(@class,'footer__title')])[2][normalize-space()='Shop'], xpath=(//h2[contains(@class,'footer__title')])[3][normalize-space()='About'], xpath=(//h2[contains(@class,'footer__title')])[4][normalize-space()='Help'], xpath=(//h2[contains(@class,'footer__title')])[5][normalize-space()='More']</td>
+          <td class="result-col">Visible: xpath=(//h2[contains(@class,'footer__title')])[1][normalize-space()='Be in the know'], xpath=(//h2[contains(@class,'footer__title')])[2][normalize-space()='Shop'], xpath=(//h2[contains(@class,'footer__title')])[3][normalize-space()='About'], xpath=(//h2[contains(@class,'footer__title')])[4][normalize-space()='Help'], xpath=(//h2[contains(@class,'footer__title')])[5][normalize-space()='More']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div class="scenario-info">
+          <div class="scenario-name">04 - Column headings: verify color matches Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify xpath=//h2[contains(@class,'footer__title')][normalize-space()='Shop'] style color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td class="result-col">color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">5</div>
+        <div class="scenario-info">
+          <div class="scenario-name">05 - Column headings: verify font-family matches Figma (Serif, not Sans)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH -- reproduces the identical 1440 desktop finding: Figma specifies Noto Serif for all 5 column headings; live renders Noto Sans instead, on the shared `.footer__title` class.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925589-97bfy" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925589-97bfy')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Reproduces the identical 1440 desktop finding: Figma specifies Noto Serif for all 5 column headings on the shared <code class="ic">.footer__title</code> class; live renders Noto Sans instead, at both breakpoints.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Fix the shared <code class="ic">.footer__title</code> font-family rule at its source once -- confirmed identical at 1440px and 375px, so a single breakpoint-independent fix resolves it everywhere.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">6</div>
+        <div class="scenario-info">
+          <div class="scenario-name">06 - 'Shop' column: verify all 9 links show in the correct order matching Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[1][normalize-space()='All Products'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[2][normalize-space()='Carry-On Luggage'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[3][normalize-space()='Check-In Luggage'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[4][normalize-space()='Bags'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[5][normalize-space()='Backpacks'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[6][normalize-space()='Accessories'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[7][normalize-space()='Collection Guide'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[8][normalize-space()='Carry-On Guide'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[9][normalize-space()='Check-In Guide']</td>
+          <td class="result-col">Visible: xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[1][normalize-space()='All Products'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[2][normalize-space()='Carry-On Luggage'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[3][normalize-space()='Check-In Luggage'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[4][normalize-space()='Bags'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[5][normalize-space()='Backpacks'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[6][normalize-space()='Accessories'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[7][normalize-space()='Collection Guide'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[8][normalize-space()='Carry-On Guide'], xpath=(//div[@data-type='menu'][.//h2[normalize-space()='Shop']]//a)[9][normalize-space()='Check-In Guide']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">7</div>
+        <div class="scenario-info">
+          <div class="scenario-name">07 - Link items: verify font-family, weight, color match Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify xpath=//a[normalize-space()='All Products'] style font-family = &quot;&quot;Noto Sans&quot;, sans-serif&quot;</td>
+          <td class="result-col">font-family = &quot;&quot;Noto Sans&quot;, sans-serif&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify xpath=//a[normalize-space()='All Products'] style font-weight = &quot;400&quot;</td>
+          <td class="result-col">font-weight = &quot;400&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify xpath=//a[normalize-space()='All Products'] style color = &quot;rgb(179, 179, 179)&quot;</td>
+          <td class="result-col">color = &quot;rgb(179, 179, 179)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">8</div>
+        <div class="scenario-info">
+          <div class="scenario-name">08 - Link items: verify font-size matches Figma's mobile spec (12px, not 12.6px)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH, minor: Figma's mobile frame specifies a clean 12px for footer link items (distinct from the 1440 desktop spec of 13px). Live renders 12.6px at BOTH breakpoints -- meaning live's value is fixed/non-responsive here, landing closer to the desktop target and further from the mobile one.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925590-04ye1" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925590-04ye1')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Figma's mobile frame specifies a clean 12px for footer link items (distinct from the 1440 desktop spec of 13px). Live renders 12.6px at BOTH breakpoints -- the value appears to be a fixed/non-responsive font-size rather than one that scales per breakpoint like Figma intends.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Make the footer link item font-size responsive to match Figma's per-breakpoint values (13px desktop / 12px mobile), rather than a single fixed value that only approximately splits the difference.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">9</div>
+        <div class="scenario-info">
+          <div class="scenario-name">09 - 'Help' column: CONFIRMED BUG -- an extra 'Warranty' link not present in Figma's 4-item spec</div>
+          <div class="scenario-desc">Reproduces the identical 1440 desktop finding: Figma's &quot;Help&quot; column has exactly 4 links; live has 5, an extra &quot;Warranty&quot; link (href /en/pages/warranty) duplicating the &quot;About&quot; column's &quot;Our Warranty&quot; link.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925591-pa4s5" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925591-pa4s5')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Reproduces the identical 1440 desktop finding: an extra &quot;Warranty&quot; link (href /en/pages/warranty) appears in the Help menu, duplicating the About column's &quot;Our Warranty&quot; link. This is content/navigation-menu data shared across breakpoints, not a style issue, so it reproduces identically on mobile.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Remove the extra &quot;Warranty&quot; menu item from the Help footer menu in the Shopify theme editor/navigation settings -- the same content fix applies at every breakpoint since it's the same underlying menu.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">10</div>
+        <div class="scenario-info">
+          <div class="scenario-name">10 - 'More' column: CONFIRMED BUG -- 'SCT Act Disclosure' missing, replaced by a dead 'Cookie Policy' link</div>
+          <div class="scenario-desc">Reproduces the identical 1440 desktop finding: Figma's &quot;More&quot; column is Privacy Policy, Terms &amp; Conditions, SCT Act Disclosure. Live shows Privacy Policy, Cookie Policy (href=&quot;/en#&quot;, dead), Terms &amp; Conditions instead -- &quot;SCT Act Disclosure&quot; is missing entirely.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925591-er5we" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925591-er5we')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Reproduces the identical 1440 desktop finding: &quot;SCT Act Disclosure&quot; is missing from the More menu, replaced by a &quot;Cookie Policy&quot; link with href=&quot;/en#&quot; (a dead placeholder). Same underlying navigation menu data as desktop.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Add back the &quot;SCT Act Disclosure&quot; page link, and either point &quot;Cookie Policy&quot; at a real page or remove it if it was never meant to ship -- same fix as the desktop finding, applies at every breakpoint.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">11</div>
+        <div class="scenario-info">
+          <div class="scenario-name">11 - Newsletter heading/subtext: verify text and color match Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_text → xpath=(//h2[contains(@class,'footer__title')])[1]</td>
+          <td class="result-col">Text contains &quot;Be in the know&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">verify_text → xpath=//p[contains(normalize-space(),'Follow along for new releases')]</td>
+          <td class="result-col">Text contains &quot;Follow along for new releases, special moments, and thoughtful updates.&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">12</div>
+        <div class="scenario-info">
+          <div class="scenario-name">12 - Newsletter input: verify color matches Figma, but font-family is wrong (Serif, not Sans)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH, opposite direction from the column-heading bug (same as the 1440 desktop finding): Figma specifies Noto SANS for the email input; live renders Noto SERIF instead. Color (#f2f2f2) correctly matches.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925592-j5631" src="data:image/png;base64,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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925592-j5631')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Reproduces the identical 1440 desktop finding, opposite direction from the column-heading bug: Figma specifies Noto Sans for the email input; live renders Noto Serif instead, at both breakpoints. Color (#f2f2f2) is correct.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Correct the newsletter email input's font-family to Noto Sans -- same fix needed at both breakpoints since this is a shared input style, not scoped to one viewport.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">13</div>
+        <div class="scenario-info">
+          <div class="scenario-name">13 - Verify all 6 social icons show in the correct order matching Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: xpath=(//*[contains(@class,'footer__social')]//a)[1][contains(@title,'Instagram')], xpath=(//*[contains(@class,'footer__social')]//a)[2][contains(@title,'Facebook')], xpath=(//*[contains(@class,'footer__social')]//a)[3][contains(@title,'Pinterest')], xpath=(//*[contains(@class,'footer__social')]//a)[4][contains(@title,'TikTok')], xpath=(//*[contains(@class,'footer__social')]//a)[5][contains(@title,'LinkedIn')], xpath=(//*[contains(@class,'footer__social')]//a)[6][contains(@title,'Line')]</td>
+          <td class="result-col">Visible: xpath=(//*[contains(@class,'footer__social')]//a)[1][contains(@title,'Instagram')], xpath=(//*[contains(@class,'footer__social')]//a)[2][contains(@title,'Facebook')], xpath=(//*[contains(@class,'footer__social')]//a)[3][contains(@title,'Pinterest')], xpath=(//*[contains(@class,'footer__social')]//a)[4][contains(@title,'TikTok')], xpath=(//*[contains(@class,'footer__social')]//a)[5][contains(@title,'LinkedIn')], xpath=(//*[contains(@class,'footer__social')]//a)[6][contains(@title,'Line')]</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">14</div>
+        <div class="scenario-info">
+          <div class="scenario-name">14 - Copyright text: verify color and alignment match Figma (correct, no fix needed)</div>
+          <div class="scenario-desc">Alignment note: Figma's mobile frame specifies CENTER for this text (a different, intentional choice from the 1440 desktop spec's LEFT) -- live correctly matches CENTER here, just as it correctly matched LEFT at 1440px. Both breakpoints are independently correct on this property.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=p.copyright-text style color = &quot;rgb(242, 242, 242)&quot;</td>
+          <td class="result-col">color = &quot;rgb(242, 242, 242)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=p.copyright-text style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">15</div>
+        <div class="scenario-info">
+          <div class="scenario-name">15 - Copyright text: verify font-size matches Figma's mobile spec (13.6px, not 10.9px)</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH: Figma's mobile frame specifies 13.6px for the copyright line (its own mobile-scaled value, distinct from the 1440 desktop spec of 16px); live renders 10.9px at BOTH breakpoints (the exact same value confirmed on the 1440 desktop pass) -- meaning live's value is fixed/non-responsive, not scaling per breakpoint like the correct Figma spec does.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925592-ke517" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAVQAAAAhCAIAAAAJaMQkAAADFElEQVR4nOzcO0gjQRwG8IlEYuIbRVAQsRK0sLCzPS1PEERQTuUatRKvUPAFgqD4KBQsjhM5EMFWEOwsRLC2UEQtRNIkkCbvhLzuw70LIS8um1su8f/9imVnsju7MztfNglLzF/GxpRSiURCZUDlz5MTpUs8Hg8Gg9XV1fk329nZub6+Tq3p6elZX1+32+1ra2vz8/P9/f1a/e3t7f7+/sbGRldXF4o3NzcohkKhlpaWvb29pqaml5eXg4OD19dXbfuOjo7V1dW2tra0HbOKRqObm5uPj49YdnZ2Juvf3t62t7exxLrNZhsdHR0eHjabzSi6XC5s/PT0hPXa2tqJiYmrq6uRkRGccCAQQBeam5sXFxdzHdHhcBweHt7d3Wkj39DQsLKy0t3djQbTOo4hwjLZFDbY2tpaWlpCd5xOJ/qldbm1tXV2dvbs7Gx6ehovpbaT2Wbq+KMjOFv0DsW0Mw+Hw2jw4uIC44xiZWUlRmB8fDxrB3HFLy8vT09PvV4vihUVFQMDAzgli8WiCuH3+7/NzSn648fxsdLr6+SkyWTKrNcqTf83/MVAYjHPEDwtjRrMSxy3pqamoDmHpnZ3d7GysLCQ2lqyzUgkUldXlzmOeAkJqa+vx1xXhcO+Pp/ParVq2dMHLcRisayn90/gUrrdbnTwbw6BOePxeLCL7jFh+NMYF36zKltIaWNjY1ql7Z0qED5oPDw8zMzMZCZfazPXjvoOl2R5p4qDdzplJGQ4c5xzwaxC7BWVgzIOf/Fww7+/v8fn3vPz8/b29r6+PkUkhvTw42vq8/Nzb2/v1NRUMfdworIjOvxVVVXLy8uKSCQ9P8kQ0QfA8BMJxfATCcXwEwnF8BMJxfATCcXwEwnF8BMJxfATCcXwEwkl+vFeohL3aXBQGcbY8Pv9fkVEuiD5n4eGlGEMDL/ValVEhft+dKTvj0CoIEaFnxePqMT9jqhB/wBFRKUmGXben4mEYviJhGL4iYRi+ImEYviJhGL4iYRi+ImEYviJhMr3hB+f/CEqa/kjzDs/kVAMP5FQDD+RUL8AAAD//yRQ8CcAAAAGSURBVAMAHcg1/wSeDu8AAAAASUVORK5CYII=" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925592-ke517')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Figma's mobile frame specifies 13.6px for the copyright line (its own mobile-scaled value, distinct from the 1440 desktop spec of 16px). Live renders 10.9px at BOTH breakpoints -- the exact same value seen on the 1440 desktop pass, confirming this is a fixed/non-responsive font-size, not one that scales per breakpoint like Figma intends.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Make the copyright text font-size responsive to match Figma's per-breakpoint values (16px desktop / 13.6px mobile) instead of a single fixed 10.9px value used everywhere.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">16</div>
+        <div class="scenario-info">
+          <div class="scenario-name">16 - Footer 'EN' language selector: verify weight and color match Figma (correct, no fix needed)</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=footer .disclosure-list__label style font-weight = &quot;700&quot;</td>
+          <td class="result-col">font-weight = &quot;700&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=footer .disclosure-list__label style color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td class="result-col">color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">17</div>
+        <div class="scenario-info">
+          <div class="scenario-name">17 - Footer 'EN' language selector: verify font-size matches Figma's mobile spec (13.6px, not 16px)</div>
+          <div class="scenario-desc">NEW MOBILE-SPECIFIC FINDING, not present at 1440px (where this exact property was a confirmed PASS -- Figma's desktop spec is 16px and live matches it there). Figma's mobile frame specifies a smaller 13.6px for this element, appropriately scaled down for the narrower viewport -- but live renders 16px regardless of breakpoint, i.e. it simply doesn't scale down for mobile the way the rest of this component's typography does.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785085925593-kqgzn" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABgAAAAZCAIAAACkSXkKAAAA1ElEQVR4nOySLQvCQBzGz5cFFWGGKwbNLgwMBhFcMfgRFiaWyURYsciKYNmwzKplMET0E4yBGNxHMPgBDAti0CKMQ/AGJ8KwuTK4J9wLD/zud/DPBkEA4kgaxBQKoiAKShgo1ZckvHW1lcjlAfC93sQiFacutNp1OzIcAGR93XhslLlLOn5ojlswPD3PO8VwP0aQzTGRF2BTqJTA/eaElzZbwGvm256WtuejiNF+ZnWqzG9hbHgomiIPGUx5IXQ5DqY26eqyrgplRIzI1/4PnaMkgt4AAAD//8cyjtEAAAAGSURBVAMAPa017RkJ2VIAAAAASUVORK5CYII=" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785085925593-kqgzn')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">NEW finding, not present at 1440px (where this exact property is a confirmed PASS -- Figma's desktop spec is 16px and live matches it there). Figma's mobile frame specifies a smaller 13.6px for this element, appropriately scaled down for the narrower viewport, but live renders 16px regardless of breakpoint -- it simply does not scale down for mobile the way the rest of this component's typography does.</div></div>
+      
+      
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Add a mobile-breakpoint override to shrink the <code class="ic">.disclosure-list__label</code> font-size to 13.6px at narrow viewports, matching how the surrounding footer typography already scales down for mobile elsewhere.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+</main>
+
+<script>
+  // Toggle steps on click
+  document.querySelectorAll('.scenario-header').forEach(function(h) {
+    h.addEventListener('click', function() {
+      h.closest('.scenario-card').classList.toggle('open');
+    });
+  });
+  // Auto-expand all scenarios on load
+  document.querySelectorAll('.scenario-card').forEach(function(c) {
+    c.classList.add('open');
+  });
+</script>
+
+<style>
+  /* ── hold card ── */
+  .scenario-card.hold { border-left: 4px solid #f59e0b; }
+  .scenario-card.hold .scenario-header { background: #fffbeb; }
+  .scenario-card.hold .scenario-badge  { background:#f59e0b;color:#fff; }
+  .scenario-card.hold .scenario-num    { background:#f59e0b;color:#fff; }
+
+  /* ── hold step row ── */
+  tr.sr-hold td { background: #fffbeb; }
+
+  /* ── hold step-status pill ── */
+  .step-status.hold {
+    background: #f59e0b;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  tr.sr-fail td { background:#fff5f5; }
+  .step-error { margin-top:6px;padding:6px 10px;background:#fff0f0;border-left:3px solid #e53e3e;border-radius:4px; }
+  .step-error-label { display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#e53e3e;margin-bottom:3px; }
+  .step-error code { font-size:11px;color:#c53030;word-break:break-all;white-space:pre-wrap; }
+  .ev-block { margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0; }
+  .ev-hdr { display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px; }
+  .ev-icon { font-size:15px; } .ev-title { font-weight:700;flex:1; }
+  .ev-meta { font-size:11px;opacity:.7; }
+  .ev-zoom-hint { font-size:10px;color:#89b4fa;font-style:italic;opacity:.8; }
+  .ev-body { padding:10px; }
+  .ev-code { border-color:#313244; }
+  .ev-code .ev-hdr { background:#1e1e2e;color:#cdd6f4; }
+  .ev-code-body { background:#181825;padding:6px; }
+  .ev-img { display:block;width:100%;border-radius:4px;cursor:zoom-in;
+    transition:box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,.4);
+    height:auto !important;max-height:none !important; }
+  .ev-img:hover { box-shadow:0 4px 20px rgba(0,0,0,.6); }
+  .ev-ai { border-color:#7c3aed; }
+  .ev-ai-body { background:#faf5ff;padding:14px 16px; }
+  .ai-s { margin-bottom:13px; } .ai-s:last-child { margin-bottom:0; }
+  .ai-lbl { font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.07em;color:#6d28d9;margin-bottom:5px; }
+  .ai-txt { font-size:13px;line-height:1.7;color:#2d3748; }
+  .ai-warn { color:#744210;background:#fefcbf;padding:8px 10px;
+    border-radius:4px;border-left:3px solid #d69e2e; }
+  .ai-txt ul { padding-left:18px;margin:4px 0; }
+  .ai-txt li { margin:2px 0; }
+  .ic { font-family:'Consolas','Monaco',monospace;font-size:11px;
+    background:#ede9fe;color:#4c1d95;padding:1px 5px;border-radius:3px; }
+  .ai-pre { font-family:'Consolas','Monaco',monospace;font-size:12px;
+    padding:10px 14px;border-radius:6px;overflow-x:auto;
+    white-space:pre-wrap;word-break:break-word;line-height:1.6;margin:0; }
+  .bad  { background:#2d0000;color:#fca5a5;border-left:3px solid #dc2626; }
+  .good { background:#052e16;color:#86efac;border-left:3px solid #16a34a; }
+  #zoom-overlay { display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;cursor:zoom-out; }
+  #zoom-overlay.active { display:flex; }
+  #zoom-overlay img { max-width:92vw;max-height:92vh;border-radius:8px;
+    box-shadow:0 8px 48px rgba(0,0,0,.8);cursor:zoom-out;object-fit:contain; }
+  #zoom-overlay .zoom-close { position:absolute;top:16px;right:24px;
+    color:#fff;font-size:28px;font-weight:700;cursor:pointer;
+    line-height:1;opacity:.8;transition:opacity .15s; }
+  #zoom-overlay .zoom-close:hover { opacity:1; }
+  #zoom-overlay .zoom-label { position:absolute;bottom:16px;left:50%;
+    transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:12px;
+    font-family:monospace;background:rgba(0,0,0,.5);padding:4px 12px;
+    border-radius:20px;pointer-events:none; }
+  .result-col { overflow:visible !important;white-space:normal !important;word-break:break-word; }
+  .steps-table { table-layout:fixed;width:100%; }
+  .steps-table th:first-child,.steps-table td:first-child { width:36px;min-width:36px;padding:6px 4px;text-align:center; }
+  .steps-table .action-col { width:20%; }
+  .ev-block,.ev-body,.ev-code-body,.ev-ai-body,.steps-wrap,.ai-txt,.scenario-card { overflow:visible !important; }
+  .ev-code-body { overflow-x:auto; }
+  tr.sr-fail td { overflow:visible !important; }
+</style>
+<div id="zoom-overlay">
+  <span class="zoom-close" onclick="closeZoom()">✕</span>
+  <img id="zoom-img" src="" alt="Zoomed" />
+  <span class="zoom-label">Click anywhere or press Esc to close</span>
+</div>
+<script>
+(function(){
+  window.openZoom=function(id){
+    var img=document.getElementById(id); if(!img)return;
+    document.getElementById('zoom-img').src=img.src;
+    document.getElementById('zoom-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  };
+  window.closeZoom=function(){
+    document.getElementById('zoom-overlay').classList.remove('active');
+    document.body.style.overflow='';
+    setTimeout(function(){document.getElementById('zoom-img').src='';},200);
+  };
+  document.getElementById('zoom-overlay').addEventListener('click',function(e){
+    if(e.target===this||e.target===document.getElementById('zoom-img'))closeZoom();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+})();
+</script>
+</body>
+</html>
