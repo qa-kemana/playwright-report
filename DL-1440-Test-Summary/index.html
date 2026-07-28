@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Departure Luggage QA — 1440px Pixel-Perfect Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#161311;
+    --navy-2:#241C16;
+    --card:#FFFFFF;
+    --ink:#1B2340;
+    --ink-soft:#5B6180;
+    --line:#E7E9F3;
+    --pass:#2FBF83;
+    --pass-bg:#E7FAF1;
+    --fail:#FF5C6C;
+    --fail-bg:#FFEEEF;
+    --warn:#F0A93A;
+    --warn-bg:#FFF6E7;
+    --grad-a:#FF770D;
+    --grad-b:#F5C542;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--navy);
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+
+  a{color:inherit;}
+
+  /* ===== Header ===== */
+  header.top{
+    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);
+    padding:56px 24px 0;
+    color:#fff;
+  }
+  .brand{
+    max-width:1180px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:16px;
+  }
+  .brand-mark{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:15px;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:#FFC98F;
+  }
+  .brand-mark .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+    box-shadow:0 0 0 4px rgba(255,119,13,0.18);
+  }
+  .env-pill{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:#E7D8C8;
+    background:rgba(255,255,255,0.06);
+    border:1px solid rgba(255,255,255,0.12);
+    padding:6px 12px;
+    border-radius:999px;
+  }
+  .hero{
+    max-width:1180px;
+    margin:36px auto 0;
+  }
+  h1.title{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(30px,4.6vw,50px);
+    line-height:1.05;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  h1.title .accent{
+    background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+  }
+  .subtitle{
+    color:#D9CBBC;
+    font-size:16px;
+    max-width:680px;
+    line-height:1.6;
+    margin:0 0 32px;
+  }
+  .subtitle code{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    color:#F3E6D8;
+  }
+
+  /* meta row */
+  .meta-row{
+    display:flex;
+    flex-wrap:wrap;
+    gap:28px;
+    padding-bottom:36px;
+    border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .meta-item{display:flex;flex-direction:column;gap:4px;}
+  .meta-item .k{
+    font-size:11px;
+    letter-spacing:0.1em;
+    text-transform:uppercase;
+    color:#9C8975;
+  }
+  .meta-item .v{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    color:#F3ECE3;
+  }
+
+  /* ===== Stat cards ===== */
+  .stat-strip{
+    max-width:1180px;
+    margin:0 auto;
+    padding:36px 24px 0;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:16px;
+  }
+  @media(max-width:900px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
+
+  .stat-card{
+    background:rgba(255,255,255,0.04);
+    border:1px solid rgba(255,255,255,0.09);
+    border-radius:14px;
+    padding:20px 22px;
+  }
+  .stat-card .num{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:34px;
+    color:#fff;
+    line-height:1;
+  }
+  .stat-card .lbl{
+    margin-top:8px;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    color:#B8A793;
+  }
+  .stat-card.pass .num{color:var(--pass);}
+  .stat-card.fail .num{color:var(--fail);}
+  .stat-card.rate .num{
+    background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  /* ===== Wave divider (signature element) ===== */
+  .wave-wrap{
+    max-width:1180px;
+    margin:40px auto 0;
+    padding:0 24px 44px;
+  }
+  .wave-caption{
+    color:#9C8975;
+    font-size:12px;
+    letter-spacing:0.08em;
+    text-transform:uppercase;
+    margin:0 0 10px;
+  }
+  svg.wave{display:block;width:100%;height:auto;}
+  .wave-pt{ transition:r 0.2s ease; }
+  .wave-pt:hover{ r:6; }
+
+  /* ===== Body ===== */
+  main{
+    background:#F4F5FB;
+    padding:48px 24px 80px;
+  }
+  .modules-wrap{max-width:1180px;margin:0 auto;}
+  .section-head{
+    display:flex;
+    align-items:baseline;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-bottom:22px;
+  }
+  h2.section-title{
+    font-family:'Space Grotesk',sans-serif;
+    font-size:22px;
+    margin:0;
+  }
+  .section-note{
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  .grid{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:18px;
+  }
+  @media(max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} }
+  @media(max-width:640px){ .grid{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--card);
+    border-radius:16px;
+    border:1px solid var(--line);
+    padding:22px 22px 20px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    text-decoration:none;
+    color:var(--ink);
+    transition:transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    position:relative;
+    overflow:hidden;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px -12px rgba(22,19,17,0.25);
+    border-color:transparent;
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    left:0;top:0;bottom:0;
+    width:4px;
+  }
+  .card.ok::before{background:var(--pass);}
+  .card.warn::before{background:var(--fail);}
+
+  .card-top{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    gap:10px;
+  }
+  .card-name{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:600;
+    font-size:17px;
+    line-height:1.3;
+  }
+  .badge{
+    flex:none;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    font-weight:700;
+    padding:4px 9px;
+    border-radius:999px;
+    white-space:nowrap;
+  }
+  .badge.pass{background:var(--pass-bg);color:#1C8E62;}
+  .badge.fail{background:var(--fail-bg);color:#C93244;}
+
+  .bar-track{
+    height:8px;
+    border-radius:999px;
+    background:#EEF0FA;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    border-radius:999px;
+  }
+  .bar-fill.ok{background:linear-gradient(90deg,#2FBF83,#67D9A6);}
+  .bar-fill.warn{background:linear-gradient(90deg,#FF5C6C,#FF8F98);}
+
+  .counts{
+    display:flex;
+    gap:16px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+  .counts b{color:var(--ink);font-weight:700;}
+  .counts .p b{color:var(--pass);}
+  .counts .f b{color:var(--fail);}
+
+  .card-cta{
+    margin-top:auto;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    font-size:13px;
+    font-weight:600;
+    color:var(--ink);
+    padding-top:6px;
+    border-top:1px solid var(--line);
+  }
+  .card-cta .arrow{
+    font-family:'Space Grotesk',sans-serif;
+    transition:transform 0.15s ease;
+  }
+  .card:hover .card-cta .arrow{transform:translateX(3px);}
+
+  footer.bottom{
+    max-width:1180px;
+    margin:0 auto;
+    padding:40px 24px 0;
+    color:var(--ink-soft);
+    font-size:13px;
+    border-top:1px solid var(--line);
+    margin-top:24px;
+    padding-top:24px;
+    display:flex;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:8px;
+  }
+  footer.bottom b{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="brand-mark"><span class="dot"></span>Departure Luggage QA</div>
+    <div class="env-pill">departure-luggage-th-dev.myshopify.com</div>
+  </div>
+
+  <div class="hero">
+    <h1 class="title">1440px Pixel-Perfect <span class="accent">Test Summary</span></h1>
+    <p class="subtitle">Consolidated results across all 16 Figma-vs-live pixel-perfect style/dimension audits run at the 1440px desktop breakpoint, executed via Playwright against <code>departure-luggage-th-dev.myshopify.com</code>. Every card links to its full per-scenario report.</p>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="k">Reports</span><span class="v">16</span></div>
+      <div class="meta-item"><span class="k">Latest run</span><span class="v">Jul 27, 2026</span></div>
+      <div class="meta-item"><span class="k">Environment</span><span class="v">Dev store (TH)</span></div>
+      <div class="meta-item"><span class="k">Viewport</span><span class="v">1440 × 900</span></div>
+      <div class="meta-item"><span class="k">Design source</span><span class="v">Figma REST API</span></div>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-card"><div class="num mono">326</div><div class="lbl">Total tests</div></div>
+    <div class="stat-card pass"><div class="num mono">213</div><div class="lbl">Passed</div></div>
+    <div class="stat-card fail"><div class="num mono">113</div><div class="lbl">Failed</div></div>
+    <div class="stat-card rate"><div class="num mono">65%</div><div class="lbl">Pass rate</div></div>
+    <div class="stat-card"><div class="num mono">6</div><div class="lbl">Reports under 60%</div></div>
+  </div>
+
+  <div class="wave-wrap">
+    <p class="wave-caption">Pass rate per report — crest height = pass %</p>
+    <svg class="wave" viewBox="0 0 1180 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <linearGradient id="waveGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#FF770D"/>
+          <stop offset="100%" stop-color="#F5C542"/>
+        </linearGradient>
+      </defs>
+      <!--
+        16 reports, x spaced evenly across 1180 (step 76), y = 80 - (passRate*0.6)
+        Order: OurDifference 76 | OurStory 70 | QualityTesting 83 | OurProduct 70 |
+        Warranty 72 | BlogPress 69 | CorporateGifting 64 | Partnerships 62 |
+        Compare 55 | PLP 46 | PDP 55 | CartDrawer 42 | Home 42 | Header 79 |
+        Footer 59 | Stores 100
+      -->
+      <polyline
+        fill="none"
+        stroke="url(#waveGrad)"
+        stroke-width="2.5"
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        points="20,34.4 96,38 172,30.2 248,38 324,36.8 400,38.6 476,41.6 552,42.8 628,47 704,52.4 780,47 856,54.8 932,54.8 1008,32.6 1084,44.6 1160,20"
+      />
+      <g fill="#FFFFFF">
+        <circle class="wave-pt" cx="20" cy="34.4" r="4"/>
+        <circle class="wave-pt" cx="96" cy="38" r="4"/>
+        <circle class="wave-pt" cx="172" cy="30.2" r="4"/>
+        <circle class="wave-pt" cx="248" cy="38" r="4"/>
+        <circle class="wave-pt" cx="324" cy="36.8" r="4"/>
+        <circle class="wave-pt" cx="400" cy="38.6" r="4"/>
+        <circle class="wave-pt" cx="476" cy="41.6" r="4"/>
+        <circle class="wave-pt" cx="552" cy="42.8" r="4"/>
+        <circle class="wave-pt" cx="628" cy="47" r="4"/>
+        <circle class="wave-pt" cx="704" cy="52.4" r="4"/>
+        <circle class="wave-pt" cx="780" cy="47" r="4"/>
+        <circle class="wave-pt" cx="856" cy="54.8" r="4"/>
+        <circle class="wave-pt" cx="932" cy="54.8" r="4"/>
+        <circle class="wave-pt" cx="1008" cy="32.6" r="4"/>
+        <circle class="wave-pt" cx="1084" cy="44.6" r="4"/>
+        <circle class="wave-pt" cx="1160" cy="20" r="4"/>
+      </g>
+    </svg>
+  </div>
+</header>
+
+<main>
+  <div class="modules-wrap">
+    <div class="section-head">
+      <h2 class="section-title">Pixel-Perfect Reports</h2>
+      <span class="section-note">Click any card to open its full report in a new tab</span>
+    </div>
+
+    <div class="grid">
+
+      <!-- Our Difference -->
+      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/DL-Our-Difference-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Our Difference</div>
+          <div class="badge pass">76% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill ok" style="width:76%"></div></div>
+        <div class="counts"><span class="p">Passed <b>32</b></span><span class="f">Failed <b>10</b></span><span>of <b>42</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Our Story -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Our-Story-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Our Story</div>
+          <div class="badge fail">70% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:70%"></div></div>
+        <div class="counts"><span class="p">Passed <b>28</b></span><span class="f">Failed <b>12</b></span><span>of <b>40</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Quality Testing -->
+      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/DL-Quality-Testing-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Quality Testing</div>
+          <div class="badge pass">83% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill ok" style="width:83%"></div></div>
+        <div class="counts"><span class="p">Passed <b>19</b></span><span class="f">Failed <b>4</b></span><span>of <b>23</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Our Product -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Our-Product-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Our Product</div>
+          <div class="badge fail">70% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:70%"></div></div>
+        <div class="counts"><span class="p">Passed <b>19</b></span><span class="f">Failed <b>8</b></span><span>of <b>27</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Warranty -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Warranty-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Warranty</div>
+          <div class="badge fail">72% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:72%"></div></div>
+        <div class="counts"><span class="p">Passed <b>13</b></span><span class="f">Failed <b>5</b></span><span>of <b>18</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Blog/Press -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Press-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Blog / Press</div>
+          <div class="badge fail">69% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:69%"></div></div>
+        <div class="counts"><span class="p">Passed <b>9</b></span><span class="f">Failed <b>4</b></span><span>of <b>13</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Corporate Gifting -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Corporate-Gifting-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Corporate Gifting</div>
+          <div class="badge fail">64% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:64%"></div></div>
+        <div class="counts"><span class="p">Passed <b>16</b></span><span class="f">Failed <b>9</b></span><span>of <b>25</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Partnerships -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Partnership-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Partnerships</div>
+          <div class="badge fail">62% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:62%"></div></div>
+        <div class="counts"><span class="p">Passed <b>13</b></span><span class="f">Failed <b>8</b></span><span>of <b>21</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Compare -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Compare-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Compare</div>
+          <div class="badge fail">55% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:55%"></div></div>
+        <div class="counts"><span class="p">Passed <b>6</b></span><span class="f">Failed <b>5</b></span><span>of <b>11</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- PLP -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-PLP-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">PLP</div>
+          <div class="badge fail">46% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:46%"></div></div>
+        <div class="counts"><span class="p">Passed <b>6</b></span><span class="f">Failed <b>7</b></span><span>of <b>13</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- PDP -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-PDP-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">PDP</div>
+          <div class="badge fail">55% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:55%"></div></div>
+        <div class="counts"><span class="p">Passed <b>6</b></span><span class="f">Failed <b>5</b></span><span>of <b>11</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Cart Drawer -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Cart-Drawer-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Cart Drawer</div>
+          <div class="badge fail">42% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:42%"></div></div>
+        <div class="counts"><span class="p">Passed <b>5</b></span><span class="f">Failed <b>7</b></span><span>of <b>12</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Home -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Home-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Home</div>
+          <div class="badge fail">42% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:42%"></div></div>
+        <div class="counts"><span class="p">Passed <b>14</b></span><span class="f">Failed <b>19</b></span><span>of <b>33</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Header -->
+      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/DL-Header-Menu-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Header</div>
+          <div class="badge pass">79% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill ok" style="width:79%"></div></div>
+        <div class="counts"><span class="p">Passed <b>11</b></span><span class="f">Failed <b>3</b></span><span>of <b>14</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Footer -->
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/DL-Footer-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Footer</div>
+          <div class="badge fail">59% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:59%"></div></div>
+        <div class="counts"><span class="p">Passed <b>10</b></span><span class="f">Failed <b>7</b></span><span>of <b>17</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <!-- Stores -->
+      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/DL-Stores-1440-Report/" target="_blank" rel="noopener">
+        <div class="card-top">
+          <div class="card-name">Stores</div>
+          <div class="badge pass">100% PASS</div>
+        </div>
+        <div class="bar-track"><div class="bar-fill ok" style="width:100%"></div></div>
+        <div class="counts"><span class="p">Passed <b>6</b></span><span class="f">Failed <b>0</b></span><span>of <b>6</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+    </div>
+
+    <footer class="bottom">
+      <span><b>Departure Luggage QA</b> — Automated 1440px Pixel-Perfect Summary · Generated July 27, 2026 · Playwright</span>
+      <span>326 tests · 213 passed · 113 failed · 65% overall</span>
+    </footer>
+  </div>
+</main>
+
+</body>
+</html>
