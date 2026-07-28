@@ -1,0 +1,1135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Report — Test Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #f4f6f9;
+    --surface:     #ffffff;
+    --surface2:    #eaecf2;
+    --border:      rgba(24, 41, 79, 0.12);
+    --text:        #1a1f2e;
+    --muted:       #6b7592;
+    --brand:       #18294F;
+    --green:       #16a25a;
+    --green-soft:  rgba(22, 162, 90, 0.1);
+    --red:         #dc3545;
+    --red-soft:    rgba(220, 53, 69, 0.1);
+    --amber:       #d97706;
+    --amber-soft:  rgba(217, 119, 6, 0.1);
+    --mono:        'Courier New', monospace;
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  body {
+    font-family: "Instrument Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero {
+    background: #18294F;
+    padding: 0 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 90% at 90% 60%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Logo bar */
+  .hero-logo-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 32px;
+  }
+  .hero-logo-bar svg {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .hero-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 50px;
+    padding: 5px 14px 5px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-live-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Hero content */
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-inner h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hero-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-meta-item .value {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── STAT CARDS ─────────────────────────────────────────── */
+  .stats-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.07);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card.total::before  { background: var(--brand); }
+  .stat-card.passed::before { background: var(--green); }
+  .stat-card.failed::before { background: var(--red); }
+  .stat-card.rate::before   { background: var(--amber); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-card.total  .stat-value { color: var(--brand); }
+  .stat-card.passed .stat-value { color: var(--green); }
+  .stat-card.failed .stat-value { color: var(--red); }
+  .stat-card.rate   .stat-value { color: var(--amber); }
+
+  .rate-ring {
+    position: absolute;
+    right: 18px; bottom: 14px;
+    width: 44px; height: 44px;
+  }
+  .rate-ring svg { width: 100%; height: 100%; }
+
+  /* ── PROGRESS BAR ───────────────────────────────────────── */
+  .progress-bar-wrap {
+    max-width: 960px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: #e2e6ef;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .progress-bar-fill.pass { background: var(--green); }
+  .progress-bar-fill.fail { background: var(--red); }
+
+  /* ── MAIN CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SCENARIO CARD ──────────────────────────────────────── */
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.06);
+  }
+  .scenario-card:hover {
+    border-color: rgba(24,41,79,0.22);
+    box-shadow: 0 2px 8px rgba(24,41,79,0.1);
+  }
+
+  /* Scenario header — brand coloured bar */
+  .scenario-header {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: #18294F;
+  }
+  .scenario-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .scenario-card.pass .scenario-num { background: rgba(255,255,255,0.12); color: #ffffff; }
+  .scenario-card.fail .scenario-num { background: rgba(240,82,82,0.25);   color: #fca5a5; }
+  .scenario-card.skip .scenario-num { background: rgba(245,166,35,0.2);   color: #fcd34d; }
+
+  .scenario-info { flex: 1; min-width: 0; }
+  .scenario-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  .scenario-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 2px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .scenario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .scenario-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .scenario-card.pass .scenario-badge { background: rgba(22,162,90,0.2);  color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .scenario-card.fail .scenario-badge { background: rgba(220,53,69,0.2);  color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+  .scenario-card.skip .scenario-badge { background: rgba(217,119,6,0.2);  color: #fcd34d; border: 1px solid rgba(252,211,77,0.3); }
+
+  .scenario-toggle {
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .scenario-card.open .scenario-toggle { transform: rotate(180deg); }
+
+  /* ── STEPS TABLE ─────────────────────────────────────────── */
+  .steps-wrap {
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .scenario-card.open .steps-wrap { display: block; }
+
+  .steps-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .steps-table thead tr { background: #f8f9fc; }
+  .steps-table th {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps-table th:last-child { text-align: center; width: 80px; }
+
+  .steps-table td {
+    padding: 12px 20px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+  }
+  .steps-table tr:last-child td  { border-bottom: none; }
+  .steps-table tr:nth-child(even) { background: #fafbfd; }
+
+  .steps-table td:first-child {
+    width: 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .steps-table td:last-child { text-align: center; }
+  .steps-table .action-col  { color: var(--text); font-weight: 500; }
+  .steps-table .result-col  { color: var(--muted); font-size: 12px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(24,41,79,0.06);
+    border: 1px solid rgba(24,41,79,0.1);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: #18294F;
+  }
+
+  .step-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-status.pass { background: var(--green-soft); color: var(--green); }
+  .step-status.fail { background: var(--red-soft);   color: var(--red); }
+  .step-status.skip { background: var(--amber-soft); color: var(--amber); }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero, .stats-wrap, .content { padding-left: 20px; padding-right: 20px; }
+    .hero-inner h1 { font-size: 22px; }
+    .stat-value    { font-size: 28px; }
+    .hero-meta     { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<header class="hero">
+
+  <!-- Logo bar -->
+  <div class="hero-logo-bar">
+    <!-- Kemana logo (inline SVG — always visible, no external file needed) -->
+    <svg width="332" height="125" viewBox="0 0 332 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#logo-clip)">
+        <path d="M325 6V118.1H6V6H325ZM331 0H0V124.1H331V0Z" fill="white"/>
+        <path d="M79 51.4999C77.8 52.4999 76.3 53.5999 74.7 54.9999C74.4 55.2999 73.9 55.7999 73.1 56.4999L70.7 58.5999L68.3 60.6999C67.6 61.3999 67.1 61.7999 66.8 62.0999C67.5 63.8999 68.2 65.8999 69.1 67.9999C70 70.0999 70.7 72.2999 71.5 74.1999C72.3 76.0999 73 77.9999 73.7 79.4999C74.4 80.9999 74.8 82.0999 75.1 82.6999V82.9999C74.4 82.8999 73.7 82.8999 73 82.8999H67C66.1 82.8999 65.3 82.8999 64.4 82.9999C64 81.6999 63.7 80.6999 63.4 79.7999C63.1 78.8999 62.8 77.9999 62.5 76.9999C62.2 75.9999 61.8 74.7999 61.3 73.3999C60.8 71.9999 60.1 70.0999 59.3 67.5999C59.1 67.0999 58.9 66.4999 58.7 65.9999C58.6 65.7999 58.3 65.6999 58.1 65.6999C57.8 65.6999 57.5 65.8999 57.4 66.1999C57.3 66.4999 57.1 67.1999 56.8 68.1999C56.1 71.1999 55.6 73.8999 55.1 76.2999C54.6 78.6999 54.3 80.9999 53.9 83.0999C53.1 82.8999 52.4 82.8999 51.6 82.8999H45.9C45 82.8999 44.1 82.8999 43.2 82.9999C44.9 76.2999 46.5 69.5999 48.1 62.7999C49.7 55.9999 51.1 49.1999 52.5 42.1999C53 39.7999 53.5 37.3999 54 34.7999C54.5 32.4999 54.8 30.1999 55.1 27.8999L57.7 28.1999C58.7 28.2999 59.7 28.2999 60.7 28.2999C61.6 28.2999 62.5 28.2999 63.4 28.1999L65.8 27.8999C64.6 32.5999 63.6 36.9999 62.6 41.0999C61.6 45.1999 60.8 48.7999 60.2 51.8999C59.6 54.9999 58.8 58.3999 58.1 61.9999C58.1 62.3999 58.3 62.6999 58.7 62.6999C59.2 62.5999 59.7 62.2999 60.1 61.8999C60.8 61.3999 61.5 60.7999 62.3 60.0999C64.5 58.0999 66.7 56.1999 68.9 54.2999C71.1 52.3999 73.2 50.2999 75.1 48.0999C75.6 48.1999 76.2 48.2999 76.8 48.3999C77.5 48.4999 78.1 48.4999 78.8 48.4999C79.4 48.4999 80 48.4999 80.6 48.3999L82.1 48.0999L82.2 49.2999C81.3 49.7999 80.3 50.5999 79 51.4999Z" fill="white"/>
+        <path d="M110.3 77.8001C110.1 78.5001 109.7 79.5001 109.3 80.8001C107.7 81.9001 106 82.6001 104.1 83.0001C102.2 83.3001 100.2 83.5001 98.3 83.5001C95.8 83.6001 93.3 83.1001 90.9 82.2001C89 81.4001 87.2 80.2001 85.8 78.7001C84.5 77.2001 83.5 75.4001 82.8 73.5001C82.1 71.5001 81.8 69.4001 81.8 67.3001C81.8 64.9001 82.2 62.5001 83 60.2001C83.8 57.9001 85 55.7001 86.6 53.8001C90.2 49.6001 95.4 47.3001 100.9 47.4001C105.4 47.4001 108.9 48.6001 111.2 51.0001C113.6 53.6001 114.8 57.0001 114.7 60.5001C114.7 61.4001 114.6 62.4001 114.5 63.3001C114.4 64.3001 114.2 65.2001 114.1 66.1001C111 66.0001 108.5 65.9001 106.4 65.9001C104.3 65.9001 102.5 65.8001 100.9 65.8001H95.2C94.4 65.8001 93.4 65.8001 92.3 65.9001C92.2 66.5001 92.1 67.2001 92.1 67.8001C92.1 68.5001 92 69.2001 92 69.9001C91.9 72.4001 92.6 74.9001 94.1 76.9001C95.5 78.7001 97.7 79.5001 100.7 79.5001C102.3 79.5001 103.8 79.2001 105.3 78.6001C107.1 78.0001 108.6 76.9001 109.9 75.5001L111 76.0001C110.8 76.5001 110.6 77.2001 110.3 77.8001ZM104.8 52.3001C104.2 51.1001 102.9 50.5001 101.1 50.5001C100 50.5001 98.8 50.8001 97.9 51.5001C97 52.2001 96.2 53.2001 95.6 54.2001C94.9 55.4001 94.3 56.7001 93.9 58.0001C93.5 59.4001 93.1 60.9001 92.7 62.3001C93.1 62.4001 93.5 62.4001 93.9 62.4001H102.6C103.3 62.4001 104 62.3001 104.8 62.3001C104.9 61.7001 105.1 60.8001 105.3 59.7001C105.5 58.5001 105.6 57.4001 105.6 56.2001C105.8 54.8001 105.5 53.5001 104.8 52.3001Z" fill="white"/>
+        <path d="M125.8 48.5C127.6 48.6 129.4 48.6 131.2 48.5L133.4 48.2001C133.1 49.1001 132.9 50.0001 132.7 50.9001L132.1 53.6C132.6 52.9 133.2 52.3001 133.8 51.7001C134.5 50.9001 135.4 50.3001 136.3 49.7001C137.4 49.0001 138.5 48.5 139.7 48.1C141.1 47.6 142.7 47.4001 144.2 47.4001C146.2 47.3001 148.2 47.9 149.9 49.1C151.5 50.3 152.5 52.2001 152.8 54.2001C154.4 52.3001 156.3 50.6 158.4 49.3C160.5 48 162.9 47.3 165.3 47.3C166.4 47.3 167.5 47.5 168.5 47.8C169.6 48.1 170.6 48.6 171.5 49.3C172.4 50 173.2 50.9001 173.7 51.9001C174.3 53.1001 174.6 54.4001 174.5 55.7001C174.5 56.3001 174.5 56.9 174.4 57.5C174.3 58.2 174.2 58.8 174.1 59.5C173.9 60.2 173.8 61.2 173.5 62.3C173.2 63.4 172.9 64.8001 172.5 66.4001C172.4 66.7001 172.2 67.6 171.9 69C171.6 70.4 171.3 71.9 170.9 73.6C170.5 75.3 170.2 77.1001 169.8 78.9001C169.4 80.7001 169.2 82.1 169 83.2C168.2 83.1 167.3 83.1 166.5 83.1H160.7C159.9 83.1 159.1 83.1 158.3 83.2C159 81.1 159.7 78.6001 160.5 75.9001C161.3 73.2001 161.9 70.6 162.6 68.1C163.3 65.6 163.7 63.3 164.1 61.3C164.4 59.9 164.6 58.5 164.7 57.1C164.7 56 164.4 55.0001 163.7 54.2001C162.9 53.4001 161.8 52.9 160.6 53C160 53 159.4 53.1 158.8 53.3C157.9 53.6 157.2 54 156.5 54.6C155.6 55.4 154.7 56.4 154.1 57.5C153.1 59.1 152.4 60.8 151.9 62.6C151.4 64.3 150.7 66.9 149.9 70.6C149.1 74.3 148.3 78.5001 147.5 83.3001C146.6 83.2001 145.8 83.2 144.9 83.2H139.4C138.6 83.2 137.9 83.2001 137.1 83.3001C137.7 81.4001 138.3 79.1001 139.1 76.4001C139.9 73.7001 140.5 71.0001 141.2 68.4001C141.9 65.8001 142.4 63.5001 142.8 61.4001C143.1 60.0001 143.3 58.5 143.4 57.1C143.5 56 143.1 55 142.3 54.3C141.5 53.7 140.4 53.3001 139.4 53.4001C137.4 53.4001 135.4 54.3 134.1 55.8C132.4 57.8 131.2 60.1 130.5 62.6C130.4 63 130.1 63.8001 129.8 64.9001C129.5 66.0001 129.2 67.5001 128.7 69.3001C128.2 71.1001 127.8 73.2 127.3 75.6C126.8 78 126.3 80.6001 125.9 83.4001C125 83.3001 124.2 83.3001 123.3 83.3001H118C117.2 83.3001 116.4 83.3001 115.6 83.4001C116.2 81.2001 116.8 79.1001 117.2 77.3001C117.6 75.5001 118.1 73.6 118.5 71.7C118.9 69.8 119.4 67.6001 119.9 65.3001C120.4 63.0001 121 60 121.8 56.6C122 55.3 122.2 54.3 122.4 53.5C122.6 52.7 122.7 52 122.8 51.5C122.9 51 123 50.4 123.1 50C123.2 49.6 123.3 49.1 123.4 48.6C124.2 48.4 125 48.3 125.8 48.5Z" fill="white"/>
+        <path d="M207.9 83.2001C206.7 83.6001 205.5 83.7001 204.3 83.7001C203.2 83.7001 202 83.5001 201 83.1001C200.2 82.8001 199.6 82.3001 199 81.7001C198.5 81.2001 198.2 80.6001 197.9 79.9001C197.7 79.3001 197.5 78.8001 197.4 78.4001C196.5 80.2001 195.1 81.6001 193.4 82.7001C191.6 83.6001 189.5 84.0001 187.5 83.9001C184.9 84.0001 182.4 83.1001 180.5 81.4001C178.7 79.6001 177.8 77.1001 177.9 74.5001C177.9 72.2001 178.6 69.9001 179.9 68.0001C181.3 66.0001 183.3 64.5001 185.7 63.8001C186.8 63.5001 188.2 63.2001 189.9 62.9001C191.5 62.7001 193.1 62.4001 194.6 62.2001C195.7 62.1001 196.6 61.9001 197.3 61.8001C197.9 61.7001 198.5 61.5001 199 61.2001C199.4 60.9001 199.7 60.4001 199.9 59.9001C200.1 59.1001 200.2 58.3001 200.2 57.5001C200.2 56.6001 200 55.6001 199.6 54.8001C199.2 54.1001 198.7 53.5001 198.1 53.1001C197.5 52.7001 196.8 52.4001 196.1 52.2001C195.4 52.0001 194.6 51.9001 193.9 51.9001C192.5 51.9001 191.1 52.1001 189.8 52.6001C188.5 53.2001 187.3 53.8001 186.2 54.6001H185.8C185.9 53.6001 186 52.9001 186 52.4001C186 51.9001 186.1 51.2001 186.1 50.5001C190 48.3001 194.4 47.1001 198.9 47.1001C200.3 47.1001 201.7 47.2001 203 47.5001C204.3 47.8001 205.5 48.3001 206.6 49.0001C207.7 49.7001 208.5 50.6001 209.2 51.7001C209.9 53.0001 210.3 54.5001 210.2 56.0001C210.2 57.2001 210.1 58.3001 209.9 59.5001C209.7 60.8001 209.5 61.8001 209.3 62.6001L207.3 71.7001C207 73.0001 206.8 74.2001 206.6 75.5001C206.5 76.1001 206.5 76.8001 206.5 77.4001C206.5 78.1001 206.6 78.7001 206.9 79.3001C207.1 80.0001 207.8 80.4001 208.5 80.3001C208.7 80.3001 208.9 80.3001 209.1 80.1001C209.3 80.0001 209.4 79.9001 209.6 79.8001L210.2 81.5001C209.6 82.2001 208.8 82.8001 207.9 83.2001ZM188.9 77.7001C189.5 78.7001 190.7 79.3001 191.9 79.2001C192.9 79.2001 193.9 78.9001 194.7 78.3001C195.4 77.7001 196 76.9001 196.5 76.1001C197 75.2001 197.3 74.2001 197.6 73.2001C197.8 72.1001 198.1 71.1001 198.3 70.2001L199.4 64.6001C197.7 64.8001 196 65.2001 194.4 65.6001C193.3 65.8001 192.3 66.2001 191.4 66.8001C190.2 67.5001 189.3 68.7001 188.9 70.1001C188.4 71.5001 188.2 72.9001 188.2 74.3001C188 75.5001 188.3 76.7001 188.9 77.7001Z" fill="white"/>
+        <path d="M251.4 56.9001C251.3 57.5001 251.2 58.3001 251.1 59.1001C251 59.9001 250.7 61.0001 250.4 62.3001C250.1 63.6001 249.7 65.2001 249.2 67.2001C248.8 69.0001 248.4 70.6001 248.1 72.0001C247.8 73.4001 247.5 74.7001 247.3 75.9001C247.1 77.1001 246.8 78.3001 246.6 79.4001C246.4 80.5001 246.2 81.7001 245.9 83.0001C245.1 82.9001 244.2 82.9001 243.4 82.9001H237.6C236.7 82.9001 235.9 82.9001 235 83.0001C235.4 82.1001 235.7 81.2001 235.9 80.3001C236.3 79.0001 236.8 77.4001 237.3 75.7001C237.8 74.0001 238.3 72.1001 238.8 70.2001C239.3 68.3001 239.8 66.4001 240.2 64.7001C240.6 63.0001 241 61.4001 241.3 60.0001C241.5 59.0001 241.7 58.0001 241.7 57.0001C241.8 55.9001 241.4 54.7001 240.6 53.9001C239.7 53.2001 238.6 52.8001 237.5 52.9001C235.5 53.0001 233.7 53.8001 232.3 55.2001C230.3 57.2001 228.9 59.6001 228.2 62.3001C227.8 63.5001 227.4 64.9001 227 66.6001C226.6 68.3001 226.1 70.0001 225.7 71.9001C225.3 73.8001 224.9 75.7001 224.5 77.7001C224.1 79.7001 223.8 81.5001 223.6 83.1001C222.8 83.0001 221.9 83.0001 221.1 83.0001H215.9C215 83.0001 214.2 83.0001 213.3 83.1001C213.9 80.9001 214.6 78.5001 215.2 76.0001C215.8 73.5001 216.5 70.9001 217.1 68.1001C217.7 65.3001 218.4 62.3001 219 59.0001C219.6 55.7001 220.4 52.1001 221.1 48.2001C221.8 48.3001 222.7 48.4001 223.6 48.5001C224.5 48.6001 225.4 48.6001 226.3 48.6001C227.1 48.6001 227.9 48.6001 228.7 48.5001L230.9 48.2001C230.7 48.8001 230.5 49.4001 230.4 49.8001C230.3 50.2001 230.1 50.7001 230 51.1001C229.9 51.5001 229.8 52.0001 229.7 52.5001C229.6 53.0001 229.4 53.6001 229.3 54.3001C230.8 52.2001 232.8 50.5001 235 49.2001C237.3 47.9001 239.8 47.3001 242.4 47.4001C245.5 47.4001 247.7 48.1001 249.2 49.6001C250.6 51.1001 251.4 53.1001 251.3 55.1001C251.5 55.7001 251.5 56.3001 251.4 56.9001Z" fill="white"/>
+        <path d="M284.9 83.2001C283.7 83.6001 282.5 83.7001 281.3 83.7001C280.2 83.7001 279.1 83.5001 278.1 83.1001C277.3 82.8001 276.6 82.3001 276.1 81.7001C275.6 81.2001 275.3 80.6001 275 79.9001C274.8 79.3001 274.6 78.8001 274.5 78.4001C273.6 80.2001 272.2 81.6001 270.5 82.7001C268.7 83.6001 266.6 84.0001 264.6 83.9001C262 84.0001 259.5 83.1001 257.6 81.4001C255.8 79.6001 254.9 77.1001 255 74.5001C255 72.2001 255.7 69.9001 257 68.0001C258.4 66.0001 260.4 64.5001 262.8 63.8001C263.9 63.5001 265.3 63.2001 267 62.9001C268.7 62.7001 270.2 62.4001 271.7 62.2001C272.8 62.1001 273.7 61.9001 274.4 61.8001C275 61.7001 275.6 61.5001 276.1 61.2001C276.5 60.9001 276.8 60.4001 277 59.9001C277.2 59.1001 277.3 58.3001 277.3 57.5001C277.3 56.6001 277.1 55.6001 276.7 54.8001C276.3 54.1001 275.8 53.5001 275.2 53.1001C274.6 52.7001 273.9 52.4001 273.2 52.2001C272.5 52.0001 271.7 51.9001 271 51.9001C269.6 51.9001 268.2 52.1001 266.9 52.6001C265.6 53.2001 264.4 53.8001 263.3 54.6001H262.9C263 53.6001 263.1 52.9001 263.1 52.4001C263.1 51.9001 263.2 51.2001 263.3 50.5001C267.2 48.3001 271.6 47.1001 276.1 47.1001C277.5 47.1001 278.9 47.2001 280.2 47.5001C281.5 47.8001 282.7 48.3001 283.8 49.0001C284.9 49.7001 285.7 50.6001 286.4 51.7001C287.1 53.0001 287.5 54.5001 287.4 56.0001C287.4 57.2001 287.3 58.3001 287.1 59.5001C286.9 60.8001 286.7 61.8001 286.5 62.6001L284.5 71.7001C284.2 73.0001 284 74.2001 283.8 75.5001C283.7 76.3001 283.6 77.0001 283.6 77.4001C283.6 78.1001 283.7 78.7001 284 79.3001C284.2 80.0001 284.9 80.4001 285.6 80.3001C285.8 80.3001 286 80.3001 286.2 80.1001C286.4 80.0001 286.6 79.9001 286.8 79.8001L287.4 81.5001C286.7 82.2001 285.8 82.8001 284.9 83.2001ZM265.9 77.7001C266.5 78.7001 267.7 79.3001 268.9 79.2001C269.9 79.2001 270.9 78.9001 271.7 78.3001C272.4 77.7001 273 76.9001 273.5 76.1001C274 75.2001 274.3 74.2001 274.6 73.2001C274.8 72.1001 275.1 71.1001 275.3 70.2001L276.4 64.6001C274.7 64.8001 273 65.2001 271.4 65.6001C270.3 65.8001 269.3 66.2001 268.4 66.8001C267.2 67.5001 266.3 68.7001 265.9 70.1001C265.4 71.5001 265.2 72.9001 265.2 74.3001C265.1 75.5001 265.3 76.7001 265.9 77.7001Z" fill="white"/>
+      </g>
+      <defs>
+        <clipPath id="logo-clip"><rect width="331.1" height="124.1" fill="white"/></clipPath>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Title + meta -->
+  <div class="hero-inner">
+    <h1>Test Execution Report</h1>
+    <p class="hero-sub">Automated UI Testing — https://departure-luggage-th-dev.myshopify.com/</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Execution Date</span>
+        <span class="value">July 28, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Environment</span>
+        <span class="value">Production</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Browser</span>
+        <span class="value">Chromium</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Duration</span>
+        <span class="value">23s</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ── STAT CARDS ────────────────────────────────────────────── -->
+<div class="stats-wrap">
+  <div class="stat-card total">
+    <span class="stat-label">Total Tests</span>
+    <span class="stat-value">13</span>
+  </div>
+  <div class="stat-card passed">
+    <span class="stat-label">Passed</span>
+    <span class="stat-value">9</span>
+  </div>
+  <div class="stat-card failed">
+    <span class="stat-label">Failed</span>
+    <span class="stat-value">4</span>
+  </div>
+  <div class="stat-card rate">
+    <span class="stat-label">Pass Rate</span>
+    <span class="stat-value">69%</span>
+    <div class="rate-ring">
+      <svg viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="18" stroke="rgba(217,119,6,0.15)" stroke-width="4"/>
+        <circle cx="22" cy="22" r="18" stroke="#d97706" stroke-width="4"
+          stroke-dasharray="113"
+          stroke-dashoffset="35"
+          stroke-linecap="round"
+          transform="rotate(-90 22 22)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS BAR ───────────────────────────────────────────── -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill pass" style="width:69%"></div>
+    <div class="progress-bar-fill fail" style="width:31%"></div>
+  </div>
+</div>
+
+<!-- ── SCENARIOS ──────────────────────────────────────────────── -->
+<main class="content">
+  <p class="section-title">Test Scenarios</p>
+  <div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div class="scenario-info">
+          <div class="scenario-name">01 - Navigate to the Blog/Press page at 375px and verify it loads</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://departure-luggage-th-dev.myshopify.com/blogs/news</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for main</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify URL contains &quot;/blogs/news&quot;</td>
+          <td class="result-col">URL contains &quot;/blogs/news&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Click if present xpath=//button[@aria-label='Close (esc)'] | //*[contains(@class,'popup')]//button[contains(@class,'close')]</td>
+          <td class="result-col">Element not present — skipped</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div class="scenario-info">
+          <div class="scenario-name">02 - Hero heading: verify text, font, size, color, alignment match Figma mobile spec</div>
+          <div class="scenario-desc">Font-size (40px) is the sitewide hero-heading mobile invariant, independently confirmed via real Figma JSON on every prior &quot;-375&quot; page with a hero (Partnerships, Corporate Gifting, etc.) — never once varied.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_text → css=h2.hero__title</td>
+          <td class="result-col">Text contains &quot;As Seen In&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=h2.hero__title style font-size = &quot;40px&quot;</td>
+          <td class="result-col">font-size = &quot;40px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=h2.hero__title style color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td class="result-col">color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify css=h2.hero__title style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div class="scenario-info">
+          <div class="scenario-name">03 - Hero subtitle: verify text matches the Figma design copy — reproduces the confirmed 1440 finding</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH, clean cross-breakpoint reproduction of the 1440 finding (test 03 in the 1440 yaml): Figma's mobile mockup (visually confirmed via a PNG render of node 2503:20620, since the raw JSON API is rate-limited this session) shows the same subtitle copy as the 1440 frame — &quot;Certain qualities reveal themselves only up close.&quot; Live renders &quot;Recognized for what we quietly strive to perfect&quot; at 375px too. Font/size/weight/color/alignment all otherwise match (test 04), so this is isolated to the copy itself.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785215905182-2r9s6" src="data:image/png;base64,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Tp0+adLke+65l/0J+X322fupp5+eNQt6eu7Mme8PHTassaHJ2iBaDRs+fO7ceQsXfgHCfeKJJ26//Q6ADlwNLPfoo49edOHFIx56eAIQ2ISJr7wy+oILLtROZ957759+/vNfQJDefvsfxo4dN378xCmTp74zfcYH78/62/1/b2ltRe9DZo0fP2H5cgD2lbj92Wef7cf7rLPOnvXB7JUrV61YvuKdd97ZcKMNCTuQqVeygQBlBg68fv78+T179jzzzDOXL19+11134cS999775ZdfXs4XXbp06cMPPwySUkw911xzzZgxY4YMGfL1118Ddbz44ovWFav1lltu8dZbb91y800yrNj++c9/wmzZrmdPcYtccsklY8eOPeigg6R5g24YNHPmex99tOCj+R8//fSzMHMUi/rjTzj+hRdemDN7ztwP5+H1r3+9v0OHpsP6HPba6Nf33HOvk08+efbsD6dNm37iiSdajRbo/fff/9VXRp9//q+8cHnqqaf//e9H/Ec85nPPPde5c2fc96KLL5kyZfrsWXMxXiNGPNyjR09hDotOHL+cdebZ48ZOXLDg0/nzP37pxVd/+YtzXxj10p577YWvhg0b/vzzo5Isd+mllz3xxJPy/oEH/j506DB5D/JDX02f/s7sWXMwanfecRf27Lrrbk8++fQJx58Icpr1wYcz3n3/0ksu85e65eZbn3rqWTFLpS0YQwO4QQAAEABJREFU4tdeG3PhhRc7PqbdaPaDD4744INZH3wwGw/y1ltjzz77HCCja6+9buutt0an4av77/8bjnzssSeuuqr/E088NWfOh5MnTzn11FPRUQ899DD45F//GvHA3//OOL0kIb2+5/WdNHHq6aedAYa/5NJ+k6a9N3P2R1M/mPvnfzzUc/vtsxzGB+/g+Na2lsuuHXjx1dd02Xqbux745/T5n/1lxL8No/GLL79iyrvvz5n/yZx5H7/x5tgzzj6Lotek6xhReMcDw3py9uILctiFYgW7bD/hAnARFDZkUBSwIiSJIXiZPW1GsveIqK2zLnKbw7XKB3GUaPQgdLH5INhiyy3B25988gn2H9rn0N///jZA7l133bl7923ffvutq68ecPjhR4L399//gDvuuAvypu/55+211x5nnHH6n/98H2DF/vsfOGzYjZ9//jlEQJcuWw0ePOjYY4698cYbZaSGDB764x//+Lbbbu3SZcsDDth/6dJlJ510UmNjI0uu7HrrrXfmmWd98MEHxx9/7EEHHThq1PMnnXzy0UcdJZHCumwdmgjxfMEF5++yy8477LB9t27b3jDo+sVLFr/wwiiIuiMOP+qPf7wXPL/Fllt06Njh1Vdfha/u6GOOxn1PP/302267bcqUKaD4jh07Pv7E4yedeBJBJOkI8WgaM3jQoO7dun344YcPPfTQeh07AjHuuOOO9957LwTTUUce2bFDR8i+XXfd9f777xdChKW3zTbbHHbYYbCV6uvrjz32WK/zP//8C0CnPffaU4R49x7d0WCY94ceeigbM/qHP/zhqlWrICBYUmy59977XHDhBd26b/OTn5wKj+Nll10uPYZugfA95NCDe27XvV+/y3feeRd8NXr0q336HPLRRx899dRT22/fs1ev3YGulbMyxo4bu6p51e677SZXOPywwzt36tRt2254I4zdq1evzz77bNGiL6+++rfnnXvevffes+NO25144gnwgAwZOrRDUweLN21IVZ100skDBlwzadLEnXfesVu3rWF/XXrp5RtttDEwmuEW4kSPKNCXbg9t6BZ8lPeQAocffsTVV1+9/Q7bnXveL3fe+QfDh9347rvvnnLKSZOnTJ40edIOO/bcZded7ro7Bgvjxo/ttNlmRx99rNfa6CgQ68SJEzznYwM/NzY2QFHtuOP2vXv/8NZbf48Drr66/z/+8fcvvvgCztQdd9zh3HN/iSNx2HHHHf/BrPfRaXvs8cNHHnkE1I5Ggvlnzpy5004/6N17D28V7rvPfs3NzU8+8dg11ww8r+8Ff7rnzt222+bsU05obGi88prrmzp0kGAW5H5zS8t1V/b71/1/+XzhwnPPOn27rlv8/KzT4dXrf811557/qxEP/nPnnXruvWev8ePHXXnlVT857QxOUgkc7LeO7sAGAQKr+AOBgkZiFGB4SiuEL6JUDBSYvyipgWI8kIu2yDH0KM69pb8iZeYW2CpuayXLuI2zFMkID5xfQXJmjjr6mAsvuBDc/vyo58Bxp/7oxzDYfvvbATgJffT739+CN8ccczTwxWmnnY4LDhp0/fRp02Fpz5r9wfgJ43Fv6CKccsnFF33++UJc4cEH//n444/ts8++vffo3a1b9z59Dntu5Mi//vWvYONvv/3mrrvuWLJkCZ4W3EXTBzJZECV2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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785215905182-2r9s6')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The hero subtitle's copy was never updated to match the design's intended text. Figma's mobile mockup (confirmed via a PNG render of the frame, since the raw Figma JSON API is rate-limited this session) shows the same copy as the already-confirmed 1440 desktop frame: &quot;Certain qualities reveal themselves only up close.&quot; Live renders a completely different string, &quot;Recognized for what we quietly strive to perfect,&quot; at both breakpoints — a content/copy issue, not a responsive-CSS bug, since it reproduces identically regardless of viewport. All styling (font, size, weight, color, alignment) is otherwise correct.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">{%- comment -%} Section: slideshow_ybYcyi, hero subtitle setting {%- endcomment -%}
+subheading: &quot;Recognized for what we quietly strive to perfect&quot;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">{%- comment -%} Update the hero subtitle setting to match the design copy {%- endcomment -%}
+subheading: &quot;Certain qualities reveal themselves only up close.&quot;</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Update the hero subtitle text in the Shopify theme editor to match the design's intended copy — this is a content-configuration fix, not a template-code fix. Same underlying content mismatch already flagged in the 1440 desktop report; fixing it once in the section's settings will resolve it at both breakpoints, since it's the same setting.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div class="scenario-info">
+          <div class="scenario-name">04 - Hero subtitle: verify font, size, weight, color, alignment match Figma mobile spec</div>
+          <div class="scenario-desc">Font-size (16.5px) is the sitewide hero-subtitle mobile invariant, same evidence basis as test 02.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify css=.hero__subtitle style font-size = &quot;16.5px&quot;</td>
+          <td class="result-col">font-size = &quot;16.5px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=.hero__subtitle style font-weight = &quot;300&quot;</td>
+          <td class="result-col">font-weight = &quot;300&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=.hero__subtitle style color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td class="result-col">color = &quot;rgb(255, 255, 255)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify css=.hero__subtitle style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">5</div>
+        <div class="scenario-info">
+          <div class="scenario-name">05 - Intro text: verify text matches Figma's mobile-specific copy (includes an extra sentence not present in the 1440 desktop copy)</div>
+          <div class="scenario-desc">Notable, verified-correct mobile-specific content difference: Figma's mobile frame's intro paragraph (confirmed via the PNG render) reads &quot;...around the world. Here are some of the stories that reflect how others see us.&quot; — an extra trailing sentence NOT present in the 1440 desktop frame's shorter copy (&quot;...around the world.&quot;). Live at 375px correctly renders this longer mobile-specific copy verbatim — a genuine intentional per-breakpoint content difference, not a bug, and not inferred from the 1440 spec.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_text → css=#shopify-section-template--21418534043800__rich_text_Wc6tAC h4</td>
+          <td class="result-col">Text contains &quot;From design to craftsmanship, our work has been featured and recognized by publications around the world. Here are some of the stories that reflect how others see us.&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=#shopify-section-template--21418534043800__rich_text_Wc6tAC h4 style font-size = &quot;16.5px&quot;</td>
+          <td class="result-col">font-size = &quot;16.5px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=#shopify-section-template--21418534043800__rich_text_Wc6tAC h4 style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">6</div>
+        <div class="scenario-info">
+          <div class="scenario-name">06 - Intro text: verify color matches Figma (#444444, not the recurring wrong gray) — reproduces the confirmed 1440 finding</div>
+          <div class="scenario-desc">CONFIRMED REAL MISMATCH — clean cross-breakpoint reproduction of the 1440 finding (test 06 in the 1440 yaml, confirmed via that page's own real Figma JSON as #444444/rgb(68,68,68)). Live renders the recurring sitewide wrong-gray token #5f5c5c/rgb(95,92,92) at 375px too. Color tokens have proven, without exception across every page/breakpoint pair audited in this engagement so far, to NOT vary by viewport — this reproduction is expected and consistent with that pattern.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1785215905184-55l8v" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAATYAAABsCAIAAABvvAnbAAANT0lEQVR4nOydCWxUVRuGbxUslgKtIKWAuFAVocUIQoGoEBZXiqDGuBFxQY1Q4h9cUDHuIlFEWYwQazX5QVQKBVyism+F/uyUHcLaUpaytWUt5X8yJ95MplOY6ebp9H1CyMy9555tvvd83/nuzG2tM2fOOKHLhQsX0tLSMjMzY2Nji4qKWrduXVxcnJSUtHTp0j179jz22GOmmM9bOHny5Lhx45577rmGDRtOmTKlRYsWXbp04XheXl5KSsrgwYMjIiLMhfzPqUWLFk2bNo1i586dS0hIyM3NfeaZZzi1fPlyLm/evPnp06ebNm168ODB5ORkrt2+ffs333zTuHHj2rVrHzhw4KmnnoqPj/fuuXejhw8fHjNmTGRkJK8LCgqGDBnSqFEjnzI+cMno0aMjPPC6e/fu1D958uSBAweaehYsWHDo0KGHH344IyNj5syZMTExTEt0dLT36OjYqFGjaOuyyy5r1qzZiRMnHnnkESbEbcWdjVOnTnlf6N0xZpK3Zm7Hjh3LkHNycurUqbNz587+/fsnJiYyoi+++CIsLKyuh/r167dr1+7mm2/ms5s1a9bChQtN0+3bt+/duzcT7vaWj4xRDB8+nDl0Qpew0JaogTGiED577MCpNFgCCgsL69Wrh0F7H2dRyM/Px/iOHz+empqKHWOg5hTWyf9GM5cEW6eqAAu7l7BkXHLgzA/F/NaMTpAHHQ4PD3fKh7vqNWjQoOREMRW8NQr3hiEzbxx3O+D2tsiDO5mhSi2nBhDuwalkatWqhfGVPI7lmePZ2dlRUVHeJhWU3kqab0VdcpH5Qdt+B1Ue/E5UaVPB7OHbvY+4va3lwQl1aoRE/y1Y/gnhCPni4uL27t27bt26oUOHOkIEQ40IdP9FTJzG/8aX+sTANQpiZqJZAv6aPAllQBIVwmq0nglhNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYjiQphNZKoEFYTxEM6i4uLz5075wgRPIWeJ1k7VcuOHTscm4iMjIyKjo6JiQnqquCeo1tUVFQTHi4sKhbMZtjrrzvCcdrEx/fo2TM+ISHwS4LWWxU81l2EGEjUER42ZGWdPXu2ciUqhCgP27ZuDaq80kVCWI0kKoTVSKJCWI0kKoTVSKJCWI0kKoTVSKJCWI0kKoTVSKJCWI0kKoTVSKJCWI0kKoTVSKLVkqKioqNHj545c6bkqYKCguPHj1+4cMERIUHF/9Jl48aNhw4d8j7SoEGD+Ph4/dC0nBw+fPjLL78cMGBAXFzcjh073nnnnVdeeaVLly4+xb7++mtKvvfeexEREY6o/lS8bH799delS5ciy7CwMHPkpptuatWq1SUlumTJkpiYGOzPEf7Iz8/ft28fTtIRNYlK8WxoMthVnJjtjz/+uP/++yXR0rj++uu///57R9Qwqi74zM3N/euvv/r06bNy5cq///4bTfb0EB4eXlhYOGPGjM2bN58/f3758uXNmjV78MEHOU6ZRYsWzZ49m8speeedd5pnPmzfvn3VqlW9e/devHgxF95xxx2PP/64aeXUqVNpaWlNmzbt3r272/S6desyMjIeffTR6OhoUycQDXbo0CEpKalhw4aOZ42gqmuvvTYxMdFchb+aMmVKt27dWDXM2Xbt2rHuTJ48OScn59VXX6UV7wEWFxfTeYbGLpGu3nPPPXXr1nUH/sADDyxbtoyx0Id777339ttvZ7y//fbbnj17Onbs+NBDD5nCcPDgwQULFmRlZZ04cYJiffv2deuZNm3a3XffHcgqRg9pdMOGDTfeeCM1XHfdde4pWiTS4VSbNm2YwxYtWrjDLznAvLy8WbNm8ZFRjCHccsstbnBU3enarduWLVty9+937Kbq0kXkMDCaN998EzNFb4S+P/zww4QJE8h87N+/H7vxKX/y5MkPP/xw0qRJiR5wIJ9++qlJkGDEGPdnn332888/33DDDcbIDFdeeSU65zjNmSPUn56efuDAgXr16qG6Dz744Ntvv8VwMbgVK1YkJyfzOVGMq3i7c+dOtyraIvamLffsL7/8Qv8JOLFUV1FuK2wCx4wZQ3969eqFUN944w206g6crSOqoNHatWszkJEjR44ePRqxde3albHw1gyNNM/UqVORBEO+6667iCw++ugjpsLUM3/+fNOfi0MugCbq169Pc9nZ2fR527Zt5hR7kKFDhzIP/fr1o0Je01ZpA2QpHDJkCPPDiol0GQJddUKF+ISEESNHDkpObhIb61hMpXhRtkzY6+WXX27ektIwruns2bMtW7YkycG+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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1785215905184-55l8v')" title="Click to zoom" />
+      </div>
+    </div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">The intro paragraph renders the sitewide recurring wrong-gray token <code class="ic">#5f5c5c</code> (rgb(95, 92, 92)) instead of Figma's specified <code class="ic">#444444</code> (rgb(68, 68, 68)) — the same shared color-variable bug already confirmed on this exact element at 1440px, and dozens of times across other pages/breakpoints in this engagement (buttons, headings, nav dots, body text). Notably, the &quot;Departure in the headlines.&quot; heading directly below this paragraph on the SAME page correctly renders #444444 (test 08) — confirming the wrong token isn't applied uniformly even within one page.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">#shopify-section-template--21418534043800__rich_text_Wc6tAC h4 {
+  color: #5f5c5c;
+}</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">#shopify-section-template--21418534043800__rich_text_Wc6tAC h4 {
+  color: #444444;
+}</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">Fix the shared color token/variable at its source rather than patching this one element — this exact deviation has now been confirmed on buttons, headings, nav indicators, and body text across nearly every page and both breakpoints in this engagement, strongly indicating one central token is misconfigured.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">7</div>
+        <div class="scenario-info">
+          <div class="scenario-name">07 - Verify exactly 3 press logo images are shown, matching Figma's mobile spec</div>
+          <div class="scenario-desc">Figma's mobile frame shows 3 press logos (GQ, HiSoParty, WebLEON), confirmed via the PNG render — fewer than however many render at 1440's wider logo bar, a genuine mobile-specific reduced count, not inferred from desktop.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Scroll to css=.logo-bar__item img</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify visible: css=.logo-bar__item img</td>
+          <td class="result-col">Visible: css=.logo-bar__item img</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify count of css=.logo-bar__item img = 3</td>
+          <td class="result-col">Count of css=.logo-bar__item img = 3</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">8</div>
+        <div class="scenario-info">
+          <div class="scenario-name">08 - Headlines heading: verify text, font, size, letter-spacing, color, alignment match Figma mobile spec</div>
+          <div class="scenario-desc">Font-size/letter-spacing (34px/-1.7px) and CENTER alignment match the same &quot;shared big tagline heading&quot; mobile values independently confirmed via real Figma JSON on Corporate Gifting-375's &quot;The Steps Ahead&quot; heading (a different CSS class, .numbered-cards-heading, rendering the identical 34px/-1.7px pair) — strong cross-page evidence this is one shared design-system heading style, not a per-page coincidence. Color (#444444) is a clean match — notably NOT the wrong-gray bug seen on this same page's intro text (test 06), reinforcing the established observation that the wrong-gray token is applied inconsistently even within a single page.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_text → css=h2.section-header__title</td>
+          <td class="result-col">Text contains &quot;Departure in the headlines.&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=h2.section-header__title style font-size = &quot;34px&quot;</td>
+          <td class="result-col">font-size = &quot;34px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=h2.section-header__title style letter-spacing = &quot;-1.7px&quot;</td>
+          <td class="result-col">letter-spacing = &quot;-1.7px&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify css=h2.section-header__title style color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td class="result-col">color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#05</td>
+          <td class="action-col">Verify css=h2.section-header__title style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">9</div>
+        <div class="scenario-info">
+          <div class="scenario-name">09 - Verify at least 5 press article entries are listed, each with a title, publication, and date</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: css=a.article__title, css=.article__excerpt, css=.article__date time</td>
+          <td class="result-col">Visible: css=a.article__title, css=.article__excerpt, css=.article__date time</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">10</div>
+        <div class="scenario-info">
+          <div class="scenario-name">10 - Verify clicking the first article title navigates to its own blog post page</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Click css=a.article__title</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for body</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify URL contains &quot;/blogs/news/&quot;</td>
+          <td class="result-col">URL contains &quot;/blogs/news/&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass">
+      <div class="scenario-header">
+        <div class="scenario-num">11</div>
+        <div class="scenario-info">
+          <div class="scenario-name">11 - Bottom text: verify text, font, size, color, alignment match Figma exactly</div>
+          <div class="scenario-desc">Same as the 1440 report: the design itself specifies the placeholder email &quot;xxx@departureluggage.com&quot; (visually confirmed present verbatim in the mobile PNG render too) — live faithfully reproduces this unfinished placeholder at 375px, not a live-only defect.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://departure-luggage-th-dev.myshopify.com/blogs/news</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for main</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Click if present xpath=//button[@aria-label='Close (esc)'] | //*[contains(@class,'popup')]//button[contains(@class,'close')]</td>
+          <td class="result-col">Element not present — skipped</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Scroll to css=#shopify-section-template--21418534043800__rich_text_xH8zDX</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#05</td>
+          <td class="action-col">verify_text → css=#shopify-section-template--21418534043800__rich_text_xH8zDX h4</td>
+          <td class="result-col">Text contains &quot;If you’d like to tell our story or cover our work&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#06</td>
+          <td class="action-col">Verify css=#shopify-section-template--21418534043800__rich_text_xH8zDX h4 style color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td class="result-col">color = &quot;rgb(68, 68, 68)&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#07</td>
+          <td class="action-col">Verify css=#shopify-section-template--21418534043800__rich_text_xH8zDX h4 style text-align = &quot;center&quot;</td>
+          <td class="result-col">text-align = &quot;center&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">12</div>
+        <div class="scenario-info">
+          <div class="scenario-name">12 - [Systemic/Low severity] Serif hero heading line-height: Figma reports 1.362x (auto, 54.48px); theme uses 1.3x (52px)</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Figma reports the hero heading's line-height as &quot;auto,&quot; which Figma derives as a uniform 1.362× multiple of font-size from the font's own metrics — not a deliberately set value. This exact ratio has been independently confirmed identical across every text node checked so far in this engagement (10+ pages), confirming it's a font-metric constant of the Noto Serif/Sans families used, not per-node design intent. The live theme instead implements a clean, deliberate 1.3× convention for all Serif headings sitewide.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">/* Figma's implied (non-deliberate) value */
+h2.hero__title { line-height: 54.48px; } /* 1.362 × 40px, font-metric default */</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">/* live theme's actual, deliberate convention — no code change recommended */
+h2.hero__title { line-height: 52px; } /* 1.3 × 40px */</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">No code fix recommended. This is a design-system-level decision, not a per-page bug — same treatment as every other page's systemic line-height finding in this engagement.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail">
+      <div class="scenario-header">
+        <div class="scenario-num">13</div>
+        <div class="scenario-info">
+          <div class="scenario-name">13 - [Systemic/Low severity] Serif section heading line-height: Figma 1.362x (auto, 46.31px); theme uses 1.3x (44.2px)</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-ai"><div class="ev-body ev-ai-body">
+      <div class="ai-s"><div class="ai-lbl">🔍 Root Cause</div><div class="ai-txt">Same systemic pattern as the hero heading line-height finding above: Figma's &quot;auto&quot; line-height (1.362× font-size) is a font-metric default, not a deliberate design value. The live theme consistently uses a 1.3× line-height convention for Serif section headings sitewide, already confirmed identically on Corporate Gifting-375's &quot;The Steps Ahead&quot; heading at the same 34px font-size.</div></div>
+      <div class="ai-s"><div class="ai-lbl">❌ Problematic Code</div><pre class="ai-pre bad">/* Figma's implied (non-deliberate) value */
+h2.section-header__title { line-height: 46.31px; } /* 1.362 × 34px, font-metric default */</pre></div>
+      <div class="ai-s"><div class="ai-lbl">✅ Fixed Code</div><pre class="ai-pre good">/* live theme's actual, deliberate convention — no code change recommended */
+h2.section-header__title { line-height: 44.2px; } /* 1.3 × 34px */</pre></div>
+      <div class="ai-s"><div class="ai-lbl">📋 What To Do</div><div class="ai-txt">No code fix recommended — same design-system-level call as every other page's systemic line-height finding in this engagement.</div></div>
+      
+    </div></div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+</main>
+
+<script>
+  // Toggle steps on click
+  document.querySelectorAll('.scenario-header').forEach(function(h) {
+    h.addEventListener('click', function() {
+      h.closest('.scenario-card').classList.toggle('open');
+    });
+  });
+  // Auto-expand all scenarios on load
+  document.querySelectorAll('.scenario-card').forEach(function(c) {
+    c.classList.add('open');
+  });
+</script>
+
+<style>
+  /* ── hold card ── */
+  .scenario-card.hold { border-left: 4px solid #f59e0b; }
+  .scenario-card.hold .scenario-header { background: #fffbeb; }
+  .scenario-card.hold .scenario-badge  { background:#f59e0b;color:#fff; }
+  .scenario-card.hold .scenario-num    { background:#f59e0b;color:#fff; }
+
+  /* ── hold step row ── */
+  tr.sr-hold td { background: #fffbeb; }
+
+  /* ── hold step-status pill ── */
+  .step-status.hold {
+    background: #f59e0b;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  tr.sr-fail td { background:#fff5f5; }
+  .step-error { margin-top:6px;padding:6px 10px;background:#fff0f0;border-left:3px solid #e53e3e;border-radius:4px; }
+  .step-error-label { display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#e53e3e;margin-bottom:3px; }
+  .step-error code { font-size:11px;color:#c53030;word-break:break-all;white-space:pre-wrap; }
+  .ev-block { margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0; }
+  .ev-hdr { display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px; }
+  .ev-icon { font-size:15px; } .ev-title { font-weight:700;flex:1; }
+  .ev-meta { font-size:11px;opacity:.7; }
+  .ev-zoom-hint { font-size:10px;color:#89b4fa;font-style:italic;opacity:.8; }
+  .ev-body { padding:10px; }
+  .ev-code { border-color:#313244; }
+  .ev-code .ev-hdr { background:#1e1e2e;color:#cdd6f4; }
+  .ev-code-body { background:#181825;padding:6px; }
+  .ev-img { display:block;width:100%;border-radius:4px;cursor:zoom-in;
+    transition:box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,.4);
+    height:auto !important;max-height:none !important; }
+  .ev-img:hover { box-shadow:0 4px 20px rgba(0,0,0,.6); }
+  .ev-ai { border-color:#7c3aed; }
+  .ev-ai-body { background:#faf5ff;padding:14px 16px; }
+  .ai-s { margin-bottom:13px; } .ai-s:last-child { margin-bottom:0; }
+  .ai-lbl { font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.07em;color:#6d28d9;margin-bottom:5px; }
+  .ai-txt { font-size:13px;line-height:1.7;color:#2d3748; }
+  .ai-warn { color:#744210;background:#fefcbf;padding:8px 10px;
+    border-radius:4px;border-left:3px solid #d69e2e; }
+  .ai-txt ul { padding-left:18px;margin:4px 0; }
+  .ai-txt li { margin:2px 0; }
+  .ic { font-family:'Consolas','Monaco',monospace;font-size:11px;
+    background:#ede9fe;color:#4c1d95;padding:1px 5px;border-radius:3px; }
+  .ai-pre { font-family:'Consolas','Monaco',monospace;font-size:12px;
+    padding:10px 14px;border-radius:6px;overflow-x:auto;
+    white-space:pre-wrap;word-break:break-word;line-height:1.6;margin:0; }
+  .bad  { background:#2d0000;color:#fca5a5;border-left:3px solid #dc2626; }
+  .good { background:#052e16;color:#86efac;border-left:3px solid #16a34a; }
+  #zoom-overlay { display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;cursor:zoom-out; }
+  #zoom-overlay.active { display:flex; }
+  #zoom-overlay img { max-width:92vw;max-height:92vh;border-radius:8px;
+    box-shadow:0 8px 48px rgba(0,0,0,.8);cursor:zoom-out;object-fit:contain; }
+  #zoom-overlay .zoom-close { position:absolute;top:16px;right:24px;
+    color:#fff;font-size:28px;font-weight:700;cursor:pointer;
+    line-height:1;opacity:.8;transition:opacity .15s; }
+  #zoom-overlay .zoom-close:hover { opacity:1; }
+  #zoom-overlay .zoom-label { position:absolute;bottom:16px;left:50%;
+    transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:12px;
+    font-family:monospace;background:rgba(0,0,0,.5);padding:4px 12px;
+    border-radius:20px;pointer-events:none; }
+  .result-col { overflow:visible !important;white-space:normal !important;word-break:break-word; }
+  .steps-table { table-layout:fixed;width:100%; }
+  .steps-table th:first-child,.steps-table td:first-child { width:36px;min-width:36px;padding:6px 4px;text-align:center; }
+  .steps-table .action-col { width:20%; }
+  .ev-block,.ev-body,.ev-code-body,.ev-ai-body,.steps-wrap,.ai-txt,.scenario-card { overflow:visible !important; }
+  .ev-code-body { overflow-x:auto; }
+  tr.sr-fail td { overflow:visible !important; }
+</style>
+<div id="zoom-overlay">
+  <span class="zoom-close" onclick="closeZoom()">✕</span>
+  <img id="zoom-img" src="" alt="Zoomed" />
+  <span class="zoom-label">Click anywhere or press Esc to close</span>
+</div>
+<script>
+(function(){
+  window.openZoom=function(id){
+    var img=document.getElementById(id); if(!img)return;
+    document.getElementById('zoom-img').src=img.src;
+    document.getElementById('zoom-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  };
+  window.closeZoom=function(){
+    document.getElementById('zoom-overlay').classList.remove('active');
+    document.body.style.overflow='';
+    setTimeout(function(){document.getElementById('zoom-img').src='';},200);
+  };
+  document.getElementById('zoom-overlay').addEventListener('click',function(e){
+    if(e.target===this||e.target===document.getElementById('zoom-img'))closeZoom();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+})();
+</script>
+</body>
+</html>
