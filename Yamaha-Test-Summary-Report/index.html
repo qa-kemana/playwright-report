@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Yamaha QA — Test Execution Summary</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --navy:#0a0b1f;
+    --navy-2:#161832;
+    --card:#FFFFFF;
+    --ink:#1B2340;
+    --ink-soft:#5B6180;
+    --line:#E7E9F3;
+    --pass:#2FBF83;
+    --pass-bg:#E7FAF1;
+    --fail:#FF5C6C;
+    --fail-bg:#FFEEEF;
+    --warn:#F0A93A;
+    --warn-bg:#FFF6E7;
+    --grad-a:#f472b6;
+    --grad-b:#fb923c;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:var(--navy);
+    font-family:'Inter',sans-serif;
+    color:var(--ink);
+    -webkit-font-smoothing:antialiased;
+  }
+  .display{font-family:'Space Grotesk',sans-serif;}
+  .mono{font-family:'JetBrains Mono',monospace;}
+  a{color:inherit;}
+
+  header.top{
+    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);
+    padding:56px 24px 0;
+    color:#fff;
+  }
+  .brand{
+    max-width:1180px;margin:0 auto;
+    display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:16px;
+  }
+  .brand-mark{
+    display:flex;align-items:center;gap:10px;
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
+    letter-spacing:0.14em;text-transform:uppercase;color:#F9B8D8;
+  }
+  .brand-mark .dot{
+    width:9px;height:9px;border-radius:50%;
+    background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
+    box-shadow:0 0 0 4px rgba(244,114,182,0.18);
+  }
+  .env-pill{
+    font-family:'JetBrains Mono',monospace;font-size:12px;color:#C7CBEF;
+    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
+    padding:6px 12px;border-radius:999px;
+  }
+  .hero{max-width:1180px;margin:36px auto 0;}
+  h1.title{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;
+    font-size:clamp(30px,4.6vw,50px);line-height:1.05;margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+  h1.title .accent{
+    background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+  .subtitle{color:#C7CBEF;font-size:16px;max-width:680px;line-height:1.6;margin:0 0 32px;}
+  .subtitle code{font-family:'JetBrains Mono',monospace;font-size:14px;color:#F0F1FF;}
+
+  .meta-row{
+    display:flex;flex-wrap:wrap;gap:28px;
+    padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);
+  }
+  .meta-item{display:flex;flex-direction:column;gap:4px;}
+  .meta-item .k{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8B8FBF;}
+  .meta-item .v{font-family:'JetBrains Mono',monospace;font-size:14px;color:#F0F1FF;}
+
+  .stat-strip{
+    max-width:1180px;margin:0 auto;padding:36px 24px 0;
+    display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
+  }
+  @media(max-width:900px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
+  .stat-card{
+    background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);
+    border-radius:14px;padding:20px 22px;
+  }
+  .stat-card .num{
+    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:#fff;line-height:1;
+  }
+  .stat-card .lbl{margin-top:8px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#9498CC;}
+  .stat-card.pass .num{color:var(--pass);}
+  .stat-card.fail .num{color:var(--fail);}
+  .stat-card.rate .num{
+    background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
+    -webkit-background-clip:text;background-clip:text;color:transparent;
+  }
+
+  main{background:#F4F5FB;padding:48px 24px 80px;}
+  .modules-wrap{max-width:1180px;margin:0 auto;}
+  .section-head{
+    display:flex;align-items:baseline;justify-content:space-between;
+    flex-wrap:wrap;gap:8px;margin-bottom:22px;
+  }
+  h2.section-title{font-family:'Space Grotesk',sans-serif;font-size:22px;margin:0;}
+  .section-note{font-size:13px;color:var(--ink-soft);}
+
+  .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;}
+  @media(max-width:640px){ .grid{grid-template-columns:1fr;} }
+
+  .card{
+    background:var(--card);border-radius:16px;border:1px solid var(--line);
+    padding:22px 22px 20px;display:flex;flex-direction:column;gap:14px;
+    text-decoration:none;color:var(--ink);
+    transition:transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
+    position:relative;overflow:hidden;
+  }
+  .card:hover{
+    transform:translateY(-3px);
+    box-shadow:0 14px 30px -12px rgba(10,11,31,0.25);
+    border-color:transparent;
+  }
+  .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
+  .card.ok::before{background:var(--pass);}
+  .card.warn::before{background:var(--fail);}
+
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
+  .card-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;line-height:1.3;}
+  .badge{
+    flex:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
+    padding:4px 9px;border-radius:999px;white-space:nowrap;
+  }
+  .badge.pass{background:var(--pass-bg);color:#1C8E62;}
+  .badge.fail{background:var(--fail-bg);color:#C93244;}
+
+  .bar-track{height:8px;border-radius:999px;background:#EEF0FA;overflow:hidden;}
+  .bar-fill{height:100%;border-radius:999px;}
+  .bar-fill.ok{background:linear-gradient(90deg,#2FBF83,#67D9A6);}
+  .bar-fill.warn{background:linear-gradient(90deg,#FF5C6C,#FF8F98);}
+
+  .counts{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);}
+  .counts b{color:var(--ink);font-weight:700;}
+  .counts .p b{color:var(--pass);}
+  .counts .f b{color:var(--fail);}
+
+  .card-note{font-size:11.5px;color:var(--ink-soft);}
+
+  .card-cta{
+    margin-top:auto;display:flex;align-items:center;justify-content:space-between;
+    font-size:13px;font-weight:600;color:var(--ink);padding-top:6px;
+    border-top:1px solid var(--line);
+  }
+  .card-cta .arrow{font-family:'Space Grotesk',sans-serif;transition:transform 0.15s ease;}
+  .card:hover .card-cta .arrow{transform:translateX(3px);}
+
+  footer.bottom{
+    max-width:1180px;margin:0 auto;padding:40px 24px 0;color:var(--ink-soft);
+    font-size:13px;border-top:1px solid var(--line);margin-top:24px;padding-top:24px;
+    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
+  }
+  footer.bottom b{color:var(--ink);}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="brand">
+    <div class="brand-mark"><span class="dot"></span>Yamaha QA</div>
+    <div class="env-pill">yamaha-id-m248-ce-txq.kemana.dev</div>
+  </div>
+
+  <div class="hero">
+    <h1 class="title">Test Execution <span class="accent">Summary</span></h1>
+    <p class="subtitle">Consolidated results across 2 automated Yamaha Motor Indonesia modules, executed against the <code>Magento</code> storefront. Every card links out to its full per-scenario report.</p>
+
+    <div class="meta-row">
+      <div class="meta-item"><span class="k">Modules</span><span class="v">2</span></div>
+      <div class="meta-item"><span class="k">Latest run</span><span class="v">Aug 6, 2026</span></div>
+      <div class="meta-item"><span class="k">Environment</span><span class="v">Staging (no password gate)</span></div>
+      <div class="meta-item"><span class="k">Browser</span><span class="v">Chromium</span></div>
+      <div class="meta-item"><span class="k">Framework</span><span class="v">Playwright MCP</span></div>
+    </div>
+  </div>
+
+  <div class="stat-strip">
+    <div class="stat-card"><div class="num mono">121</div><div class="lbl">Total tests</div></div>
+    <div class="stat-card pass"><div class="num mono">104</div><div class="lbl">Passed</div></div>
+    <div class="stat-card fail"><div class="num mono">17</div><div class="lbl">Failed</div></div>
+    <div class="stat-card rate"><div class="num mono">86%</div><div class="lbl">Pass rate</div></div>
+    <div class="stat-card"><div class="num mono">0</div><div class="lbl">Incomplete runs</div></div>
+  </div>
+</header>
+
+<main>
+  <div class="modules-wrap">
+    <div class="section-head">
+      <h2 class="section-title">Modules</h2>
+      <span class="section-note">Click any card to open its full report in a new tab</span>
+    </div>
+
+    <div class="grid">
+
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Yamaha-Home-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Home, Header, Main Navigation &amp; Footer</div><div class="badge fail">81% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:81%"></div></div>
+        <div class="counts"><span class="p">Passed <b>66</b></span><span class="f">Failed <b>15</b></span><span>of <b>81</b></span></div>
+        <span class="card-note">Combined module — header, homepage &amp; footer</span>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Yamaha-PLP-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Product Listing Page</div><div class="badge pass">95% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill ok" style="width:95%"></div></div>
+        <div class="counts"><span class="p">Passed <b>38</b></span><span class="f">Failed <b>2</b></span><span>of <b>40</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+    </div>
+
+    <footer class="bottom">
+      <span><b>Yamaha QA</b> — Automated Test Summary · Generated August 6, 2026 · Playwright MCP</span>
+      <span>121 tests · 104 passed · 17 failed · 86% overall</span>
+    </footer>
+  </div>
+</main>
+
+</body>
+</html>
