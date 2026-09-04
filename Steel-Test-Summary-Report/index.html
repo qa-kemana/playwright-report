@@ -134,6 +134,7 @@
   }
   .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
   .card.ok::before{background:var(--pass);}
+  .card.mid::before{background:var(--warn);}
   .card.warn::before{background:var(--fail);}
 
   .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -143,11 +144,13 @@
     padding:4px 9px;border-radius:999px;white-space:nowrap;
   }
   .badge.pass{background:var(--pass-bg);color:#1C8E62;}
+  .badge.mid{background:var(--warn-bg);color:#B8790F;}
   .badge.fail{background:var(--fail-bg);color:#C93244;}
 
   .bar-track{height:8px;border-radius:999px;background:#EEF0FA;overflow:hidden;}
   .bar-fill{height:100%;border-radius:999px;}
   .bar-fill.ok{background:linear-gradient(90deg,#2FBF83,#67D9A6);}
+  .bar-fill.mid{background:linear-gradient(90deg,#F0A93A,#F7C874);}
   .bar-fill.warn{background:linear-gradient(90deg,#FF5C6C,#FF8F98);}
 
   .counts{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);}
@@ -254,9 +257,9 @@
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Search-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Search</div><div class="badge fail">82% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:82%"></div></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Search-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Search</div><div class="badge mid">82% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:82%"></div></div>
         <div class="counts"><span class="p">Passed <b>23</b></span><span class="f">Failed <b>5</b></span><span>of <b>28</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
@@ -275,16 +278,16 @@
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-PDP-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Product Detail Page</div><div class="badge fail">75% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:75%"></div></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-PDP-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Product Detail Page</div><div class="badge mid">75% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:75%"></div></div>
         <div class="counts"><span class="p">Passed <b>33</b></span><span class="f">Failed <b>11</b></span><span>of <b>44</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Cart-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Cart</div><div class="badge fail">89% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:89%"></div></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Cart-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Cart</div><div class="badge mid">89% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:89%"></div></div>
         <div class="counts"><span class="p">Passed <b>31</b></span><span class="f">Failed <b>4</b></span><span>of <b>35</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
@@ -297,23 +300,23 @@
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Login-Registration-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Login &amp; Registration</div><div class="badge fail">79% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:79%"></div></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Login-Registration-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Login &amp; Registration</div><div class="badge mid">79% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:79%"></div></div>
         <div class="counts"><span class="p">Passed <b>26</b></span><span class="f">Failed <b>7</b></span><span>of <b>33</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-My-Account-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">My Account</div><div class="badge fail">84% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:84%"></div></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-My-Account-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">My Account</div><div class="badge mid">84% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:84%"></div></div>
         <div class="counts"><span class="p">Passed <b>36</b></span><span class="f">Failed <b>7</b></span><span>of <b>43</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Compare-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Compare</div><div class="badge fail">87% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:87%"></div></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Compare-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Compare</div><div class="badge mid">87% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:87%"></div></div>
         <div class="counts"><span class="p">Passed <b>20</b></span><span class="f">Failed <b>3</b></span><span>of <b>23</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
