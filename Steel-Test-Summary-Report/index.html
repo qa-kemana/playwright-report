@@ -165,6 +165,8 @@
   .card-cta .arrow{font-family:'Space Grotesk',sans-serif;transition:transform 0.15s ease;}
   .card:hover .card-cta .arrow{transform:translateX(3px);}
 
+  .group-gap{height:44px;}
+
   footer.bottom{
     max-width:1180px;margin:0 auto;padding:40px 24px 0;color:var(--ink-soft);
     font-size:13px;border-top:1px solid var(--line);margin-top:24px;padding-top:24px;
@@ -183,11 +185,11 @@
 
   <div class="hero">
     <h1 class="title">Test Execution <span class="accent">Summary</span></h1>
-    <p class="subtitle">Consolidated results across 7 automated SteelSolution (SteelHub) modules, executed against the <code>Magento</code> storefront. Every card links out to its full per-scenario report.</p>
+    <p class="subtitle">Consolidated results across 12 automated SteelSolution (SteelHub) modules — 10 storefront modules against the <code>Magento</code> storefront, plus the B2B Marketplace Roll Former vendor portal and the Admin backend order-fulfillment flow. Every card links out to its full per-scenario report.</p>
 
     <div class="meta-row">
-      <div class="meta-item"><span class="k">Modules</span><span class="v">7</span></div>
-      <div class="meta-item"><span class="k">Latest run</span><span class="v">Aug 13, 2026</span></div>
+      <div class="meta-item"><span class="k">Modules</span><span class="v">12</span></div>
+      <div class="meta-item"><span class="k">Latest run</span><span class="v">Sep 4, 2026</span></div>
       <div class="meta-item"><span class="k">Environment</span><span class="v">Staging (no password gate)</span></div>
       <div class="meta-item"><span class="k">Browser</span><span class="v">Chromium</span></div>
       <div class="meta-item"><span class="k">Framework</span><span class="v">Playwright MCP</span></div>
@@ -195,10 +197,10 @@
   </div>
 
   <div class="stat-strip">
-    <div class="stat-card"><div class="num mono">251</div><div class="lbl">Total tests</div></div>
-    <div class="stat-card pass"><div class="num mono">222</div><div class="lbl">Passed</div></div>
-    <div class="stat-card fail"><div class="num mono">29</div><div class="lbl">Failed</div></div>
-    <div class="stat-card rate"><div class="num mono">88%</div><div class="lbl">Pass rate</div></div>
+    <div class="stat-card"><div class="num mono">425</div><div class="lbl">Total tests</div></div>
+    <div class="stat-card pass"><div class="num mono">348</div><div class="lbl">Passed</div></div>
+    <div class="stat-card fail"><div class="num mono">77</div><div class="lbl">Failed</div></div>
+    <div class="stat-card rate"><div class="num mono">82%</div><div class="lbl">Pass rate</div></div>
     <div class="stat-card"><div class="num mono">0</div><div class="lbl">Incomplete runs</div></div>
   </div>
 
@@ -211,20 +213,25 @@
           <stop offset="100%" stop-color="#fb923c"/>
         </linearGradient>
       </defs>
-      <!-- Home 94 | PCP 100 | PLP 93 | PDP 75 | Cart 89 | Search 82 | Compare 87 -->
+      <!-- Home 94 | Search 82 | PCP 100 | PLP 93 | PDP 75 | Cart 89 | Checkout 96 | Login&Reg 79 | My Account 84 | Compare 87 | Roll Former 55 | Order Fulfillment 59 -->
       <polyline
         fill="none" stroke="url(#waveGrad)" stroke-width="2.5"
         stroke-linecap="round" stroke-linejoin="round"
-        points="20,23.6 210,20 400,24.2 590,35 780,26.6 970,30.8 1160,27.8"
+        points="20,23.6 123.6,30.8 227.3,20 330.9,24.2 434.5,35 538.2,26.6 641.8,22.4 745.5,32.6 849.1,29.6 952.7,27.8 1056.4,47 1160,44.6"
       />
       <g fill="#FFFFFF">
         <circle class="wave-pt" cx="20" cy="23.6" r="4"/>
-        <circle class="wave-pt" cx="210" cy="20" r="4"/>
-        <circle class="wave-pt" cx="400" cy="24.2" r="4"/>
-        <circle class="wave-pt" cx="590" cy="35" r="4"/>
-        <circle class="wave-pt" cx="780" cy="26.6" r="4"/>
-        <circle class="wave-pt" cx="970" cy="30.8" r="4"/>
-        <circle class="wave-pt" cx="1160" cy="27.8" r="4"/>
+        <circle class="wave-pt" cx="123.6" cy="30.8" r="4"/>
+        <circle class="wave-pt" cx="227.3" cy="20" r="4"/>
+        <circle class="wave-pt" cx="330.9" cy="24.2" r="4"/>
+        <circle class="wave-pt" cx="434.5" cy="35" r="4"/>
+        <circle class="wave-pt" cx="538.2" cy="26.6" r="4"/>
+        <circle class="wave-pt" cx="641.8" cy="22.4" r="4"/>
+        <circle class="wave-pt" cx="745.5" cy="32.6" r="4"/>
+        <circle class="wave-pt" cx="849.1" cy="29.6" r="4"/>
+        <circle class="wave-pt" cx="952.7" cy="27.8" r="4"/>
+        <circle class="wave-pt" cx="1056.4" cy="47" r="4"/>
+        <circle class="wave-pt" cx="1160" cy="44.6" r="4"/>
       </g>
     </svg>
   </div>
@@ -233,17 +240,24 @@
 <main>
   <div class="modules-wrap">
     <div class="section-head">
-      <h2 class="section-title">Modules</h2>
+      <h2 class="section-title">Storefront Modules</h2>
       <span class="section-note">Click any card to open its full report in a new tab</span>
     </div>
 
     <div class="grid">
 
       <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Steel-Home-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Header, Home &amp; Footer</div><div class="badge pass">94% PASS</div></div>
+        <div class="card-top"><div class="card-name">Home, Navigation, Header &amp; Footer</div><div class="badge pass">94% PASS</div></div>
         <div class="bar-track"><div class="bar-fill ok" style="width:94%"></div></div>
         <div class="counts"><span class="p">Passed <b>61</b></span><span class="f">Failed <b>4</b></span><span>of <b>65</b></span></div>
         <span class="card-note">Combined module — main nav, homepage &amp; footer</span>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Search-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Search</div><div class="badge fail">82% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:82%"></div></div>
+        <div class="counts"><span class="p">Passed <b>23</b></span><span class="f">Failed <b>5</b></span><span>of <b>28</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
@@ -275,10 +289,25 @@
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Search-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Search</div><div class="badge fail">82% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:82%"></div></div>
-        <div class="counts"><span class="p">Passed <b>23</b></span><span class="f">Failed <b>5</b></span><span>of <b>28</b></span></div>
+      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Steel-Checkout-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Checkout</div><div class="badge pass">96% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill ok" style="width:96%"></div></div>
+        <div class="counts"><span class="p">Passed <b>22</b></span><span class="f">Failed <b>1</b></span><span>of <b>23</b></span></div>
+        <span class="card-note">Both prior CRITICAL shipping/payment defects resolved</span>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Login-Registration-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Login &amp; Registration</div><div class="badge fail">79% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:79%"></div></div>
+        <div class="counts"><span class="p">Passed <b>26</b></span><span class="f">Failed <b>7</b></span><span>of <b>33</b></span></div>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-My-Account-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">My Account</div><div class="badge fail">84% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:84%"></div></div>
+        <div class="counts"><span class="p">Passed <b>36</b></span><span class="f">Failed <b>7</b></span><span>of <b>43</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
@@ -291,9 +320,36 @@
 
     </div>
 
+    <div class="group-gap"></div>
+
+    <div class="section-head">
+      <h2 class="section-title">B2B Marketplace &amp; Admin Backend</h2>
+      <span class="section-note">Vendor portal &amp; Admin — most failures here are confirmed, intentionally-flagged defects, not broken tests</span>
+    </div>
+
+    <div class="grid">
+
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Roll-Former-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Roll Former Module</div><div class="badge fail">55% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:55%"></div></div>
+        <div class="counts"><span class="p">Passed <b>32</b></span><span class="f">Failed <b>26</b></span><span>of <b>58</b></span></div>
+        <span class="card-note">16 of the 26 failures are confirmed defects/design gaps, deliberately marked red; the rest are an occasional session-load flake, not new regressions</span>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-OrderFullfillment-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Backend Order Fulfillment</div><div class="badge fail">59% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:59%"></div></div>
+        <div class="counts"><span class="p">Passed <b>10</b></span><span class="f">Failed <b>7</b></span><span>of <b>17</b></span></div>
+        <span class="card-note">4 of the 7 failures are confirmed defects, deliberately marked red; the rest are an occasional session-load flake, not new regressions</span>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+    </div>
+
     <footer class="bottom">
-      <span><b>SteelSolution QA</b> — Automated Test Summary · Generated August 13, 2026 · Playwright MCP</span>
-      <span>251 tests · 222 passed · 29 failed · 88% overall</span>
+      <span><b>SteelSolution QA</b> — Automated Test Summary · Generated September 4, 2026 · Playwright MCP</span>
+      <span>425 tests · 348 passed · 77 failed · 82% overall</span>
     </footer>
   </div>
 </main>
