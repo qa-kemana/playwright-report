@@ -8,173 +8,53 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <style>
   :root{
-    --navy:#0a0b1f;
-    --navy-2:#161832;
-    --card:#FFFFFF;
-    --ink:#1B2340;
-    --ink-soft:#5B6180;
-    --line:#E7E9F3;
-    --pass:#2FBF83;
-    --pass-bg:#E7FAF1;
-    --fail:#FF5C6C;
-    --fail-bg:#FFEEEF;
-    --warn:#F0A93A;
-    --warn-bg:#FFF6E7;
-    --grad-a:#f472b6;
-    --grad-b:#fb923c;
+    --navy:#0a0b1f; --navy-2:#161832; --card:#FFFFFF; --ink:#1B2340; --ink-soft:#5B6180; --line:#E7E9F3;
+    --pass:#2FBF83; --pass-bg:#E7FAF1; --fail:#FF5C6C; --fail-bg:#FFEEEF; --warn:#F0A93A; --warn-bg:#FFF6E7;
+    --grad-a:#f472b6; --grad-b:#fb923c;
   }
-  *{box-sizing:border-box;}
-  html,body{margin:0;padding:0;}
-  body{
-    background:var(--navy);
-    font-family:'Inter',sans-serif;
-    color:var(--ink);
-    -webkit-font-smoothing:antialiased;
-  }
-  .display{font-family:'Space Grotesk',sans-serif;}
-  .mono{font-family:'JetBrains Mono',monospace;}
-  a{color:inherit;}
-
-  header.top{
-    background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);
-    padding:56px 24px 0;
-    color:#fff;
-  }
-  .brand{
-    max-width:1180px;margin:0 auto;
-    display:flex;align-items:center;justify-content:space-between;
-    flex-wrap:wrap;gap:16px;
-  }
-  .brand-mark{
-    display:flex;align-items:center;gap:10px;
-    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;
-    letter-spacing:0.14em;text-transform:uppercase;color:#F9B8D8;
-  }
-  .brand-mark .dot{
-    width:9px;height:9px;border-radius:50%;
-    background:linear-gradient(135deg,var(--grad-a),var(--grad-b));
-    box-shadow:0 0 0 4px rgba(244,114,182,0.18);
-  }
-  .env-pill{
-    font-family:'JetBrains Mono',monospace;font-size:12px;color:#C7CBEF;
-    background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);
-    padding:6px 12px;border-radius:999px;
-  }
+  *{box-sizing:border-box;} html,body{margin:0;padding:0;}
+  body{background:var(--navy);font-family:'Inter',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;}
+  .display{font-family:'Space Grotesk',sans-serif;} .mono{font-family:'JetBrains Mono',monospace;} a{color:inherit;}
+  header.top{background:linear-gradient(180deg,var(--navy) 0%, var(--navy-2) 100%);padding:56px 24px 0;color:#fff;}
+  .brand{max-width:1180px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;}
+  .brand-mark{display:flex;align-items:center;gap:10px;font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:15px;letter-spacing:0.14em;text-transform:uppercase;color:#F9B8D8;}
+  .brand-mark .dot{width:9px;height:9px;border-radius:50%;background:linear-gradient(135deg,var(--grad-a),var(--grad-b));box-shadow:0 0 0 4px rgba(244,114,182,0.18);}
+  .env-pill{font-family:'JetBrains Mono',monospace;font-size:12px;color:#C7CBEF;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:6px 12px;border-radius:999px;}
   .hero{max-width:1180px;margin:36px auto 0;}
-  h1.title{
-    font-family:'Space Grotesk',sans-serif;font-weight:700;
-    font-size:clamp(30px,4.6vw,50px);line-height:1.05;margin:0 0 14px;
-    letter-spacing:-0.01em;
-  }
-  h1.title .accent{
-    background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-  .subtitle{color:#C7CBEF;font-size:16px;max-width:680px;line-height:1.6;margin:0 0 32px;}
-  .subtitle code{font-family:'JetBrains Mono',monospace;font-size:14px;color:#F0F1FF;}
-
-  .meta-row{
-    display:flex;flex-wrap:wrap;gap:28px;
-    padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);
-  }
-  .meta-item{display:flex;flex-direction:column;gap:4px;}
-  .meta-item .k{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8B8FBF;}
-  .meta-item .v{font-family:'JetBrains Mono',monospace;font-size:14px;color:#F0F1FF;}
-
-  .stat-strip{
-    max-width:1180px;margin:0 auto;padding:36px 24px 0;
-    display:grid;grid-template-columns:repeat(5,1fr);gap:16px;
-  }
+  h1.title{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:clamp(30px,4.6vw,50px);line-height:1.05;margin:0 0 14px;letter-spacing:-0.01em;}
+  h1.title .accent{background:linear-gradient(100deg,var(--grad-a),var(--grad-b));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .subtitle{color:#C7CBEF;font-size:16px;max-width:680px;line-height:1.6;margin:0 0 32px;} .subtitle code{font-family:'JetBrains Mono',monospace;font-size:14px;color:#F0F1FF;}
+  .meta-row{display:flex;flex-wrap:wrap;gap:28px;padding-bottom:36px;border-bottom:1px solid rgba(255,255,255,0.1);}
+  .meta-item{display:flex;flex-direction:column;gap:4px;} .meta-item .k{font-size:11px;letter-spacing:0.1em;text-transform:uppercase;color:#8B8FBF;} .meta-item .v{font-family:'JetBrains Mono',monospace;font-size:14px;color:#F0F1FF;}
+  .stat-strip{max-width:1180px;margin:0 auto;padding:36px 24px 0;display:grid;grid-template-columns:repeat(5,1fr);gap:16px;}
   @media(max-width:900px){ .stat-strip{grid-template-columns:repeat(2,1fr);} }
-  .stat-card{
-    background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);
-    border-radius:14px;padding:20px 22px;
-  }
-  .stat-card .num{
-    font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:#fff;line-height:1;
-  }
+  .stat-card{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.09);border-radius:14px;padding:20px 22px;}
+  .stat-card .num{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:34px;color:#fff;line-height:1;}
   .stat-card .lbl{margin-top:8px;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;color:#9498CC;}
-  .stat-card.pass .num{color:var(--pass);}
-  .stat-card.fail .num{color:var(--fail);}
-  .stat-card.rate .num{
-    background:linear-gradient(100deg,var(--grad-a),var(--grad-b));
-    -webkit-background-clip:text;background-clip:text;color:transparent;
-  }
-
-  .wave-wrap{max-width:1180px;margin:40px auto 0;padding:0 24px 44px;}
-  .wave-caption{color:#8B8FBF;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 10px;}
-  svg.wave{display:block;width:100%;height:auto;}
-  .wave-pt{transition:r 0.2s ease;}
-  .wave-pt:hover{r:6;}
-
-  main{background:#F4F5FB;padding:48px 24px 80px;}
-  .modules-wrap{max-width:1180px;margin:0 auto;}
-  .section-head{
-    display:flex;align-items:baseline;justify-content:space-between;
-    flex-wrap:wrap;gap:8px;margin-bottom:22px;
-  }
-  h2.section-title{font-family:'Space Grotesk',sans-serif;font-size:22px;margin:0;}
-  .section-note{font-size:13px;color:var(--ink-soft);}
-
+  .stat-card.pass .num{color:var(--pass);} .stat-card.fail .num{color:var(--fail);}
+  .stat-card.rate .num{background:linear-gradient(100deg,var(--grad-a),var(--grad-b));-webkit-background-clip:text;background-clip:text;color:transparent;}
+  .wave-wrap{max-width:1180px;margin:40px auto 0;padding:0 24px 44px;} .wave-caption{color:#8B8FBF;font-size:12px;letter-spacing:0.08em;text-transform:uppercase;margin:0 0 10px;}
+  svg.wave{display:block;width:100%;height:auto;} .wave-pt{transition:r 0.2s ease;} .wave-pt:hover{r:6;}
+  main{background:#F4F5FB;padding:48px 24px 80px;} .modules-wrap{max-width:1180px;margin:0 auto;}
+  .section-head{display:flex;align-items:baseline;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:22px;}
+  h2.section-title{font-family:'Space Grotesk',sans-serif;font-size:22px;margin:0;} .section-note{font-size:13px;color:var(--ink-soft);}
   .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;}
-  @media(max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} }
-  @media(max-width:640px){ .grid{grid-template-columns:1fr;} }
-
-  .card{
-    background:var(--card);border-radius:16px;border:1px solid var(--line);
-    padding:22px 22px 20px;display:flex;flex-direction:column;gap:14px;
-    text-decoration:none;color:var(--ink);
-    transition:transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    position:relative;overflow:hidden;
-  }
-  .card:hover{
-    transform:translateY(-3px);
-    box-shadow:0 14px 30px -12px rgba(10,11,31,0.25);
-    border-color:transparent;
-  }
+  @media(max-width:980px){ .grid{grid-template-columns:repeat(2,1fr);} } @media(max-width:640px){ .grid{grid-template-columns:1fr;} }
+  .card{background:var(--card);border-radius:16px;border:1px solid var(--line);padding:22px 22px 20px;display:flex;flex-direction:column;gap:14px;text-decoration:none;color:var(--ink);transition:transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;position:relative;overflow:hidden;}
+  .card:hover{transform:translateY(-3px);box-shadow:0 14px 30px -12px rgba(10,11,31,0.25);border-color:transparent;}
   .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
-  .card.ok::before{background:var(--pass);}
-  .card.mid::before{background:var(--warn);}
-  .card.warn::before{background:var(--fail);}
-
-  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-  .card-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;line-height:1.3;}
-  .badge{
-    flex:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;
-    padding:4px 9px;border-radius:999px;white-space:nowrap;
-  }
-  .badge.pass{background:var(--pass-bg);color:#1C8E62;}
-  .badge.mid{background:var(--warn-bg);color:#B8790F;}
-  .badge.fail{background:var(--fail-bg);color:#C93244;}
-
-  .bar-track{height:8px;border-radius:999px;background:#EEF0FA;overflow:hidden;}
-  .bar-fill{height:100%;border-radius:999px;}
-  .bar-fill.ok{background:linear-gradient(90deg,#2FBF83,#67D9A6);}
-  .bar-fill.mid{background:linear-gradient(90deg,#F0A93A,#F7C874);}
-  .bar-fill.warn{background:linear-gradient(90deg,#FF5C6C,#FF8F98);}
-
-  .counts{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);}
-  .counts b{color:var(--ink);font-weight:700;}
-  .counts .p b{color:var(--pass);}
-  .counts .f b{color:var(--fail);}
-
+  .card.ok::before{background:var(--pass);} .card.mid::before{background:var(--warn);} .card.warn::before{background:var(--fail);}
+  .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;} .card-name{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:17px;line-height:1.3;}
+  .badge{flex:none;font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:700;padding:4px 9px;border-radius:999px;white-space:nowrap;}
+  .badge.pass{background:var(--pass-bg);color:#1C8E62;} .badge.mid{background:var(--warn-bg);color:#B8790F;} .badge.fail{background:var(--fail-bg);color:#C93244;}
+  .bar-track{height:8px;border-radius:999px;background:#EEF0FA;overflow:hidden;} .bar-fill{height:100%;border-radius:999px;}
+  .bar-fill.ok{background:linear-gradient(90deg,#2FBF83,#67D9A6);} .bar-fill.mid{background:linear-gradient(90deg,#F0A93A,#F7C874);} .bar-fill.warn{background:linear-gradient(90deg,#FF5C6C,#FF8F98);}
+  .counts{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);} .counts b{color:var(--ink);font-weight:700;} .counts .p b{color:var(--pass);} .counts .f b{color:var(--fail);}
   .card-note{font-size:11.5px;color:var(--ink-soft);}
-
-  .card-cta{
-    margin-top:auto;display:flex;align-items:center;justify-content:space-between;
-    font-size:13px;font-weight:600;color:var(--ink);padding-top:6px;
-    border-top:1px solid var(--line);
-  }
-  .card-cta .arrow{font-family:'Space Grotesk',sans-serif;transition:transform 0.15s ease;}
-  .card:hover .card-cta .arrow{transform:translateX(3px);}
-
+  .card-cta{margin-top:auto;display:flex;align-items:center;justify-content:space-between;font-size:13px;font-weight:600;color:var(--ink);padding-top:6px;border-top:1px solid var(--line);}
+  .card-cta .arrow{font-family:'Space Grotesk',sans-serif;transition:transform 0.15s ease;} .card:hover .card-cta .arrow{transform:translateX(3px);}
   .group-gap{height:44px;}
-
-  footer.bottom{
-    max-width:1180px;margin:0 auto;padding:40px 24px 0;color:var(--ink-soft);
-    font-size:13px;border-top:1px solid var(--line);margin-top:24px;padding-top:24px;
-    display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;
-  }
+  footer.bottom{max-width:1180px;margin:0 auto;padding:40px 24px 0;color:var(--ink-soft);font-size:13px;border-top:1px solid var(--line);margin-top:24px;padding-top:24px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;}
   footer.bottom b{color:var(--ink);}
 </style>
 </head>
@@ -188,22 +68,22 @@
 
   <div class="hero">
     <h1 class="title">Test Execution <span class="accent">Summary</span></h1>
-    <p class="subtitle">Consolidated results across 12 automated SteelSolution (SteelHub) modules — 10 storefront modules against the <code>Magento</code> storefront, plus the B2B Marketplace Roll Former vendor portal and the Admin backend order-fulfillment flow. Every card links out to its full per-scenario report.</p>
+    <p class="subtitle">Consolidated results across 12 automated SteelSolution (SteelHub) modules — storefront modules against the <code>Magento</code> storefront, plus the B2B Marketplace Roll Former vendor portal and the Admin backend order-fulfillment flow. Auto-generated after every CI run. Every card links out to its full per-scenario report.</p>
 
     <div class="meta-row">
       <div class="meta-item"><span class="k">Modules</span><span class="v">12</span></div>
-      <div class="meta-item"><span class="k">Latest run</span><span class="v">Sep 4, 2026</span></div>
+      <div class="meta-item"><span class="k">Latest run</span><span class="v">September 9, 2026</span></div>
       <div class="meta-item"><span class="k">Environment</span><span class="v">Staging (no password gate)</span></div>
       <div class="meta-item"><span class="k">Browser</span><span class="v">Chromium</span></div>
-      <div class="meta-item"><span class="k">Framework</span><span class="v">Playwright MCP</span></div>
+      <div class="meta-item"><span class="k">Framework</span><span class="v">Playwright (GitHub Actions)</span></div>
     </div>
   </div>
 
   <div class="stat-strip">
     <div class="stat-card"><div class="num mono">425</div><div class="lbl">Total tests</div></div>
-    <div class="stat-card pass"><div class="num mono">348</div><div class="lbl">Passed</div></div>
-    <div class="stat-card fail"><div class="num mono">77</div><div class="lbl">Failed</div></div>
-    <div class="stat-card rate"><div class="num mono">82%</div><div class="lbl">Pass rate</div></div>
+    <div class="stat-card pass"><div class="num mono">267</div><div class="lbl">Passed</div></div>
+    <div class="stat-card fail"><div class="num mono">158</div><div class="lbl">Failed</div></div>
+    <div class="stat-card rate"><div class="num mono">63%</div><div class="lbl">Pass rate</div></div>
     <div class="stat-card"><div class="num mono">0</div><div class="lbl">Incomplete runs</div></div>
   </div>
 
@@ -216,20 +96,16 @@
           <stop offset="100%" stop-color="#fb923c"/>
         </linearGradient>
       </defs>
-      <!-- Home 94 | Search 82 | PCP 100 | PLP 93 | PDP 75 | Cart 89 | Checkout 96 | Login&Reg 79 | My Account 84 | Compare 87 | Roll Former 55 | Order Fulfillment 59 -->
-      <polyline
-        fill="none" stroke="url(#waveGrad)" stroke-width="2.5"
-        stroke-linecap="round" stroke-linejoin="round"
-        points="20,23.6 123.6,30.8 227.3,20 330.9,24.2 434.5,35 538.2,26.6 641.8,22.4 745.5,32.6 849.1,29.6 952.7,27.8 1056.4,47 1160,44.6"
-      />
+      <polyline fill="none" stroke="url(#waveGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"
+        points="20,30.2 123.6,32.6 227.3,27.2 330.9,42.2 434.5,74.6 538.2,66.2 641.8,45.8 745.5,32.6 849.1,29.6 952.7,27.8 1056.4,47 1160,44.6" />
       <g fill="#FFFFFF">
-        <circle class="wave-pt" cx="20" cy="23.6" r="4"/>
-        <circle class="wave-pt" cx="123.6" cy="30.8" r="4"/>
-        <circle class="wave-pt" cx="227.3" cy="20" r="4"/>
-        <circle class="wave-pt" cx="330.9" cy="24.2" r="4"/>
-        <circle class="wave-pt" cx="434.5" cy="35" r="4"/>
-        <circle class="wave-pt" cx="538.2" cy="26.6" r="4"/>
-        <circle class="wave-pt" cx="641.8" cy="22.4" r="4"/>
+        <circle class="wave-pt" cx="20" cy="30.2" r="4"/>
+        <circle class="wave-pt" cx="123.6" cy="32.6" r="4"/>
+        <circle class="wave-pt" cx="227.3" cy="27.2" r="4"/>
+        <circle class="wave-pt" cx="330.9" cy="42.2" r="4"/>
+        <circle class="wave-pt" cx="434.5" cy="74.6" r="4"/>
+        <circle class="wave-pt" cx="538.2" cy="66.2" r="4"/>
+        <circle class="wave-pt" cx="641.8" cy="45.8" r="4"/>
         <circle class="wave-pt" cx="745.5" cy="32.6" r="4"/>
         <circle class="wave-pt" cx="849.1" cy="29.6" r="4"/>
         <circle class="wave-pt" cx="952.7" cy="27.8" r="4"/>
@@ -249,53 +125,53 @@
 
     <div class="grid">
 
-      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Steel-Home-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Home, Navigation, Header &amp; Footer</div><div class="badge pass">94% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill ok" style="width:94%"></div></div>
-        <div class="counts"><span class="p">Passed <b>61</b></span><span class="f">Failed <b>4</b></span><span>of <b>65</b></span></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Home-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Home, Navigation, Header &amp; Footer</div><div class="badge mid">83% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:83%"></div></div>
+        <div class="counts"><span class="p">Passed <b>54</b></span><span class="f">Failed <b>11</b></span><span>of <b>65</b></span></div>
         <span class="card-note">Combined module — main nav, homepage &amp; footer</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
       <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Search-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Search</div><div class="badge mid">82% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill mid" style="width:82%"></div></div>
-        <div class="counts"><span class="p">Passed <b>23</b></span><span class="f">Failed <b>5</b></span><span>of <b>28</b></span></div>
+        <div class="card-top"><div class="card-name">Search</div><div class="badge mid">79% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:79%"></div></div>
+        <div class="counts"><span class="p">Passed <b>22</b></span><span class="f">Failed <b>6</b></span><span>of <b>28</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Steel-PCP-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Product Category Page</div><div class="badge pass">100% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill ok" style="width:100%"></div></div>
-        <div class="counts"><span class="p">Passed <b>26</b></span><span class="f">Failed <b>0</b></span><span>of <b>26</b></span></div>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-PCP-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Product Category Page</div><div class="badge mid">88% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:88%"></div></div>
+        <div class="counts"><span class="p">Passed <b>23</b></span><span class="f">Failed <b>3</b></span><span>of <b>26</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Steel-PLP-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Product Listing Page</div><div class="badge pass">93% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill ok" style="width:93%"></div></div>
-        <div class="counts"><span class="p">Passed <b>28</b></span><span class="f">Failed <b>2</b></span><span>of <b>30</b></span></div>
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-PLP-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Product Listing Page</div><div class="badge fail">63% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:63%"></div></div>
+        <div class="counts"><span class="p">Passed <b>19</b></span><span class="f">Failed <b>11</b></span><span>of <b>30</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-PDP-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Product Detail Page</div><div class="badge mid">75% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill mid" style="width:75%"></div></div>
-        <div class="counts"><span class="p">Passed <b>33</b></span><span class="f">Failed <b>11</b></span><span>of <b>44</b></span></div>
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-PDP-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Product Detail Page</div><div class="badge fail">9% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:9%"></div></div>
+        <div class="counts"><span class="p">Passed <b>4</b></span><span class="f">Failed <b>40</b></span><span>of <b>44</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Steel-Cart-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Cart</div><div class="badge mid">89% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill mid" style="width:89%"></div></div>
-        <div class="counts"><span class="p">Passed <b>31</b></span><span class="f">Failed <b>4</b></span><span>of <b>35</b></span></div>
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Cart-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Cart</div><div class="badge fail">23% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:23%"></div></div>
+        <div class="counts"><span class="p">Passed <b>8</b></span><span class="f">Failed <b>27</b></span><span>of <b>35</b></span></div>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
-      <a class="card ok" href="https://qa-kemana.github.io/playwright-report/Steel-Checkout-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Checkout</div><div class="badge pass">96% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill ok" style="width:96%"></div></div>
-        <div class="counts"><span class="p">Passed <b>22</b></span><span class="f">Failed <b>1</b></span><span>of <b>23</b></span></div>
+      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Steel-Checkout-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Checkout</div><div class="badge fail">57% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill warn" style="width:57%"></div></div>
+        <div class="counts"><span class="p">Passed <b>13</b></span><span class="f">Failed <b>10</b></span><span>of <b>23</b></span></div>
         <span class="card-note">Both prior CRITICAL shipping/payment defects resolved</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
@@ -304,6 +180,7 @@
         <div class="card-top"><div class="card-name">Login &amp; Registration</div><div class="badge mid">79% PASS</div></div>
         <div class="bar-track"><div class="bar-fill mid" style="width:79%"></div></div>
         <div class="counts"><span class="p">Passed <b>26</b></span><span class="f">Failed <b>7</b></span><span>of <b>33</b></span></div>
+        <span class="card-note">Manual-trigger only — creates real, permanent customer accounts</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
@@ -336,7 +213,7 @@
         <div class="card-top"><div class="card-name">Roll Former Module</div><div class="badge fail">55% PASS</div></div>
         <div class="bar-track"><div class="bar-fill warn" style="width:55%"></div></div>
         <div class="counts"><span class="p">Passed <b>32</b></span><span class="f">Failed <b>26</b></span><span>of <b>58</b></span></div>
-        <span class="card-note">16 of the 26 failures are confirmed defects/design gaps, deliberately marked red; the rest are an occasional session-load flake, not new regressions</span>
+        <span class="card-note">Many failures are confirmed defects/design gaps, deliberately marked red; the rest are an occasional session-load flake, not new regressions</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
@@ -344,15 +221,15 @@
         <div class="card-top"><div class="card-name">Backend Order Fulfillment</div><div class="badge fail">59% PASS</div></div>
         <div class="bar-track"><div class="bar-fill warn" style="width:59%"></div></div>
         <div class="counts"><span class="p">Passed <b>10</b></span><span class="f">Failed <b>7</b></span><span>of <b>17</b></span></div>
-        <span class="card-note">4 of the 7 failures are confirmed defects, deliberately marked red; the rest are an occasional session-load flake, not new regressions</span>
+        <span class="card-note">Manual-trigger only — creates real Invoices/Shipments/Credit Memos. Many failures are confirmed defects, deliberately marked red</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
     </div>
 
     <footer class="bottom">
-      <span><b>SteelSolution QA</b> — Automated Test Summary · Generated September 4, 2026 · Playwright MCP</span>
-      <span>425 tests · 348 passed · 77 failed · 82% overall</span>
+      <span><b>SteelSolution QA</b> — Automated Test Summary · Generated September 9, 2026 · Playwright (GitHub Actions)</span>
+      <span>425 tests · 267 passed · 158 failed · 63% overall</span>
     </footer>
   </div>
 </main>
