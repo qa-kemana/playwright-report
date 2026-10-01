@@ -1,0 +1,2386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Test Report — Test Report</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:          #f4f6f9;
+    --surface:     #ffffff;
+    --surface2:    #eaecf2;
+    --border:      rgba(24, 41, 79, 0.12);
+    --text:        #1a1f2e;
+    --muted:       #6b7592;
+    --brand:       #18294F;
+    --green:       #16a25a;
+    --green-soft:  rgba(22, 162, 90, 0.1);
+    --red:         #dc3545;
+    --red-soft:    rgba(220, 53, 69, 0.1);
+    --amber:       #d97706;
+    --amber-soft:  rgba(217, 119, 6, 0.1);
+    --mono:        'Courier New', monospace;
+    --radius:      12px;
+    --radius-sm:   8px;
+  }
+
+  body {
+    font-family: "Instrument Sans", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings: "wdth" 100;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 14px;
+    line-height: 1.6;
+  }
+
+  /* ── HERO ───────────────────────────────────────────────── */
+  .hero {
+    background: #18294F;
+    padding: 0 40px 36px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse 55% 90% at 90% 60%, rgba(255,255,255,0.05) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Logo bar */
+  .hero-logo-bar {
+    max-width: 960px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 24px 0 24px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+    margin-bottom: 32px;
+  }
+  .hero-logo-bar svg {
+    height: 34px;
+    width: auto;
+    display: block;
+  }
+  .hero-live-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.18);
+    border-radius: 50px;
+    padding: 5px 14px 5px 9px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.75);
+  }
+  .hero-live-badge .dot {
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: #4ade80;
+    display: inline-block;
+    animation: pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse {
+    0%,100% { opacity: 1; transform: scale(1); }
+    50%      { opacity: 0.5; transform: scale(0.75); }
+  }
+
+  /* Hero content */
+  .hero-inner {
+    max-width: 960px;
+    margin: 0 auto;
+    position: relative;
+  }
+  .hero-inner h1 {
+    font-size: 30px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 6px;
+  }
+  .hero-sub {
+    color: rgba(255,255,255,0.55);
+    font-size: 14px;
+  }
+  .hero-meta {
+    display: flex;
+    gap: 32px;
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.1);
+    flex-wrap: wrap;
+  }
+  .hero-meta-item {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+  }
+  .hero-meta-item .label {
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: rgba(255,255,255,0.45);
+  }
+  .hero-meta-item .value {
+    font-size: 13px;
+    font-weight: 500;
+    color: rgba(255,255,255,0.9);
+  }
+
+  /* ── STAT CARDS ─────────────────────────────────────────── */
+  .stats-wrap {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+  }
+  .stat-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 20px 22px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.07);
+  }
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+  }
+  .stat-card.total::before  { background: var(--brand); }
+  .stat-card.passed::before { background: var(--green); }
+  .stat-card.failed::before { background: var(--red); }
+  .stat-card.rate::before   { background: var(--amber); }
+
+  .stat-label {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+  }
+  .stat-value {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: -1px;
+  }
+  .stat-card.total  .stat-value { color: var(--brand); }
+  .stat-card.passed .stat-value { color: var(--green); }
+  .stat-card.failed .stat-value { color: var(--red); }
+  .stat-card.rate   .stat-value { color: var(--amber); }
+
+  .rate-ring {
+    position: absolute;
+    right: 18px; bottom: 14px;
+    width: 44px; height: 44px;
+  }
+  .rate-ring svg { width: 100%; height: 100%; }
+
+  /* ── PROGRESS BAR ───────────────────────────────────────── */
+  .progress-bar-wrap {
+    max-width: 960px;
+    margin: 20px auto 0;
+    padding: 0 40px;
+  }
+  .progress-bar-bg {
+    height: 4px;
+    background: #e2e6ef;
+    border-radius: 2px;
+    overflow: hidden;
+    display: flex;
+    gap: 2px;
+  }
+  .progress-bar-fill {
+    height: 100%;
+    border-radius: 2px;
+    transition: width 1s ease;
+  }
+  .progress-bar-fill.pass { background: var(--green); }
+  .progress-bar-fill.fail { background: var(--red); }
+
+  /* ── MAIN CONTENT ───────────────────────────────────────── */
+  .content {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 32px 40px 60px;
+  }
+  .section-title {
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .section-title::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ── SCENARIO CARD ──────────────────────────────────────── */
+  .scenario-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: border-color 0.2s, box-shadow 0.2s;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.06);
+  }
+  .scenario-card:hover {
+    border-color: rgba(24,41,79,0.22);
+    box-shadow: 0 2px 8px rgba(24,41,79,0.1);
+  }
+
+  /* Scenario header — brand coloured bar */
+  .scenario-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    cursor: pointer;
+    user-select: none;
+    background: #18294F;
+  }
+  .scenario-num {
+    width: 34px;
+    height: 34px;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+  .scenario-badge, .scenario-toggle { margin-top: 8px; }
+  .scenario-card.pass .scenario-num { background: rgba(255,255,255,0.12); color: #ffffff; }
+  .scenario-card.fail .scenario-num { background: rgba(240,82,82,0.25);   color: #fca5a5; }
+  .scenario-card.skip .scenario-num { background: rgba(245,166,35,0.2);   color: #fcd34d; }
+
+  .scenario-info { flex: 1; min-width: 0; padding-top: 3px; }
+  .scenario-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: #ffffff;
+    white-space: normal;
+    overflow-wrap: break-word;
+    line-height: 1.4;
+  }
+  .scenario-desc {
+    font-size: 12px;
+    color: rgba(255,255,255,0.5);
+    margin-top: 4px;
+    white-space: normal;
+    overflow-wrap: break-word;
+    line-height: 1.5;
+  }
+
+  .scenario-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 5px 12px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+  .scenario-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+  .scenario-card.pass .scenario-badge { background: rgba(22,162,90,0.2);  color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+  .scenario-card.fail .scenario-badge { background: rgba(220,53,69,0.2);  color: #fca5a5; border: 1px solid rgba(252,165,165,0.3); }
+  .scenario-card.skip .scenario-badge { background: rgba(217,119,6,0.2);  color: #fcd34d; border: 1px solid rgba(252,211,77,0.3); }
+
+  .scenario-toggle {
+    color: rgba(255,255,255,0.45);
+    font-size: 10px;
+    transition: transform 0.2s;
+    flex-shrink: 0;
+  }
+  .scenario-card.open .scenario-toggle { transform: rotate(180deg); }
+
+  /* ── STEPS TABLE ─────────────────────────────────────────── */
+  .steps-wrap {
+    border-top: 1px solid var(--border);
+    display: none;
+  }
+  .scenario-card.open .steps-wrap { display: block; }
+
+  .steps-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  .steps-table thead tr { background: #f8f9fc; }
+  .steps-table th {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    padding: 10px 20px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .steps-table th:last-child { text-align: center; width: 80px; }
+
+  .steps-table td {
+    padding: 12px 20px;
+    vertical-align: top;
+    border-bottom: 1px solid var(--border);
+    font-size: 13px;
+    color: var(--text);
+  }
+  .steps-table tr:last-child td  { border-bottom: none; }
+  .steps-table tr:nth-child(even) { background: #fafbfd; }
+
+  .steps-table td:first-child {
+    width: 48px;
+    font-family: var(--mono);
+    font-size: 11px;
+    color: var(--muted);
+    font-weight: 500;
+  }
+  .steps-table td:last-child { text-align: center; }
+  .steps-table .action-col  { color: var(--text); font-weight: 500; }
+  .steps-table .result-col  { color: var(--muted); font-size: 12px; }
+
+  code {
+    font-family: var(--mono);
+    font-size: 11px;
+    background: rgba(24,41,79,0.06);
+    border: 1px solid rgba(24,41,79,0.1);
+    border-radius: 4px;
+    padding: 1px 6px;
+    color: #18294F;
+  }
+
+  .step-status {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 10px;
+    border-radius: 50px;
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .step-status.pass { background: var(--green-soft); color: var(--green); }
+  .step-status.fail { background: var(--red-soft);   color: var(--red); }
+  .step-status.skip { background: var(--amber-soft); color: var(--amber); }
+
+  /* ── FILTER BAR ─────────────────────────────────────────── */
+  .qa-filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 16px 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 4px rgba(24,41,79,0.06);
+  }
+  .qa-filter-field { display: flex; flex-direction: column; gap: 4px; min-width: 140px; }
+  .qa-filter-field label {
+    font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted);
+  }
+  .qa-filter-field select {
+    padding: 7px 10px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+    font-size: 13px; font-family: inherit; background: #fff; color: var(--text); cursor: pointer;
+  }
+  .qa-filter-clear {
+    padding: 8px 14px; border-radius: var(--radius-sm); border: 1px solid var(--border);
+    background: var(--surface2); font-size: 12px; font-weight: 600; color: var(--muted); cursor: pointer;
+  }
+  .qa-filter-clear:hover { color: var(--text); }
+  .qa-filter-count { font-size: 12px; color: var(--muted); margin-left: auto; align-self: center; white-space: nowrap; }
+  .scenario-card.qa-hidden { display: none !important; }
+
+  /* ── TRIAGE BAR (per scenario card) ────────────────────────── */
+  .triage-bar {
+    display: flex; flex-wrap: wrap; gap: 16px; align-items: center;
+    padding: 10px 20px; background: #f8f9fc; border-bottom: 1px solid var(--border);
+  }
+  .triage-field { display: flex; align-items: center; gap: 6px; }
+  .triage-field label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); }
+  .triage-field select {
+    padding: 4px 8px; border-radius: 6px; border: 1px solid var(--border); background: #fff;
+    font-size: 12px; font-family: inherit; color: var(--text); cursor: pointer;
+  }
+  .triage-field select.val-Critical, .triage-field select.val-Reopen { border-color: var(--red); color: var(--red); font-weight: 700; }
+  .triage-field select.val-Pass { border-color: var(--green); color: var(--green); font-weight: 700; }
+  .triage-sync-note { font-size: 10px; color: var(--muted); font-style: italic; margin-left: auto; }
+
+  /* ── COMMENTS (failed cards only) ──────────────────────────── */
+  .comments-block { padding: 16px 20px; border-top: 1px solid var(--border); }
+  .comments-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--muted); margin-bottom: 10px; }
+  .comment-list { display: flex; flex-direction: column; gap: 8px; margin-bottom: 12px; }
+  .comment-item { padding: 10px 12px; border-radius: var(--radius-sm); font-size: 13px; line-height: 1.5; color: #1a1f2e; }
+  .comment-item .c-author { font-weight: 700; font-size: 12px; margin-right: 8px; }
+  .comment-item .c-time { font-size: 10px; color: rgba(0,0,0,0.45); }
+  .comment-item .c-text { margin-top: 3px; white-space: pre-wrap; overflow-wrap: break-word; }
+  .comment-empty { font-size: 12px; color: var(--muted); font-style: italic; }
+  .comment-form { display: flex; flex-direction: column; gap: 8px; }
+  .comment-form input[type="text"], .comment-form textarea {
+    border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 8px 10px;
+    font-family: inherit; font-size: 13px; color: var(--text); resize: vertical; width: 100%;
+  }
+  .comment-form-row { display: flex; gap: 8px; }
+  .comment-form-row input[type="text"] { max-width: 220px; }
+  .comment-form textarea { min-height: 60px; }
+  .comment-submit {
+    align-self: flex-end; padding: 7px 16px; border-radius: var(--radius-sm); border: none;
+    background: var(--brand); color: #fff; font-size: 12px; font-weight: 700; cursor: pointer;
+  }
+  .comment-submit:hover { background: #223766; }
+  .comment-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+  /* ── RESPONSIVE ──────────────────────────────────────────── */
+  @media (max-width: 600px) {
+    .hero, .stats-wrap, .content { padding-left: 20px; padding-right: 20px; }
+    .hero-inner h1 { font-size: 22px; }
+    .stat-value    { font-size: 28px; }
+    .hero-meta     { gap: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<header class="hero">
+
+  <!-- Logo bar -->
+  <div class="hero-logo-bar">
+    <!-- Kemana logo (inline SVG — always visible, no external file needed) -->
+    <svg width="332" height="125" viewBox="0 0 332 125" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <g clip-path="url(#logo-clip)">
+        <path d="M325 6V118.1H6V6H325ZM331 0H0V124.1H331V0Z" fill="white"/>
+        <path d="M79 51.4999C77.8 52.4999 76.3 53.5999 74.7 54.9999C74.4 55.2999 73.9 55.7999 73.1 56.4999L70.7 58.5999L68.3 60.6999C67.6 61.3999 67.1 61.7999 66.8 62.0999C67.5 63.8999 68.2 65.8999 69.1 67.9999C70 70.0999 70.7 72.2999 71.5 74.1999C72.3 76.0999 73 77.9999 73.7 79.4999C74.4 80.9999 74.8 82.0999 75.1 82.6999V82.9999C74.4 82.8999 73.7 82.8999 73 82.8999H67C66.1 82.8999 65.3 82.8999 64.4 82.9999C64 81.6999 63.7 80.6999 63.4 79.7999C63.1 78.8999 62.8 77.9999 62.5 76.9999C62.2 75.9999 61.8 74.7999 61.3 73.3999C60.8 71.9999 60.1 70.0999 59.3 67.5999C59.1 67.0999 58.9 66.4999 58.7 65.9999C58.6 65.7999 58.3 65.6999 58.1 65.6999C57.8 65.6999 57.5 65.8999 57.4 66.1999C57.3 66.4999 57.1 67.1999 56.8 68.1999C56.1 71.1999 55.6 73.8999 55.1 76.2999C54.6 78.6999 54.3 80.9999 53.9 83.0999C53.1 82.8999 52.4 82.8999 51.6 82.8999H45.9C45 82.8999 44.1 82.8999 43.2 82.9999C44.9 76.2999 46.5 69.5999 48.1 62.7999C49.7 55.9999 51.1 49.1999 52.5 42.1999C53 39.7999 53.5 37.3999 54 34.7999C54.5 32.4999 54.8 30.1999 55.1 27.8999L57.7 28.1999C58.7 28.2999 59.7 28.2999 60.7 28.2999C61.6 28.2999 62.5 28.2999 63.4 28.1999L65.8 27.8999C64.6 32.5999 63.6 36.9999 62.6 41.0999C61.6 45.1999 60.8 48.7999 60.2 51.8999C59.6 54.9999 58.8 58.3999 58.1 61.9999C58.1 62.3999 58.3 62.6999 58.7 62.6999C59.2 62.5999 59.7 62.2999 60.1 61.8999C60.8 61.3999 61.5 60.7999 62.3 60.0999C64.5 58.0999 66.7 56.1999 68.9 54.2999C71.1 52.3999 73.2 50.2999 75.1 48.0999C75.6 48.1999 76.2 48.2999 76.8 48.3999C77.5 48.4999 78.1 48.4999 78.8 48.4999C79.4 48.4999 80 48.4999 80.6 48.3999L82.1 48.0999L82.2 49.2999C81.3 49.7999 80.3 50.5999 79 51.4999Z" fill="white"/>
+        <path d="M110.3 77.8001C110.1 78.5001 109.7 79.5001 109.3 80.8001C107.7 81.9001 106 82.6001 104.1 83.0001C102.2 83.3001 100.2 83.5001 98.3 83.5001C95.8 83.6001 93.3 83.1001 90.9 82.2001C89 81.4001 87.2 80.2001 85.8 78.7001C84.5 77.2001 83.5 75.4001 82.8 73.5001C82.1 71.5001 81.8 69.4001 81.8 67.3001C81.8 64.9001 82.2 62.5001 83 60.2001C83.8 57.9001 85 55.7001 86.6 53.8001C90.2 49.6001 95.4 47.3001 100.9 47.4001C105.4 47.4001 108.9 48.6001 111.2 51.0001C113.6 53.6001 114.8 57.0001 114.7 60.5001C114.7 61.4001 114.6 62.4001 114.5 63.3001C114.4 64.3001 114.2 65.2001 114.1 66.1001C111 66.0001 108.5 65.9001 106.4 65.9001C104.3 65.9001 102.5 65.8001 100.9 65.8001H95.2C94.4 65.8001 93.4 65.8001 92.3 65.9001C92.2 66.5001 92.1 67.2001 92.1 67.8001C92.1 68.5001 92 69.2001 92 69.9001C91.9 72.4001 92.6 74.9001 94.1 76.9001C95.5 78.7001 97.7 79.5001 100.7 79.5001C102.3 79.5001 103.8 79.2001 105.3 78.6001C107.1 78.0001 108.6 76.9001 109.9 75.5001L111 76.0001C110.8 76.5001 110.6 77.2001 110.3 77.8001ZM104.8 52.3001C104.2 51.1001 102.9 50.5001 101.1 50.5001C100 50.5001 98.8 50.8001 97.9 51.5001C97 52.2001 96.2 53.2001 95.6 54.2001C94.9 55.4001 94.3 56.7001 93.9 58.0001C93.5 59.4001 93.1 60.9001 92.7 62.3001C93.1 62.4001 93.5 62.4001 93.9 62.4001H102.6C103.3 62.4001 104 62.3001 104.8 62.3001C104.9 61.7001 105.1 60.8001 105.3 59.7001C105.5 58.5001 105.6 57.4001 105.6 56.2001C105.8 54.8001 105.5 53.5001 104.8 52.3001Z" fill="white"/>
+        <path d="M125.8 48.5C127.6 48.6 129.4 48.6 131.2 48.5L133.4 48.2001C133.1 49.1001 132.9 50.0001 132.7 50.9001L132.1 53.6C132.6 52.9 133.2 52.3001 133.8 51.7001C134.5 50.9001 135.4 50.3001 136.3 49.7001C137.4 49.0001 138.5 48.5 139.7 48.1C141.1 47.6 142.7 47.4001 144.2 47.4001C146.2 47.3001 148.2 47.9 149.9 49.1C151.5 50.3 152.5 52.2001 152.8 54.2001C154.4 52.3001 156.3 50.6 158.4 49.3C160.5 48 162.9 47.3 165.3 47.3C166.4 47.3 167.5 47.5 168.5 47.8C169.6 48.1 170.6 48.6 171.5 49.3C172.4 50 173.2 50.9001 173.7 51.9001C174.3 53.1001 174.6 54.4001 174.5 55.7001C174.5 56.3001 174.5 56.9 174.4 57.5C174.3 58.2 174.2 58.8 174.1 59.5C173.9 60.2 173.8 61.2 173.5 62.3C173.2 63.4 172.9 64.8001 172.5 66.4001C172.4 66.7001 172.2 67.6 171.9 69C171.6 70.4 171.3 71.9 170.9 73.6C170.5 75.3 170.2 77.1001 169.8 78.9001C169.4 80.7001 169.2 82.1 169 83.2C168.2 83.1 167.3 83.1 166.5 83.1H160.7C159.9 83.1 159.1 83.1 158.3 83.2C159 81.1 159.7 78.6001 160.5 75.9001C161.3 73.2001 161.9 70.6 162.6 68.1C163.3 65.6 163.7 63.3 164.1 61.3C164.4 59.9 164.6 58.5 164.7 57.1C164.7 56 164.4 55.0001 163.7 54.2001C162.9 53.4001 161.8 52.9 160.6 53C160 53 159.4 53.1 158.8 53.3C157.9 53.6 157.2 54 156.5 54.6C155.6 55.4 154.7 56.4 154.1 57.5C153.1 59.1 152.4 60.8 151.9 62.6C151.4 64.3 150.7 66.9 149.9 70.6C149.1 74.3 148.3 78.5001 147.5 83.3001C146.6 83.2001 145.8 83.2 144.9 83.2H139.4C138.6 83.2 137.9 83.2001 137.1 83.3001C137.7 81.4001 138.3 79.1001 139.1 76.4001C139.9 73.7001 140.5 71.0001 141.2 68.4001C141.9 65.8001 142.4 63.5001 142.8 61.4001C143.1 60.0001 143.3 58.5 143.4 57.1C143.5 56 143.1 55 142.3 54.3C141.5 53.7 140.4 53.3001 139.4 53.4001C137.4 53.4001 135.4 54.3 134.1 55.8C132.4 57.8 131.2 60.1 130.5 62.6C130.4 63 130.1 63.8001 129.8 64.9001C129.5 66.0001 129.2 67.5001 128.7 69.3001C128.2 71.1001 127.8 73.2 127.3 75.6C126.8 78 126.3 80.6001 125.9 83.4001C125 83.3001 124.2 83.3001 123.3 83.3001H118C117.2 83.3001 116.4 83.3001 115.6 83.4001C116.2 81.2001 116.8 79.1001 117.2 77.3001C117.6 75.5001 118.1 73.6 118.5 71.7C118.9 69.8 119.4 67.6001 119.9 65.3001C120.4 63.0001 121 60 121.8 56.6C122 55.3 122.2 54.3 122.4 53.5C122.6 52.7 122.7 52 122.8 51.5C122.9 51 123 50.4 123.1 50C123.2 49.6 123.3 49.1 123.4 48.6C124.2 48.4 125 48.3 125.8 48.5Z" fill="white"/>
+        <path d="M207.9 83.2001C206.7 83.6001 205.5 83.7001 204.3 83.7001C203.2 83.7001 202 83.5001 201 83.1001C200.2 82.8001 199.6 82.3001 199 81.7001C198.5 81.2001 198.2 80.6001 197.9 79.9001C197.7 79.3001 197.5 78.8001 197.4 78.4001C196.5 80.2001 195.1 81.6001 193.4 82.7001C191.6 83.6001 189.5 84.0001 187.5 83.9001C184.9 84.0001 182.4 83.1001 180.5 81.4001C178.7 79.6001 177.8 77.1001 177.9 74.5001C177.9 72.2001 178.6 69.9001 179.9 68.0001C181.3 66.0001 183.3 64.5001 185.7 63.8001C186.8 63.5001 188.2 63.2001 189.9 62.9001C191.5 62.7001 193.1 62.4001 194.6 62.2001C195.7 62.1001 196.6 61.9001 197.3 61.8001C197.9 61.7001 198.5 61.5001 199 61.2001C199.4 60.9001 199.7 60.4001 199.9 59.9001C200.1 59.1001 200.2 58.3001 200.2 57.5001C200.2 56.6001 200 55.6001 199.6 54.8001C199.2 54.1001 198.7 53.5001 198.1 53.1001C197.5 52.7001 196.8 52.4001 196.1 52.2001C195.4 52.0001 194.6 51.9001 193.9 51.9001C192.5 51.9001 191.1 52.1001 189.8 52.6001C188.5 53.2001 187.3 53.8001 186.2 54.6001H185.8C185.9 53.6001 186 52.9001 186 52.4001C186 51.9001 186.1 51.2001 186.1 50.5001C190 48.3001 194.4 47.1001 198.9 47.1001C200.3 47.1001 201.7 47.2001 203 47.5001C204.3 47.8001 205.5 48.3001 206.6 49.0001C207.7 49.7001 208.5 50.6001 209.2 51.7001C209.9 53.0001 210.3 54.5001 210.2 56.0001C210.2 57.2001 210.1 58.3001 209.9 59.5001C209.7 60.8001 209.5 61.8001 209.3 62.6001L207.3 71.7001C207 73.0001 206.8 74.2001 206.6 75.5001C206.5 76.1001 206.5 76.8001 206.5 77.4001C206.5 78.1001 206.6 78.7001 206.9 79.3001C207.1 80.0001 207.8 80.4001 208.5 80.3001C208.7 80.3001 208.9 80.3001 209.1 80.1001C209.3 80.0001 209.4 79.9001 209.6 79.8001L210.2 81.5001C209.6 82.2001 208.8 82.8001 207.9 83.2001ZM188.9 77.7001C189.5 78.7001 190.7 79.3001 191.9 79.2001C192.9 79.2001 193.9 78.9001 194.7 78.3001C195.4 77.7001 196 76.9001 196.5 76.1001C197 75.2001 197.3 74.2001 197.6 73.2001C197.8 72.1001 198.1 71.1001 198.3 70.2001L199.4 64.6001C197.7 64.8001 196 65.2001 194.4 65.6001C193.3 65.8001 192.3 66.2001 191.4 66.8001C190.2 67.5001 189.3 68.7001 188.9 70.1001C188.4 71.5001 188.2 72.9001 188.2 74.3001C188 75.5001 188.3 76.7001 188.9 77.7001Z" fill="white"/>
+        <path d="M251.4 56.9001C251.3 57.5001 251.2 58.3001 251.1 59.1001C251 59.9001 250.7 61.0001 250.4 62.3001C250.1 63.6001 249.7 65.2001 249.2 67.2001C248.8 69.0001 248.4 70.6001 248.1 72.0001C247.8 73.4001 247.5 74.7001 247.3 75.9001C247.1 77.1001 246.8 78.3001 246.6 79.4001C246.4 80.5001 246.2 81.7001 245.9 83.0001C245.1 82.9001 244.2 82.9001 243.4 82.9001H237.6C236.7 82.9001 235.9 82.9001 235 83.0001C235.4 82.1001 235.7 81.2001 235.9 80.3001C236.3 79.0001 236.8 77.4001 237.3 75.7001C237.8 74.0001 238.3 72.1001 238.8 70.2001C239.3 68.3001 239.8 66.4001 240.2 64.7001C240.6 63.0001 241 61.4001 241.3 60.0001C241.5 59.0001 241.7 58.0001 241.7 57.0001C241.8 55.9001 241.4 54.7001 240.6 53.9001C239.7 53.2001 238.6 52.8001 237.5 52.9001C235.5 53.0001 233.7 53.8001 232.3 55.2001C230.3 57.2001 228.9 59.6001 228.2 62.3001C227.8 63.5001 227.4 64.9001 227 66.6001C226.6 68.3001 226.1 70.0001 225.7 71.9001C225.3 73.8001 224.9 75.7001 224.5 77.7001C224.1 79.7001 223.8 81.5001 223.6 83.1001C222.8 83.0001 221.9 83.0001 221.1 83.0001H215.9C215 83.0001 214.2 83.0001 213.3 83.1001C213.9 80.9001 214.6 78.5001 215.2 76.0001C215.8 73.5001 216.5 70.9001 217.1 68.1001C217.7 65.3001 218.4 62.3001 219 59.0001C219.6 55.7001 220.4 52.1001 221.1 48.2001C221.8 48.3001 222.7 48.4001 223.6 48.5001C224.5 48.6001 225.4 48.6001 226.3 48.6001C227.1 48.6001 227.9 48.6001 228.7 48.5001L230.9 48.2001C230.7 48.8001 230.5 49.4001 230.4 49.8001C230.3 50.2001 230.1 50.7001 230 51.1001C229.9 51.5001 229.8 52.0001 229.7 52.5001C229.6 53.0001 229.4 53.6001 229.3 54.3001C230.8 52.2001 232.8 50.5001 235 49.2001C237.3 47.9001 239.8 47.3001 242.4 47.4001C245.5 47.4001 247.7 48.1001 249.2 49.6001C250.6 51.1001 251.4 53.1001 251.3 55.1001C251.5 55.7001 251.5 56.3001 251.4 56.9001Z" fill="white"/>
+        <path d="M284.9 83.2001C283.7 83.6001 282.5 83.7001 281.3 83.7001C280.2 83.7001 279.1 83.5001 278.1 83.1001C277.3 82.8001 276.6 82.3001 276.1 81.7001C275.6 81.2001 275.3 80.6001 275 79.9001C274.8 79.3001 274.6 78.8001 274.5 78.4001C273.6 80.2001 272.2 81.6001 270.5 82.7001C268.7 83.6001 266.6 84.0001 264.6 83.9001C262 84.0001 259.5 83.1001 257.6 81.4001C255.8 79.6001 254.9 77.1001 255 74.5001C255 72.2001 255.7 69.9001 257 68.0001C258.4 66.0001 260.4 64.5001 262.8 63.8001C263.9 63.5001 265.3 63.2001 267 62.9001C268.7 62.7001 270.2 62.4001 271.7 62.2001C272.8 62.1001 273.7 61.9001 274.4 61.8001C275 61.7001 275.6 61.5001 276.1 61.2001C276.5 60.9001 276.8 60.4001 277 59.9001C277.2 59.1001 277.3 58.3001 277.3 57.5001C277.3 56.6001 277.1 55.6001 276.7 54.8001C276.3 54.1001 275.8 53.5001 275.2 53.1001C274.6 52.7001 273.9 52.4001 273.2 52.2001C272.5 52.0001 271.7 51.9001 271 51.9001C269.6 51.9001 268.2 52.1001 266.9 52.6001C265.6 53.2001 264.4 53.8001 263.3 54.6001H262.9C263 53.6001 263.1 52.9001 263.1 52.4001C263.1 51.9001 263.2 51.2001 263.3 50.5001C267.2 48.3001 271.6 47.1001 276.1 47.1001C277.5 47.1001 278.9 47.2001 280.2 47.5001C281.5 47.8001 282.7 48.3001 283.8 49.0001C284.9 49.7001 285.7 50.6001 286.4 51.7001C287.1 53.0001 287.5 54.5001 287.4 56.0001C287.4 57.2001 287.3 58.3001 287.1 59.5001C286.9 60.8001 286.7 61.8001 286.5 62.6001L284.5 71.7001C284.2 73.0001 284 74.2001 283.8 75.5001C283.7 76.3001 283.6 77.0001 283.6 77.4001C283.6 78.1001 283.7 78.7001 284 79.3001C284.2 80.0001 284.9 80.4001 285.6 80.3001C285.8 80.3001 286 80.3001 286.2 80.1001C286.4 80.0001 286.6 79.9001 286.8 79.8001L287.4 81.5001C286.7 82.2001 285.8 82.8001 284.9 83.2001ZM265.9 77.7001C266.5 78.7001 267.7 79.3001 268.9 79.2001C269.9 79.2001 270.9 78.9001 271.7 78.3001C272.4 77.7001 273 76.9001 273.5 76.1001C274 75.2001 274.3 74.2001 274.6 73.2001C274.8 72.1001 275.1 71.1001 275.3 70.2001L276.4 64.6001C274.7 64.8001 273 65.2001 271.4 65.6001C270.3 65.8001 269.3 66.2001 268.4 66.8001C267.2 67.5001 266.3 68.7001 265.9 70.1001C265.4 71.5001 265.2 72.9001 265.2 74.3001C265.1 75.5001 265.3 76.7001 265.9 77.7001Z" fill="white"/>
+      </g>
+      <defs>
+        <clipPath id="logo-clip"><rect width="331.1" height="124.1" fill="white"/></clipPath>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Title + meta -->
+  <div class="hero-inner">
+    <h1>Test Execution Report</h1>
+    <p class="hero-sub">Automated UI Testing — https://departure-luggage-th-dev.myshopify.com/</p>
+    <div class="hero-meta">
+      <div class="hero-meta-item">
+        <span class="label">Execution Date</span>
+        <span class="value">September 23, 2026</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Environment</span>
+        <span class="value">Production</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Browser</span>
+        <span class="value">Chromium</span>
+      </div>
+      <div class="hero-meta-item">
+        <span class="label">Duration</span>
+        <span class="value">1m 26s</span>
+      </div>
+    </div>
+  </div>
+
+</header>
+
+<!-- ── STAT CARDS ────────────────────────────────────────────── -->
+<div class="stats-wrap">
+  <div class="stat-card total">
+    <span class="stat-label">Total Tests</span>
+    <span class="stat-value">19</span>
+  </div>
+  <div class="stat-card passed">
+    <span class="stat-label">Passed</span>
+    <span class="stat-value">17</span>
+  </div>
+  <div class="stat-card failed">
+    <span class="stat-label">Failed</span>
+    <span class="stat-value">2</span>
+  </div>
+  <div class="stat-card rate">
+    <span class="stat-label">Pass Rate</span>
+    <span class="stat-value">89%</span>
+    <div class="rate-ring">
+      <svg viewBox="0 0 44 44" fill="none">
+        <circle cx="22" cy="22" r="18" stroke="rgba(217,119,6,0.15)" stroke-width="4"/>
+        <circle cx="22" cy="22" r="18" stroke="#d97706" stroke-width="4"
+          stroke-dasharray="113"
+          stroke-dashoffset="12"
+          stroke-linecap="round"
+          transform="rotate(-90 22 22)"/>
+      </svg>
+    </div>
+  </div>
+</div>
+
+<!-- ── PROGRESS BAR ───────────────────────────────────────────── -->
+<div class="progress-bar-wrap">
+  <div class="progress-bar-bg">
+    <div class="progress-bar-fill pass" style="width:89%"></div>
+    <div class="progress-bar-fill fail" style="width:11%"></div>
+  </div>
+</div>
+
+<!-- ── SCENARIOS ──────────────────────────────────────────────── -->
+<main class="content">
+  <p class="section-title">Test Scenarios</p>
+
+  <div class="qa-filter-bar" id="qa-filter-bar">
+    <div class="qa-filter-field">
+      <label>Result</label>
+      <select id="qa-filter-result">
+        <option value="">All</option>
+        <option value="Passed">Passed</option>
+        <option value="Failed">Failed</option>
+      </select>
+    </div>
+    <div class="qa-filter-field">
+      <label>Severity</label>
+      <select id="qa-filter-severity">
+        <option value="">All</option>
+        <option value="Critical">Critical</option>
+        <option value="Minor">Minor</option>
+      </select>
+    </div>
+    <div class="qa-filter-field">
+      <label>Priority</label>
+      <select id="qa-filter-priority">
+        <option value="">All</option>
+        <option value="High">High</option>
+        <option value="Low">Low</option>
+      </select>
+    </div>
+    <div class="qa-filter-field">
+      <label>Assignee</label>
+      <select id="qa-filter-assignee">
+        <option value="">All</option>
+        
+      </select>
+    </div>
+    <div class="qa-filter-field">
+      <label>Status</label>
+      <select id="qa-filter-status">
+        <option value="">All</option>
+        <option value="Open">Open</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Ready for QA">Ready for QA</option>
+        <option value="Pass">Pass</option>
+        <option value="Reopen">Reopen</option>
+      </select>
+    </div>
+    <button type="button" class="qa-filter-clear" id="qa-filter-clear">Clear Filters</button>
+    <span class="qa-filter-count" id="qa-filter-count"></span>
+  </div>
+
+  <div class="scenario-card pass" data-scenario-uid="scn_vx6w20">
+      <div class="scenario-header">
+        <div class="scenario-num">1</div>
+        <div class="scenario-info">
+          <div class="scenario-name">1 - Verify the store password gate blocks access and the correct password unlocks the real storefront</div>
+          <div class="scenario-desc">Same Shopify &quot;Restrict access&quot; gate already documented across every other Ortuseight module. KNOWN FLAKE, same precedent as every other module's own test 1: this dev store's first page load in a fresh browser context has been observed taking well over 20s more than once.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_vx6w20">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify URL contains &quot;/password&quot;</td>
+          <td class="result-col">URL contains &quot;/password&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify visible: css=input[type='password']</td>
+          <td class="result-col">Visible: css=input[type='password']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Type &quot;kemana&quot; into css=input[type='password']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#05</td>
+          <td class="action-col">Click css=button[type='submit'], form button</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#06</td>
+          <td class="action-col">Wait for css=footer, .ort-footer</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#07</td>
+          <td class="action-col">Verify visible: css=.ort-footer</td>
+          <td class="result-col">Visible: css=.ort-footer</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_7xscc8">
+      <div class="scenario-header">
+        <div class="scenario-num">2</div>
+        <div class="scenario-info">
+          <div class="scenario-name">2 - Verify the header's Account link exists and points to the real /account endpoint</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_7xscc8">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify visible: css=.ort-header__action--account</td>
+          <td class="result-col">Visible: css=.ort-header__action--account</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=.ort-header__action--account @href=&quot;/account&quot;</td>
+          <td class="result-col">@href = &quot;/account&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_y9h1cp">
+      <div class="scenario-header">
+        <div class="scenario-num">3</div>
+        <div class="scenario-info">
+          <div class="scenario-name">3 - Verify clicking the header's Account link navigates to the real hosted login page</div>
+          <div class="scenario-desc">Confirmed live: this does NOT open an in-page Ortuseight modal/drawer (as Figma's close-X icon implies) — it fully navigates the browser, cross-domain, to shopify.com's own hosted authentication flow.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_y9h1cp">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Click css=.ort-header__action--account</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify URL contains &quot;shopify.com/authentication&quot;</td>
+          <td class="result-col">URL contains &quot;shopify.com/authentication&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail" data-scenario-uid="scn_shgs8i">
+      <div class="scenario-header">
+        <div class="scenario-num">4</div>
+        <div class="scenario-info">
+          <div class="scenario-name">4 - [FINDING] Verify the live Login/Registration page is Shopify's generic hosted UI, not the Figma-specified Ortuseight-branded design</div>
+          <div class="scenario-desc">See this file's own header for the full write-up. Checks both that the real generic Shopify copy/controls are present AND that none of the Ortuseight-specific design elements exist anywhere on the page.
+</div>
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_shgs8i">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1790156536523-2j6jp" src="data:image/png;base64,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2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYEHAAAAEDsCTgAAACA2BNwAAAAALEn4AAAAABiT8ABAAAAxJ6AAwAAAIg9AQcAAAAQewIOAAAAIPYE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D2srbLex8NKlS3/wgx+EYqHwxRdf3Ow2k9A4IZ259dZbC29DshPW1vh22bJlP/zhD1977bXGKoVNFwKO0FdvvI6jsFRhE//4xz/Wb7rGlinUMOx1WEPjoFqF2zdCE4VZoUBoijAxbDRsOlSgUCaU/9///d/Gt6GGodqh8q+88sonP/nJwkU0G7z7Y6PtfP/994cWC2sIn1ph0wWhAieffHKYHtbfyn0lIcX48Y9/vEODX//614WLXML+/va3vw2fyM9//vPCBS+FRjvjjDPCrJZ2uWmVQoXDz1D50J6FTzlspbByAOA/hoADgPbJ5XJNn5nSFslkchPGtA7d70svvTT0tEePHn3FFVf079//oIMOCt3m0L8N3fvvfve74UWYGyKGsPLQAT7mmGP22WefX/3qVyF/2W+//X73u9+F0/5hPdOmTQt98tB7b2lDoav89a9//ZprrjnnnHPOOuussNrDDjssrHn48OEXXnhh2G5Y23333RdKzps3L3SVX3rppcsuu+xnP/tZiEWOOOKIptenhJYJlfnTn/5UyFNCzz/0yRvfPv/887fffnuIbxqrFHZtUIODDz44vC6s5Dvf+U4of8kllxx66KEnnXRS2EpLLTNy5MjwInTXDzzwwNCBjxq6+qGHH7KMsEd///vfQ+OMHTs2bLeioiKkGOFF1JDC/OEPfwg9/8LbsK1Qw1DzkEGEbGLcuHHXX399eXl5eD1nzpym291oO4ft/uhHP/qf//mfCy644MUXXwxrWLJkSZj19NNPT5w4cfny5SGzOPzww//7v//76quvXv+DCM276667PvLIIz9scMMNN+y5555hYteuXcP0Tp06hQhjdINCo02aNCnMammXG6sU2jB8lNtss01oyfC1CV+e888/P7RGqGcr3woAIHba9xcqAGxCVJFo0HqZcH7+5ptvLlwbEjrDAwYMCC9qampCX/Tzn/98eB061StWrHjssccefPDBws0dw4YNO/HEE19//fXi4uLf//73f/vb34477rgw/dhjjw1d3BNOOCFqs+233z4kBSF6CK8HDx4c4obQb//qV78a3obsIGw39PlDvBK692PGjAmd86KiojBrl112OeCAA0JmEbKGxlWFyl988cVvvfVW6FSH2ob+/Pz58wtvH3jggZCPhJ52Y+E99tgj7EWhzuHn22+/HX6GnQpRS2ixEB+EDV133XWf+cxnOnfu3LTCTVtm3333DSFLCGhCVR966KF77703hB3bbrttmLXbbruFdCnECldeeeX48eNDBUKZxQ2OOuqowttQt4ULF4bmnTVrVkivQrd/4MCBo0aNOvfcc1etWtV0o6+++mrr7RzihjB3u+22KzROqNiTTz4ZGvMnP/lJSIJCCxfaLUwJ7bb+pxBil759+950003dunULbz/5yU+GpClkW2effXZYVdh0qO3HPvaxwkcffoZ1hp9hZze4y1dddVV4W1ZWFuYWwqPwmX784x8PlQ9tG3Kr0LCh3UL0EwEA/xEEHABsFZYtW/bvf/+70AEOPdVCwBEShxAoFAqEWeEEfnl5ee/evQtTdthhhxBthP55OA8f+rEhDmhcW3hd6AO3UdhKId0orDZ07wtjPTRu97777luyZMm0adNCxW655ZbCrJD1hLRi3rx5TVcVspKQv0yfPr1fv36PPvpoyAv+9Kc/Pf3002Hi1KlTzzjjjI1WZq+99mrMg0J/PvTw16xZ0yzgaNoy6XQ6pAl33XXXunXrnnvuuRAShVihcNtI1BA6hOQiBCIh0Qg9/NClf+mll0K1Tz755JAChAjjtddeC739oUOHdmkQMoXvfe97IYMIAUezioX1tN7OO+64Y9jrwutevXqFTGfGjBkhcXj55ZdDWlT4cIOwrf3337+urq7pykPFQuWPPPLIQroRhBeHHnpoaPnWR5xtaZcLV82EaGPIkCGF6cccc0wIZVKp1Fe+8pXQsOvvIAAQawIOALYKO+200x//+Mdm3fj1hc5804tBQsRQuMsgdHFDx7VxenjdroFCmkk2aDolbKVw6crChQvvvffexumh/zx27NimJcMuHHLIIffff/92220XOu0hHJk7d+4999yz6667hreNqcSWU1lZ+dBDDzVtpRAThHYLXfqqqqoFCxbceeedoYYhdwgRQwgCQgqz7777huRi4MCBzz777E033XTeeeedcMIJIQsI0Uxj3FCwae1c1KDplBBUNbs8pKBTp07NpjS2/CbscqGGjdMPP/zwN954I+zU8ccfv2jRovPPP//LX/7yRq8tAgDiQsABwBaXbxBtMdtss80777wzc+bMxrs/wuvQdY86VElJSb9+/QYPHhzO/Bd6xSEvePDBBwt3RjS1zz77nHXWWffdd9/QoUN79uw5ceLE6667LpQMkUf//v2jLWnIkCF9+vQJNWy8IOWpp56qra0N+UKYPmzYsFCrGTNmfO5zn+vdu/cOO+wwZcqUl19++Yc//GHUcA1FTU3NiSee+JnPfOatt9464IADQmoQQoHGlW9aO4csI1QmxCgHHnhgYUqINp5++untt9++abEQlITmfemll8JXpdC8IX957rnnQp3XTz3auMtNi4XVLl++vHv37j9vcPvtt3/zm9884ogjCtcKAQD/AQwyCkD7hBPjoffYrkVCT7XZBREda9ddd91vv/2+8pWvTJs2LZvNhp/f+ta3OvzMfNjxL3zhC5dddtnNN98cthLSjdCpPvXUU9ffUAgOQu/6wgsvPOqoo8LckIAUFxf/+te/Pvjgg9cv3K1bt9Dxbv0ujLabNGlS+HR+9rOfhRWGLv0999zziU98Yt68ealUKtT/k5/85B/+8IeQF4RwIdTkv/7rvy666KLq6upCRhMyiB133PGJJ54Ir8Pi6w/AuWntHHbwq1/96nnnnff3v/89fBOWLVv2ve99LyQjzYqF6oU1X3311aGFQ7FQgXPOOeeBBx742te+1vomWtnlZiV//OMfh7wmtHYotmbNmggA+M8i4ACgfUJfvbKysu3la2pqQn9yowHHQw891KVLl8JwpKEX3fTRJBsV0oRLLrkkxAo777xz6CcfeOCBZ5xxxoQJE6KOFtb8t7/97X/+53/CVsrLy//xj3/cfvvt61/B0b1799133z10oQtjW4Ye/sSJE8PbMHH9dYaIZNasWZ07d/7c5z4XbbbevXvfcsstU6dODSsMbR4Sll/84hcnnnhiYW6oRkgBdtppp8KtQKE+4dP52Mc+VrgP5YADDvj2t78dGj98BCNHjjz66KNDUtB05ZvczieccEIIg0477bTw5Qk17Nq16ze+8Y31i+29994hPPrVr34VioUaXnfddTfccMO4ceOizdjlRmGnfvCDH1RUVPTs2TMU+9KXvnTBBRe4fAMA/pMktug1wwD8R1q0aFHo3odualsKL168uLS0tNlQDltIOPMfwpcPYVsrV64sbRBtraobbMIjQsIfBitWrAhhU7NbPJratHYOaw7tFr42619b0UyIt0KA0t7mbeMuh8qHsCmEUEbfAID/MAIOANqttrb2rbfeCmfOQ8zResnQVa6pqenbt28EAABbkoADgE0RTpUvXry4a4MNnpAP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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1790156536523-2j6jp')" title="Click to zoom" />
+      </div>
+    </div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table><div class="comments-block" data-scenario-id="scn_shgs8i">
+      <div class="comments-title">💬 Comments</div>
+      <div class="comment-list"><span class="comment-empty">Loading comments…</span></div>
+      <div class="comment-form">
+        <div class="comment-form-row">
+          <input type="text" class="comment-author-input" placeholder="Your name" />
+        </div>
+        <textarea class="comment-text-input" placeholder="Add a comment…"></textarea>
+        <button type="button" class="comment-submit">Post Comment</button>
+      </div>
+    </div></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_p3qnw4">
+      <div class="scenario-header">
+        <div class="scenario-num">5</div>
+        <div class="scenario-info">
+          <div class="scenario-name">5 - Verify the Email input field is visible and required</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_p3qnw4">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: css=input[type='email']</td>
+          <td class="result-col">Visible: css=input[type='email']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify css=input[type='email'] @required=&quot;&quot;</td>
+          <td class="result-col">@required = &quot;&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_n35jn0">
+      <div class="scenario-header">
+        <div class="scenario-num">6</div>
+        <div class="scenario-info">
+          <div class="scenario-name">6 - Verify the 'Email me with news and offers' checkbox is present and can be toggled</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_n35jn0">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: css=input[type='checkbox']</td>
+          <td class="result-col">Visible: css=input[type='checkbox']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Click css=input[type='checkbox']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify css=input[type='checkbox'] @checked=&quot;true&quot;</td>
+          <td class="result-col">@checked = &quot;true&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_o3md65">
+      <div class="scenario-header">
+        <div class="scenario-num">7</div>
+        <div class="scenario-info">
+          <div class="scenario-name">7 - Verify the Terms of Service and Privacy Policy links are visible</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_o3md65">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Verify visible: xpath=//*[normalize-space()='Terms of service'], xpath=//*[normalize-space()='Privacy policy']</td>
+          <td class="result-col">Visible: xpath=//*[normalize-space()='Terms of service'], xpath=//*[normalize-space()='Privacy policy']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_2kicqh">
+      <div class="scenario-header">
+        <div class="scenario-num">8</div>
+        <div class="scenario-info">
+          <div class="scenario-name">8 - Verify no traditional password field exists anywhere on the Sign-in screen</div>
+          <div class="scenario-desc">Confirms the requirement doc's own &quot;Yes - OTP&quot; note — this store is intentionally passwordless. Documented as expected, working behavior.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_2kicqh">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">verify_not_visible → css=input[type='password']</td>
+          <td class="result-col">Not visible: css=input[type='password']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_5xd3h8">
+      <div class="scenario-header">
+        <div class="scenario-num">9</div>
+        <div class="scenario-info">
+          <div class="scenario-name">9 - [Negative] Verify submitting an empty email shows a real validation error</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_5xd3h8">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/account/login</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Click css=button[aria-label='Continue']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">verify_text → xpath=//*[contains(normalize-space(),'valid email')]</td>
+          <td class="result-col">Text contains &quot;Enter a valid email address&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_ezvmqk">
+      <div class="scenario-header">
+        <div class="scenario-num">10</div>
+        <div class="scenario-info">
+          <div class="scenario-name">10 - [Negative] Verify submitting a malformed email shows the same real validation error</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_ezvmqk">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Type &quot;not-an-email&quot; into css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Press &quot;Enter&quot; on css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">verify_text → xpath=//*[contains(normalize-space(),'valid email')]</td>
+          <td class="result-col">Text contains &quot;Enter a valid email address&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_wb0v3e">
+      <div class="scenario-header">
+        <div class="scenario-num">11</div>
+        <div class="scenario-info">
+          <div class="scenario-name">11 - Verify submitting a valid, well-formed email navigates to the verification-code screen</div>
+          <div class="scenario-desc">Uses a fixed, dedicated test email (a real Gmail plus-alias). This genuinely sends a live OTP email via Shopify's own system — accepted as a real side effect of testing a real feature, same as any other real-mutation test in this repo (e.g. Cart's real add-to-cart calls).
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_wb0v3e">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Type &quot;ravindu.maduwan+ortuseightqa@gmail.com&quot; into css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Click css=button[aria-label='Continue']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Wait for css=input[aria-label='6-digit code']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">verify_text → xpath=//*[normalize-space()='Enter code']</td>
+          <td class="result-col">Text contains &quot;Enter code&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#05</td>
+          <td class="action-col">verify_text → xpath=//*[contains(normalize-space(),'Sent to')]</td>
+          <td class="result-col">Text contains &quot;Sent to ravindu.maduwan+ortuseightqa@gmail.com&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#06</td>
+          <td class="action-col">Verify visible: css=input[aria-label='6-digit code']</td>
+          <td class="result-col">Visible: css=input[aria-label='6-digit code']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_a6br5l">
+      <div class="scenario-header">
+        <div class="scenario-num">12</div>
+        <div class="scenario-info">
+          <div class="scenario-name">12 - Verify the 6-digit code field only accepts numeric input</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_a6br5l">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Type &quot;abcdef&quot; into css=input[aria-label='6-digit code']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Verify input value &quot;&quot; in css=input[aria-label='6-digit code']</td>
+          <td class="result-col">Input value contains &quot;&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_sswtzm">
+      <div class="scenario-header">
+        <div class="scenario-num">13</div>
+        <div class="scenario-info">
+          <div class="scenario-name">13 - [Negative] Verify an incorrect 6-digit code auto-submits and shows a real inline error</div>
+          <div class="scenario-desc">Confirmed live: the field auto-submits once 6 digits are entered — no explicit Submit click is needed or possible to time correctly, so this test types the code and waits for the resulting error directly.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_sswtzm">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Type &quot;000000&quot; into css=input[aria-label='6-digit code']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">verify_text → xpath=//*[contains(normalize-space(),'correct 6-digit code')]</td>
+          <td class="result-col">Text contains &quot;Enter the correct 6-digit code&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card fail" data-scenario-uid="scn_ac5lzb">
+      <div class="scenario-header">
+        <div class="scenario-num">14</div>
+        <div class="scenario-info">
+          <div class="scenario-name">14 - [FINDING] Verify the Figma-specified 'Resend code' countdown feature does not exist on the live verification screen</div>
+          
+        </div>
+        <span class="scenario-badge">Failed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_ac5lzb">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-fail">
+          <td>#01</td>
+          <td class="action-col"></td>
+          <td class="result-col">This test case has been explicitly marked as failed.<div class="step-error"><span class="step-error-label">⚠ Error</span><code>This test case has been explicitly marked as failed.</code></div><div class="ev-block ev-code">
+      <div class="ev-hdr">
+        <span class="ev-icon">🖼️</span>
+        <span class="ev-title">Live Page Screenshot — the actual front-end element</span>
+        <span class="ev-zoom-hint">click to zoom</span>
+      </div>
+      <div class="ev-body ev-code-body">
+        <img id="lv-1790156536524-y4y1l" src="data:image/png;base64,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gifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AAAAAAgifgAAAAAIIn4AAAAACCJ+AA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ls11tvpjq++7b9XttxcOGjTi29/enfZxLlA5c+aGxx/PZjLd2nreyt9ZtrZ2ybXXbn755V6nn973/PN32T4+/O566KEbp05d9+ijhcOHd+nfP/pHC30v6mj9ANBCIpvNRgDQcbXLlr75v19uqKjoevjhfS/+SNHBI6N/hOo3Fqy5846quXPziosP+urXCwYP2f1pNzzxxKo77oj/EPaePLnfeeclCgqiv7vqRYtW//rXcf35vXod9MUvdjnwwN2ftjPUHzVelhIvQqaysscxxwz6n//p0LTLf/CDytmzkz169LvoopKTT47+EeJoY/X996+fMiURRf0/8pFep522+9PWvfXWm9/8Zv2GDfFvQbwI/6jHmoa+F+1N/QCwjYADgL2y+le/XP+Hh6JslNelsGh0acGw4Xk9ihOJRLQ/xX+8Giorahcvqn6trKGuJkrkbn268/tutKdh48a3fvazTS/m7pma6tev2+GHdxk4MLm/j/Hi+jdtqlmypLqsrKGmJpGX12fy5D2748A/pv5YJlO3dm31/Pk1ixbFixMflw74t3/rfswxUcdtmj175f/9X5wRRIlE4fDhRaNGdTnggCi5328TlqmtrVuxYvPcuenVq+O33Y8++sD/+I+8nj33oKs19967bsqUbENDXmFhUWlp4dChed27R/v5tyD4vWjf1Q8ATQQcAOwD5U88Xj7tT7VLFsdfhmczmWj/SyST8VfNBUOHlUw8tb0nwu6+dHn5hsceq3z22bp166L6+v2+CPGhbzKZjA+Ghw/vedJJe/8szL93/VHjIuTl5RcXdx0zpmTixK6lpdHeqSorK582rerVV+srKqKGhmj/fz6Jd6EoP79Lnz493vGOXqefniopifbOxunTNz79dPWiRbk7j8abYH8vQuh70b6uHwAEHAAAAEDwPCYWAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAOA8NQteGb1Uwvqon96tbXLXl3zh2c2rq/dgyd25tbSnDW5V5tnv/X576xZsasJdrPZPrHi1bfHFgQA/n4EHAB0zKY7PzL/uHHbfz58x6ZdTLFmzY1XLp+2Jtoba6Yu//yP1mzto/bJq8u/OrU2Cl753VcuufvVtselF7x19sglp3y4/GuXrT5m5BuXT62JOia3lm57Jfdq2Z+q7v5R1eu7mqB5s7n3LPn8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AAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6AAwAAAAiegAMAAAAInoADAAAACJ6A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" class="ev-img" alt="Live front-end screenshot"
+          onclick="openZoom('lv-1790156536524-y4y1l')" title="Click to zoom" />
+      </div>
+    </div></td>
+          <td><span class="step-status fail">FAIL</span></td>
+        </tr></tbody>
+     </table><div class="comments-block" data-scenario-id="scn_ac5lzb">
+      <div class="comments-title">💬 Comments</div>
+      <div class="comment-list"><span class="comment-empty">Loading comments…</span></div>
+      <div class="comment-form">
+        <div class="comment-form-row">
+          <input type="text" class="comment-author-input" placeholder="Your name" />
+        </div>
+        <textarea class="comment-text-input" placeholder="Add a comment…"></textarea>
+        <button type="button" class="comment-submit">Post Comment</button>
+      </div>
+    </div></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_lf9pu6">
+      <div class="scenario-header">
+        <div class="scenario-num">15</div>
+        <div class="scenario-info">
+          <div class="scenario-name">15 - Verify clicking 'Change' returns to the Sign-in screen to allow a different email</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_lf9pu6">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Click text=Change</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify URL contains &quot;shopify.com/authentication&quot;</td>
+          <td class="result-col">URL contains &quot;shopify.com/authentication&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify visible: xpath=//*[normalize-space()='Sign in']</td>
+          <td class="result-col">Visible: xpath=//*[normalize-space()='Sign in']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_b49bjk">
+      <div class="scenario-header">
+        <div class="scenario-num">16</div>
+        <div class="scenario-info">
+          <div class="scenario-name">16 - Verify there is no separate Registration page distinct from Login — both funnel into the same unified flow</div>
+          <div class="scenario-desc">Confirms the requirement doc's own acknowledged design decision (Sheet 2, row 15: &quot;There is no registration&quot;). Not a defect — documents real, intended behavior: navigating directly to /account/register lands on the exact same hosted /login endpoint as plain /account, proving there is genuinely one unified email+OTP flow, not two separate ones.
+</div>
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_b49bjk">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/account/register</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify URL contains &quot;shopify.com/authentication&quot;</td>
+          <td class="result-col">URL contains &quot;shopify.com/authentication&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">Verify visible: xpath=//*[normalize-space()='Sign in']</td>
+          <td class="result-col">Visible: xpath=//*[normalize-space()='Sign in']</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#05</td>
+          <td class="action-col">verify_not_visible → xpath=//*[contains(normalize-space(),'Register')]</td>
+          <td class="result-col">Not visible: xpath=//*[contains(normalize-space(),'Register')]</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_3noj8f">
+      <div class="scenario-header">
+        <div class="scenario-num">17</div>
+        <div class="scenario-info">
+          <div class="scenario-name">17 - [Negative] Verify visiting the account area while logged out always redirects into the login flow, never exposing account content</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_3noj8f">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/account</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify URL contains &quot;shopify.com/authentication&quot;</td>
+          <td class="result-col">URL contains &quot;shopify.com/authentication&quot;</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#04</td>
+          <td class="action-col">verify_not_visible → xpath=//*[contains(normalize-space(),'Order')]</td>
+          <td class="result-col">Not visible: xpath=//*[contains(normalize-space(),'Order')]</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_6o300q">
+      <div class="scenario-header">
+        <div class="scenario-num">18</div>
+        <div class="scenario-info">
+          <div class="scenario-name">18 - [Negative] Verify no Lorem Ipsum placeholder text appears anywhere on the Sign-in screen</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_6o300q">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/account/login</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=input[type='email']</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">verify_not_visible → xpath=//*[contains(normalize-space(),'Lorem ipsum')]</td>
+          <td class="result-col">Not visible: xpath=//*[contains(normalize-space(),'Lorem ipsum')]</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+<div class="scenario-card pass" data-scenario-uid="scn_ux0uxm">
+      <div class="scenario-header">
+        <div class="scenario-num">19</div>
+        <div class="scenario-info">
+          <div class="scenario-name">19 - Verify returning to the storefront after visiting the login page lands on a real, working Ortuseight page</div>
+          
+        </div>
+        <span class="scenario-badge">Passed</span>
+        <span class="scenario-toggle">▼</span>
+      </div>
+      <div class="triage-bar" data-scenario-id="scn_ux0uxm">
+      <div class="triage-field">
+        <label>Severity</label>
+        <select data-field="severity">
+          <option value="">—</option>
+          <option value="Critical">Critical</option>
+          <option value="Minor">Minor</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Priority</label>
+        <select data-field="priority">
+          <option value="">—</option>
+          <option value="High">High</option>
+          <option value="Low">Low</option>
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Assignee</label>
+        <select data-field="assignee">
+          <option value="">Unassigned</option>
+          
+        </select>
+      </div>
+      <div class="triage-field">
+        <label>Status</label>
+        <select data-field="status">
+          <option value="">—</option>
+          <option value="Open">Open</option>
+          <option value="In Progress">In Progress</option>
+          <option value="Ready for QA">Ready for QA</option>
+          <option value="Pass">Pass</option>
+          <option value="Reopen">Reopen</option>
+        </select>
+      </div>
+      <span class="triage-sync-note">syncing…</span>
+    </div>
+      <div class="steps-wrap"><table class="steps-table">
+       <thead><tr>
+         <th style="width:36px;text-align:center">#</th>
+         <th>Action</th>
+         <th>Expected / Result</th>
+         <th style="width:70px;text-align:center">Status</th>
+       </tr></thead>
+       <tbody><tr class="sr-pass">
+          <td>#01</td>
+          <td class="action-col">Navigate to https://sepc9z-k8.myshopify.com/</td>
+          <td class="result-col">Page loads successfully</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#02</td>
+          <td class="action-col">Wait for css=.ort-footer</td>
+          <td class="result-col"></td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr><tr class="sr-pass">
+          <td>#03</td>
+          <td class="action-col">Verify visible: css=.ort-footer</td>
+          <td class="result-col">Visible: css=.ort-footer</td>
+          <td><span class="step-status pass">PASS</span></td>
+        </tr></tbody>
+     </table></div>
+    </div>
+</main>
+
+<script>
+  // Toggle steps on click
+  document.querySelectorAll('.scenario-header').forEach(function(h) {
+    h.addEventListener('click', function() {
+      h.closest('.scenario-card').classList.toggle('open');
+    });
+  });
+  // Auto-expand all scenarios on load
+  document.querySelectorAll('.scenario-card').forEach(function(c) {
+    c.classList.add('open');
+  });
+</script>
+
+<!-- ── QA triage (filters / severity / priority / assignee / status) + ──────
+     shared comments on failed test cases. Backed by Firestore so anyone who
+     opens this report can set/see the same values — no login required, so
+     "author" identity for comments is just a remembered display name, not a
+     verified account. ────────────────────────────────────────────────── -->
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+import {
+  getFirestore, doc, setDoc, onSnapshot,
+  collection, addDoc, query, orderBy, serverTimestamp,
+} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyA7JwpEKZXnqSVBv3Z2i8q0VlxVivlQhYA",
+  authDomain: "qa-automation-ravindu.firebaseapp.com",
+  projectId: "qa-automation-ravindu",
+  storageBucket: "qa-automation-ravindu.firebasestorage.app",
+  messagingSenderId: "218615180031",
+  appId: "1:218615180031:web:e319cb80d3bc317c8a7aca",
+  measurementId: "G-KHTFLKWF4K",
+};
+
+let db = null;
+try {
+  const app = initializeApp(firebaseConfig);
+  db = getFirestore(app);
+} catch (err) {
+  console.error('Firebase init failed — triage/comments disabled:', err);
+}
+
+// Partition all triage/comment data by the report's own URL, so every
+// distinct hosted report (Yamaha Home, DL FAQ, etc.) gets its own space in
+// the same shared Firestore project.
+function reportId() {
+  const raw = location.origin + location.pathname;
+  return raw.replace(/[^a-zA-Z0-9]/g, '_').replace(/_+/g, '_').slice(0, 180) || 'local_report';
+}
+const REPORT_ID = reportId();
+
+function scenarioDocRef(scenarioId) {
+  return doc(db, 'qaReports', REPORT_ID, 'scenarios', scenarioId);
+}
+function commentsColRef(scenarioId) {
+  return collection(db, 'qaReports', REPORT_ID, 'scenarios', scenarioId, 'comments');
+}
+
+function escapeHtml(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+function fmtTime(ts) {
+  if (!ts) return 'just now';
+  const d = typeof ts.toDate === 'function' ? ts.toDate() : new Date(ts);
+  return d.toLocaleString();
+}
+
+// ── Commenter identity — no login, just a remembered display name ────────
+function getCommenterName() {
+  return localStorage.getItem('qa_commenter_name') || '';
+}
+function setCommenterName(name) {
+  localStorage.setItem('qa_commenter_name', name);
+}
+
+// Same name always hashes to the same color, consistently for every viewer.
+const COLOR_PALETTE = [
+  '#FEE2E2', '#FEF3C7', '#D1FAE5', '#DBEAFE', '#EDE9FE',
+  '#FCE7F3', '#E0E7FF', '#FFEDD5', '#CCFBF1', '#F3E8FF', '#FEF9C3', '#E0F2FE',
+];
+function colorForName(name) {
+  let h = 0;
+  for (let i = 0; i < name.length; i++) h = (h * 31 + name.charCodeAt(i)) >>> 0;
+  return COLOR_PALETTE[h % COLOR_PALETTE.length];
+}
+
+// ── Triage bar: live sync + save on change ────────────────────────────────
+function initTriageBars() {
+  document.querySelectorAll('.triage-bar').forEach(function (bar) {
+    const scenarioId = bar.dataset.scenarioId;
+    const card = bar.closest('.scenario-card');
+    const note = bar.querySelector('.triage-sync-note');
+    const ref = scenarioDocRef(scenarioId);
+
+    onSnapshot(ref, function (snap) {
+      const data = snap.exists() ? snap.data() : {};
+      ['severity', 'priority', 'assignee', 'status'].forEach(function (field) {
+        const sel = bar.querySelector('select[data-field="' + field + '"]');
+        if (!sel) return;
+        const val = data[field] || '';
+        if (sel.value !== val) sel.value = val;
+        sel.className = val ? 'val-' + val.replace(/\s+/g, '') : '';
+        if (card) card.dataset[field] = val;
+      });
+      if (note) note.textContent = '';
+      applyFilters();
+    }, function (err) {
+      if (note) note.textContent = 'sync failed';
+      console.warn('Triage sync error for', scenarioId, err.message);
+    });
+
+    bar.querySelectorAll('select').forEach(function (sel) {
+      sel.addEventListener('click', function (e) { e.stopPropagation(); });
+      sel.addEventListener('change', function () {
+        const field = sel.dataset.field;
+        const value = sel.value;
+        setDoc(ref, { [field]: value, updatedAt: serverTimestamp() }, { merge: true })
+          .catch(function (err) {
+            console.error('Failed to save ' + field, err);
+            alert('Could not save — check your connection and try again.');
+          });
+      });
+    });
+  });
+}
+
+// ── Filter bar ─────────────────────────────────────────────────────────────
+function applyFilters() {
+  const resEl = document.getElementById('qa-filter-result');
+  const sevEl = document.getElementById('qa-filter-severity');
+  const priEl = document.getElementById('qa-filter-priority');
+  const asgEl = document.getElementById('qa-filter-assignee');
+  const staEl = document.getElementById('qa-filter-status');
+  if (!sevEl) return;
+  const res = resEl.value, sev = sevEl.value, pri = priEl.value, asg = asgEl.value, sta = staEl.value;
+  const resClass = res === 'Passed' ? 'pass' : res === 'Failed' ? 'fail' : '';
+
+  let visible = 0, total = 0;
+  document.querySelectorAll('.scenario-card').forEach(function (card) {
+    total++;
+    const matches = (!resClass || card.classList.contains(resClass))
+      && (!sev || card.dataset.severity === sev)
+      && (!pri || card.dataset.priority === pri)
+      && (!asg || card.dataset.assignee === asg)
+      && (!sta || card.dataset.status === sta);
+    card.classList.toggle('qa-hidden', !matches);
+    if (matches) visible++;
+  });
+  const countEl = document.getElementById('qa-filter-count');
+  if (countEl) countEl.textContent = visible + ' / ' + total + ' shown';
+}
+
+function initFilterBar() {
+  ['qa-filter-result', 'qa-filter-severity', 'qa-filter-priority', 'qa-filter-assignee', 'qa-filter-status'].forEach(function (id) {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener('change', applyFilters);
+  });
+  const clearBtn = document.getElementById('qa-filter-clear');
+  if (clearBtn) clearBtn.addEventListener('click', function () {
+    ['qa-filter-result', 'qa-filter-severity', 'qa-filter-priority', 'qa-filter-assignee', 'qa-filter-status'].forEach(function (id) {
+      const el = document.getElementById(id);
+      if (el) el.value = '';
+    });
+    applyFilters();
+  });
+  applyFilters();
+}
+
+// ── Comments (failed cards only) ────────────────────────────────────────────
+function renderComments(listEl, docs) {
+  if (!docs.length) {
+    listEl.innerHTML = '<span class="comment-empty">No comments yet.</span>';
+    return;
+  }
+  listEl.innerHTML = docs.map(function (c) {
+    const bg = colorForName(c.author || 'Unknown');
+    return '<div class="comment-item" style="background:' + bg + '">'
+      + '<span class="c-author">' + escapeHtml(c.author || 'Unknown') + '</span>'
+      + '<span class="c-time">' + escapeHtml(fmtTime(c.createdAt)) + '</span>'
+      + '<div class="c-text">' + escapeHtml(c.text || '') + '</div>'
+      + '</div>';
+  }).join('');
+}
+
+function initComments() {
+  document.querySelectorAll('.comments-block').forEach(function (block) {
+    const scenarioId = block.dataset.scenarioId;
+    const listEl = block.querySelector('.comment-list');
+    const authorInput = block.querySelector('.comment-author-input');
+    const textInput = block.querySelector('.comment-text-input');
+    const submitBtn = block.querySelector('.comment-submit');
+
+    authorInput.value = getCommenterName();
+
+    const q = query(commentsColRef(scenarioId), orderBy('createdAt', 'asc'));
+    onSnapshot(q, function (snap) {
+      const docs = [];
+      snap.forEach(function (d) { docs.push(d.data()); });
+      renderComments(listEl, docs);
+    }, function (err) {
+      listEl.innerHTML = '<span class="comment-empty">Could not load comments (' + escapeHtml(err.message) + ')</span>';
+    });
+
+    [authorInput, textInput, submitBtn].forEach(function (el) {
+      el.addEventListener('click', function (e) { e.stopPropagation(); });
+    });
+
+    submitBtn.addEventListener('click', function () {
+      const author = authorInput.value.trim();
+      const text = textInput.value.trim();
+      if (!author) { alert('Please enter your name before commenting.'); authorInput.focus(); return; }
+      if (!text) { textInput.focus(); return; }
+      setCommenterName(author);
+      submitBtn.disabled = true;
+      addDoc(commentsColRef(scenarioId), {
+        author: author,
+        text: text,
+        createdAt: serverTimestamp(),
+      }).then(function () {
+        textInput.value = '';
+      }).catch(function (err) {
+        alert('Could not post comment: ' + err.message);
+      }).finally(function () {
+        submitBtn.disabled = false;
+      });
+    });
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  if (!db) return;
+  initFilterBar();
+  initTriageBars();
+  initComments();
+});
+</script>
+
+<style>
+  /* ── hold card ── */
+  .scenario-card.hold { border-left: 4px solid #f59e0b; }
+  .scenario-card.hold .scenario-header { background: #fffbeb; }
+  .scenario-card.hold .scenario-badge  { background:#f59e0b;color:#fff; }
+  .scenario-card.hold .scenario-num    { background:#f59e0b;color:#fff; }
+
+  /* ── hold step row ── */
+  tr.sr-hold td { background: #fffbeb; }
+
+  /* ── hold step-status pill ── */
+  .step-status.hold {
+    background: #f59e0b;
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 11px;
+    letter-spacing: 0.05em;
+  }
+
+  tr.sr-fail td { background:#fff5f5; }
+  .step-error { margin-top:6px;padding:6px 10px;background:#fff0f0;border-left:3px solid #e53e3e;border-radius:4px; }
+  .step-error-label { display:block;font-size:10px;font-weight:700;text-transform:uppercase;color:#e53e3e;margin-bottom:3px; }
+  .step-error code { font-size:11px;color:#c53030;word-break:break-all;white-space:pre-wrap; }
+  .ev-block { margin-top:12px;border-radius:8px;overflow:hidden;border:1px solid #e2e8f0; }
+  .ev-hdr { display:flex;align-items:center;gap:8px;padding:7px 14px;font-size:12px; }
+  .ev-icon { font-size:15px; } .ev-title { font-weight:700;flex:1; }
+  .ev-meta { font-size:11px;opacity:.7; }
+  .ev-zoom-hint { font-size:10px;color:#89b4fa;font-style:italic;opacity:.8; }
+  .ev-body { padding:10px; }
+  .ev-code { border-color:#313244; }
+  .ev-code .ev-hdr { background:#1e1e2e;color:#cdd6f4; }
+  .ev-code-body { background:#181825;padding:6px; }
+  .ev-img { display:block;width:100%;border-radius:4px;cursor:zoom-in;
+    transition:box-shadow .2s;box-shadow:0 2px 12px rgba(0,0,0,.4);
+    height:auto !important;max-height:none !important; }
+  .ev-img:hover { box-shadow:0 4px 20px rgba(0,0,0,.6); }
+  .ev-ai { border-color:#7c3aed; }
+  .ev-ai-body { background:#faf5ff;padding:14px 16px; }
+  .ai-s { margin-bottom:13px; } .ai-s:last-child { margin-bottom:0; }
+  .ai-lbl { font-size:11px;font-weight:800;text-transform:uppercase;
+    letter-spacing:.07em;color:#6d28d9;margin-bottom:5px; }
+  .ai-txt { font-size:13px;line-height:1.7;color:#2d3748; }
+  .ai-warn { color:#744210;background:#fefcbf;padding:8px 10px;
+    border-radius:4px;border-left:3px solid #d69e2e; }
+  .ai-txt ul { padding-left:18px;margin:4px 0; }
+  .ai-txt li { margin:2px 0; }
+  .ic { font-family:'Consolas','Monaco',monospace;font-size:11px;
+    background:#ede9fe;color:#4c1d95;padding:1px 5px;border-radius:3px; }
+  .ai-pre { font-family:'Consolas','Monaco',monospace;font-size:12px;
+    padding:10px 14px;border-radius:6px;overflow-x:auto;
+    white-space:pre-wrap;word-break:break-word;line-height:1.6;margin:0; }
+  .bad  { background:#2d0000;color:#fca5a5;border-left:3px solid #dc2626; }
+  .good { background:#052e16;color:#86efac;border-left:3px solid #16a34a; }
+  #zoom-overlay { display:none;position:fixed;inset:0;z-index:9999;
+    background:rgba(0,0,0,.85);backdrop-filter:blur(4px);
+    align-items:center;justify-content:center;cursor:zoom-out; }
+  #zoom-overlay.active { display:flex; }
+  #zoom-overlay img { max-width:92vw;max-height:92vh;border-radius:8px;
+    box-shadow:0 8px 48px rgba(0,0,0,.8);cursor:zoom-out;object-fit:contain; }
+  #zoom-overlay .zoom-close { position:absolute;top:16px;right:24px;
+    color:#fff;font-size:28px;font-weight:700;cursor:pointer;
+    line-height:1;opacity:.8;transition:opacity .15s; }
+  #zoom-overlay .zoom-close:hover { opacity:1; }
+  #zoom-overlay .zoom-label { position:absolute;bottom:16px;left:50%;
+    transform:translateX(-50%);color:rgba(255,255,255,.7);font-size:12px;
+    font-family:monospace;background:rgba(0,0,0,.5);padding:4px 12px;
+    border-radius:20px;pointer-events:none; }
+  .result-col { overflow:visible !important;white-space:normal !important;word-break:break-word; }
+  .steps-table { table-layout:fixed;width:100%; }
+  .steps-table th:first-child,.steps-table td:first-child { width:36px;min-width:36px;padding:6px 4px;text-align:center; }
+  .steps-table .action-col { width:20%; }
+  .ev-block,.ev-body,.ev-code-body,.ev-ai-body,.steps-wrap,.ai-txt,.scenario-card { overflow:visible !important; }
+  .ev-code-body { overflow-x:auto; }
+  tr.sr-fail td { overflow:visible !important; }
+</style>
+<div id="zoom-overlay">
+  <span class="zoom-close" onclick="closeZoom()">✕</span>
+  <img id="zoom-img" src="" alt="Zoomed" />
+  <span class="zoom-label">Click anywhere or press Esc to close</span>
+</div>
+<script>
+(function(){
+  window.openZoom=function(id){
+    var img=document.getElementById(id); if(!img)return;
+    document.getElementById('zoom-img').src=img.src;
+    document.getElementById('zoom-overlay').classList.add('active');
+    document.body.style.overflow='hidden';
+  };
+  window.closeZoom=function(){
+    document.getElementById('zoom-overlay').classList.remove('active');
+    document.body.style.overflow='';
+    setTimeout(function(){document.getElementById('zoom-img').src='';},200);
+  };
+  document.getElementById('zoom-overlay').addEventListener('click',function(e){
+    if(e.target===this||e.target===document.getElementById('zoom-img'))closeZoom();
+  });
+  document.addEventListener('keydown',function(e){if(e.key==='Escape')closeZoom();});
+})();
+</script>
+</body>
+</html>
