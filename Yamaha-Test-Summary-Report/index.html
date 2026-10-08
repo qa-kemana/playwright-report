@@ -127,6 +127,7 @@
   }
   .card::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;}
   .card.ok::before{background:var(--pass);}
+  .card.mid::before{background:var(--warn);}
   .card.warn::before{background:var(--fail);}
 
   .card-top{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
@@ -136,17 +137,20 @@
     padding:4px 9px;border-radius:999px;white-space:nowrap;
   }
   .badge.pass{background:var(--pass-bg);color:#1C8E62;}
+  .badge.mid{background:var(--warn-bg);color:#B57414;}
   .badge.fail{background:var(--fail-bg);color:#C93244;}
 
   .bar-track{height:8px;border-radius:999px;background:#EEF0FA;overflow:hidden;}
   .bar-fill{height:100%;border-radius:999px;}
   .bar-fill.ok{background:linear-gradient(90deg,#2FBF83,#67D9A6);}
+  .bar-fill.mid{background:linear-gradient(90deg,#F0A93A,#F6C574);}
   .bar-fill.warn{background:linear-gradient(90deg,#FF5C6C,#FF8F98);}
 
   .counts{display:flex;gap:16px;font-size:13px;color:var(--ink-soft);}
   .counts b{color:var(--ink);font-weight:700;}
   .counts .p b{color:var(--pass);}
   .counts .f b{color:var(--fail);}
+  .counts .h b{color:var(--warn);}
 
   .card-note{font-size:11.5px;color:var(--ink-soft);}
 
@@ -176,11 +180,11 @@
 
   <div class="hero">
     <h1 class="title">Test Execution <span class="accent">Summary</span></h1>
-    <p class="subtitle">Consolidated results across 2 automated Yamaha Motor Indonesia modules, executed against the <code>Magento</code> storefront. Every card links out to its full per-scenario report.</p>
+    <p class="subtitle">Consolidated results across 3 automated Yamaha Motor Indonesia modules, executed against the <code>Magento</code> storefront. Every card links out to its full per-scenario report.</p>
 
     <div class="meta-row">
-      <div class="meta-item"><span class="k">Modules</span><span class="v">2</span></div>
-      <div class="meta-item"><span class="k">Latest run</span><span class="v">Aug 6, 2026</span></div>
+      <div class="meta-item"><span class="k">Modules</span><span class="v">3</span></div>
+      <div class="meta-item"><span class="k">Latest run</span><span class="v">Oct 7, 2026</span></div>
       <div class="meta-item"><span class="k">Environment</span><span class="v">Staging (no password gate)</span></div>
       <div class="meta-item"><span class="k">Browser</span><span class="v">Chromium</span></div>
       <div class="meta-item"><span class="k">Framework</span><span class="v">Playwright MCP</span></div>
@@ -188,11 +192,11 @@
   </div>
 
   <div class="stat-strip">
-    <div class="stat-card"><div class="num mono">121</div><div class="lbl">Total tests</div></div>
-    <div class="stat-card pass"><div class="num mono">104</div><div class="lbl">Passed</div></div>
-    <div class="stat-card fail"><div class="num mono">17</div><div class="lbl">Failed</div></div>
-    <div class="stat-card rate"><div class="num mono">86%</div><div class="lbl">Pass rate</div></div>
-    <div class="stat-card"><div class="num mono">0</div><div class="lbl">Incomplete runs</div></div>
+    <div class="stat-card"><div class="num mono">234</div><div class="lbl">Tests executed</div></div>
+    <div class="stat-card pass"><div class="num mono">197</div><div class="lbl">Passed</div></div>
+    <div class="stat-card fail"><div class="num mono">37</div><div class="lbl">Failed</div></div>
+    <div class="stat-card rate"><div class="num mono">84%</div><div class="lbl">Pass rate</div></div>
+    <div class="stat-card"><div class="num mono">11</div><div class="lbl">On hold</div></div>
   </div>
 </header>
 
@@ -205,11 +209,11 @@
 
     <div class="grid">
 
-      <a class="card warn" href="https://qa-kemana.github.io/playwright-report/Yamaha-Home-Report/" target="_blank" rel="noopener">
-        <div class="card-top"><div class="card-name">Home, Header, Main Navigation &amp; Footer</div><div class="badge fail">81% PASS</div></div>
-        <div class="bar-track"><div class="bar-fill warn" style="width:81%"></div></div>
-        <div class="counts"><span class="p">Passed <b>66</b></span><span class="f">Failed <b>15</b></span><span>of <b>81</b></span></div>
-        <span class="card-note">Combined module — header, homepage &amp; footer</span>
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Yamaha-Home-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Home, Header, Main Navigation &amp; Footer</div><div class="badge mid">87% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:87%"></div></div>
+        <div class="counts"><span class="p">Passed <b>81</b></span><span class="f">Failed <b>12</b></span><span class="h">On hold <b>9</b></span><span>of <b>102</b></span></div>
+        <span class="card-note">Run Oct 2, 2026 · combined module — header, homepage &amp; footer</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
@@ -217,14 +221,23 @@
         <div class="card-top"><div class="card-name">Product Listing Page</div><div class="badge pass">95% PASS</div></div>
         <div class="bar-track"><div class="bar-fill ok" style="width:95%"></div></div>
         <div class="counts"><span class="p">Passed <b>38</b></span><span class="f">Failed <b>2</b></span><span>of <b>40</b></span></div>
+        <span class="card-note">Run Aug 6, 2026</span>
+        <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
+      </a>
+
+      <a class="card mid" href="https://qa-kemana.github.io/playwright-report/Yamaha-PDP-Report/" target="_blank" rel="noopener">
+        <div class="card-top"><div class="card-name">Product Detail Page (guest, logged-in &amp; dealer admin)</div><div class="badge mid">77% PASS</div></div>
+        <div class="bar-track"><div class="bar-fill mid" style="width:77%"></div></div>
+        <div class="counts"><span class="p">Passed <b>78</b></span><span class="f">Failed <b>23</b></span><span class="h">On hold <b>2</b></span><span>of <b>103</b></span></div>
+        <span class="card-note">Run Oct 7, 2026 · includes dealer price/stock/coverage back-office checks</span>
         <div class="card-cta"><span>View full report</span><span class="arrow">↗</span></div>
       </a>
 
     </div>
 
     <footer class="bottom">
-      <span><b>Yamaha QA</b> — Automated Test Summary · Generated August 6, 2026 · Playwright MCP</span>
-      <span>121 tests · 104 passed · 17 failed · 86% overall</span>
+      <span><b>Yamaha QA</b> — Automated Test Summary · Generated October 8, 2026 · Playwright MCP</span>
+      <span>234 tests executed · 197 passed · 37 failed · 11 on hold · 84% overall</span>
     </footer>
   </div>
 </main>
